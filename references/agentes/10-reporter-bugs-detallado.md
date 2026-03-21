@@ -57,11 +57,11 @@ Regla:
 - `confidence < threshold` -> comentar hallazgo en US, sin crear bug
 
 ### 4) Resolver asignación del bug (obligatorio)
-Objetivo: asignar al desarrollador y no al QA MCP, salvo ausencia total de candidato.
+Objetivo: asignar al desarrollador y no al usuario autenticado en el MCP de Azure DevOps, salvo ausencia total de candidato.
 
 Algoritmo:
-1. Obtener usuario QA MCP autenticado.
-2. Leer revisiones de la US y extraer último `System.AssignedTo` no vacío y distinto del QA MCP.
+1. Obtener usuario autenticado en el MCP de Azure DevOps.
+2. Leer revisiones de la US y extraer último `System.AssignedTo` no vacío y distinto del usuario autenticado en el MCP de Azure DevOps.
 3. Si existe, usarlo como `bug_assignee` (`assignee_source=us_revisions`).
 4. Si no existe, usar `System.AssignedTo` actual de la US si es distinto (`assignee_source=us_current`).
 5. Si no existe, fallback `qa_assignee.email` si es distinto (`assignee_source=fallback_manual`).

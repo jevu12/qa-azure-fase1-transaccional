@@ -24,6 +24,6 @@ Esta matriz resume qué operaciones ejecuta cada agente y con qué tipo de herra
 - Detectar antes de crear (idempotencia).
 - No duplicar artefactos equivalentes.
 - Usar identidad MCP (`qa_assignee.source`).
-- En bugs: asignar al último responsable de la US distinto al QA MCP.
+- En bugs: asignar al último responsable de la US distinto al usuario autenticado en el MCP de Azure DevOps.
 - Registrar decisiones en `decisions_log`.
 - Respetar estados permitidos antes de mutar artefactos.

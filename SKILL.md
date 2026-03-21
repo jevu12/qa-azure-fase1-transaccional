@@ -66,7 +66,7 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - No operaciones destructivas: no eliminar artefactos existentes.
 - No ejecutar acciones fuera del estado permitido.
 - Mantener `AreaPath` e `IterationPath` alineados con la US.
-- En creación de bugs: asignar al último usuario asignado de la US que sea distinto al usuario QA MCP autenticado; aplicar fallback documentado si no existe candidato.
+- En creación de bugs: asignar al último usuario asignado de la US que sea distinto al usuario autenticado en el MCP de Azure DevOps; aplicar fallback documentado si no existe candidato.
 - Para comentarios automáticos (US, QA Tasks, bugs, impedimentos): usar como estándar `references/agentes/09-templates-comentarios.md`.
 
 Detalles normativos: leer en este orden:

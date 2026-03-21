@@ -190,7 +190,7 @@ Asignado a: [developer_email]
 Fuente de asignación: [us_revisions|us_current|fallback_manual|none]
 
 Criterio aplicado:
-- Se asigna al último responsable registrado en la US, excluyendo al usuario QA MCP autenticado.
+- Se asigna al último responsable registrado en la US, excluyendo al usuario autenticado en el MCP de Azure DevOps.
 ```
 
 ## 9) Comentario en US cuando todo pasa y se mueve a PO Review (Orquestador)

@@ -26,15 +26,15 @@ Este archivo (`07`) funciona como resumen rápido de compatibilidad.
 No crear bug si confianza < `policies.bug_confidence_threshold`.
 
 ## Regla obligatoria de asignación de bug
-Al crear un bug, `System.AssignedTo` NO debe quedar en el usuario QA del MCP si existe un desarrollador candidato.
+Al crear un bug, `System.AssignedTo` NO debe quedar en el usuario autenticado en el MCP de Azure DevOps si existe un desarrollador candidato.
 
 Algoritmo:
-1. Obtener el usuario QA actual (identidad MCP autenticada).
-2. Leer revisiones de la US y buscar el último `System.AssignedTo` no vacío y distinto al usuario QA MCP.
+1. Obtener el usuario actual autenticado en el MCP de Azure DevOps.
+2. Leer revisiones de la US y buscar el último `System.AssignedTo` no vacío y distinto al usuario autenticado en el MCP de Azure DevOps.
 3. Si existe, asignar el bug a ese usuario.
-4. Si no existe en revisiones, usar `System.AssignedTo` actual de la US si es distinto al usuario QA MCP.
+4. Si no existe en revisiones, usar `System.AssignedTo` actual de la US si es distinto al usuario autenticado en el MCP de Azure DevOps.
 5. Si tampoco existe candidato, fallback:
-- `qa_assignee.email` solo si es distinto al usuario QA MCP.
+- `qa_assignee.email` solo si es distinto al usuario autenticado en el MCP de Azure DevOps.
 - Si no hay fallback válido, crear bug sin `System.AssignedTo` y registrar advertencia en comentario.
 
 Regla de trazabilidad:
