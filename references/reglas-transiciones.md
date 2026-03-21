@@ -54,6 +54,15 @@ Cuando una US está en estado `Rejected`:
 
 Cuando una US está en estado `Ready for test`:
 
+Precondición obligatoria antes de transición `Ready for test -> Testing in progress`:
+- La QA Task de ejecución (`Ejecución de casos`) debe estar asignada al usuario autenticado en el MCP de Azure DevOps.
+- Si la asignación no coincide (`execution_owner != mcp_user`):
+  - ❌ NO ejecutar Test Cases
+  - ❌ NO crear Test Runs
+  - ❌ NO cambiar estado de la US
+  - ✅ Registrar `SKIP` en `decisions_log` con motivo `EXECUTION_OWNERSHIP_MISMATCH`
+  - ✅ Agregar comentario en la US solicitando reasignación explícita o ejecución por el owner actual
+
 #### Caso A — Sin Test Cases:
 1. ✅ Crear los Test Cases
 2. ✅ Asociarlos a la US (relación Tests/Tested By)

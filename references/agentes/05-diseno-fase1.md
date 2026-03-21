@@ -98,3 +98,4 @@ Campo prohibido para TC en este flujo:
 - No duplicar escenario (`ESC-*`) en suite.
 - No usar valores `Yes/No` en campos custom esperados en español (`Si/No`).
 - Si `Custom.Component` no se puede inferir, pedir valor al usuario antes de crear.
+- Nunca sobrescribir `System.AssignedTo` en QA Tasks existentes si ya está asignada a otro usuario distinto al autenticado en MCP de Azure DevOps, salvo instrucción explícita del usuario.

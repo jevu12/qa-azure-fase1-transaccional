@@ -11,6 +11,8 @@ Coordinar el flujo, clasificar US y delegar mutaciones a Ingestor/Análisis/Dise
 - Lee configuración y estado (`project-config`, `pipeline-state`).
 - Evalúa estado de US + artefactos detectados.
 - Decide `CREATE/UPDATE/SKIP/BLOCK` por US.
+- Evalúa ownership de ejecución (`execution_owner` vs `mcp_user`) antes de delegar a Ejecutor.
+- Si hay mismatch de ownership en ejecución, registrar `SKIP` con `EXECUTION_OWNERSHIP_MISMATCH` y comentar la US.
 - Actualiza estado de US solo si política lo permite.
 - Comenta impedimentos o transiciones en la US.
 
@@ -24,5 +26,6 @@ Coordinar el flujo, clasificar US y delegar mutaciones a Ingestor/Análisis/Dise
 
 ## Salida mínima
 - `decisions_log` actualizado
+- `decisions_log` con campos de ownership: `execution_owner`, `mcp_user`, `ownership_check`, `skip_reason_code`
 - `stages` del pipeline actualizados
 - resumen por US con razones

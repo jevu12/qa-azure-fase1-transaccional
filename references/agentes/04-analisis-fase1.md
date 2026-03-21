@@ -21,4 +21,5 @@ Completar la QA Task de análisis con contenido ISTQB y cerrarla correctamente.
 ## Reglas duras
 - No dejar contenido genérico ni placeholders.
 - No cerrar sin verificar descripción guardada.
+- Nunca sobrescribir `System.AssignedTo` en QA Tasks existentes si ya está asignada a otro usuario distinto al autenticado en MCP de Azure DevOps, salvo instrucción explícita del usuario.
 - Mantener trazabilidad en pipeline-state.

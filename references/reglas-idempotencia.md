@@ -78,6 +78,11 @@ Toda acción ejecutada por un agente DEBE registrarse en `decisions_log` del pip
 
 Regla obligatoria de consistencia:
 - Si `execution_started == false` y `execution_task_state` está en `New|Doing`, NUNCA registrar la US como `cerrada` o `completa`.
+- Campos mínimos adicionales para auditoría de ownership:
+  - `execution_owner`
+  - `mcp_user`
+  - `ownership_check`
+  - `skip_reason_code`
 
 ### 2.2 Umbral de confianza para bugs
 La creación automática de bugs requiere superar el umbral definido en `policies.bug_confidence_threshold`.
@@ -107,6 +112,40 @@ Todos los comentarios automáticos en Azure DevOps DEBEN incluir la firma:
 🤖 [nombre_agente] — Pipeline QA Automatizado — [timestamp]
 ```
 Esto permite identificar acciones automáticas vs manuales y evitar duplicar comentarios.
+
+### 2.6 Regla de conservación de asignación (QA Tasks existentes)
+
+Si una QA Task ya existe y `System.AssignedTo` está definido con un usuario distinto
+al autenticado en el MCP de Azure DevOps, NO se debe modificar `System.AssignedTo`.
+
+Solo se permite cambiar `System.AssignedTo` cuando:
+1. La task no tiene asignado (`System.AssignedTo` vacío), o
+2. Existe una instrucción explícita del usuario para reasignar.
+
+Toda excepción debe registrarse en `decisions_log` con:
+- `decision: "UPDATE"`
+- `reason: "REASSIGNMENT_EXPLICIT_APPROVAL"`
+- `previous_assignee`
+- `new_assignee`
+
+### 2.7 Regla de elegibilidad de ejecución por asignación (ownership QA)
+
+La ejecución de pruebas (Test Runs) SOLO puede iniciarse para User Stories cuya
+QA Task de ejecución (`Ejecución de casos`) esté asignada al usuario autenticado
+en el MCP de Azure DevOps.
+
+Si la US está en `Ready for test`, tiene Test Cases en `Ready`, pero la QA Task de
+ejecución está asignada a un usuario distinto:
+- NO ejecutar Test Cases.
+- NO crear Test Runs.
+- NO cambiar estado de la US.
+- Registrar decisión `SKIP` con motivo `EXECUTION_OWNERSHIP_MISMATCH`.
+- Agregar comentario en la US indicando que la ejecución requiere reasignación
+  explícita o ejecución por el QA owner actual.
+
+Excepciones permitidas:
+1. Instrucción explícita del usuario para ejecutar aun sin ser owner, o
+2. Reasignación explícita y auditada de la QA Task de ejecución.
 
 ---
 

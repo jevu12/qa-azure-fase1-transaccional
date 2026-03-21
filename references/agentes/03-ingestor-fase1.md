@@ -94,4 +94,5 @@ Compatibilidad:
 - No hardcodear proyecto/sprint/assignee.
 - No procesar US técnicas.
 - No ejecutar acciones fuera de estado permitido.
+- Nunca sobrescribir `System.AssignedTo` en QA Tasks existentes si ya está asignada a otro usuario distinto al autenticado en MCP de Azure DevOps, salvo instrucción explícita del usuario.
 - Registrar toda decisión en `decisions_log`.

@@ -88,6 +88,18 @@ Comportamiento:
 - Delegar inmediatamente al Agente Ejecutor
 - Registrar en `decisions_log` con `next_agent = "Ejecutor"` y `next_action = "EXECUTE_PENDING"`
 
+Precondición obligatoria de ownership QA:
+- La QA Task de ejecución debe estar asignada al usuario autenticado en el MCP de Azure DevOps.
+- Si `execution_owner != mcp_user`:
+  - NO ejecutar Test Cases.
+  - NO crear Test Runs.
+  - NO cambiar estado de la US.
+  - Registrar `SKIP` con `reason = "EXECUTION_OWNERSHIP_MISMATCH"` y `skip_reason_code = "EXECUTION_OWNERSHIP_MISMATCH"`.
+  - Agregar comentario en la US indicando que se requiere reasignación explícita o ejecución por el QA owner actual.
+- Excepciones permitidas:
+  1. Instrucción explícita del usuario para ejecutar aun sin ser owner.
+  2. Reasignación explícita y auditada de la QA Task de ejecución.
+
 Regla de SKIP:
 - `SKIP` solo aplica para US realmente completadas (`PO Review|Done|Closed`) o no procesables (`Rejected|Pending definition`).
 
