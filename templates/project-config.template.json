@@ -1,0 +1,117 @@
+{
+  "$schema": "./project-config.schema.json",
+  "_comment": "Template general multiempresa para QA pipeline",
+  "organization": {
+    "name": "my-org",
+    "url": "https://dev.azure.com/my-org"
+  },
+  "project": {
+    "name": "My Project",
+    "team": "My QA Team",
+    "iteration_path": "My Project\\Sprint 1",
+    "area_path": "My Project"
+  },
+  "qa_assignee": {
+    "source": "mcp_authenticated_user",
+    "email": "",
+    "name": ""
+  },
+  "execution": {
+    "mode": "full-pipeline",
+    "user_stories": [],
+    "exclude_technical_keywords": [
+      "AWS", "VPN", "infraestructura", "pipeline", "deploy", "CI/CD",
+      "terraform", "kubernetes", "docker", "lambda", "S3", "EC2", "RDS"
+    ]
+  },
+  "platforms": {
+    "types": ["web"],
+    "web": {
+      "base_url": "${APP_BASE_URL}",
+      "login_url": "${APP_LOGIN_URL}",
+      "post_login_path": "/"
+    },
+    "android": { "enabled": false, "app_package": "", "app_activity": "" },
+    "ios": { "enabled": false, "bundle_id": "" },
+    "api": { "enabled": false, "base_url": "", "auth_endpoint": "" }
+  },
+  "roles": [
+    {
+      "name": "Admin",
+      "user_env_var": "${USER_ADMIN}",
+      "pass_env_var": "${PASS_ADMIN}",
+      "description": "Full access"
+    },
+    {
+      "name": "Standard User",
+      "user_env_var": "${USER_STANDARD}",
+      "pass_env_var": "${PASS_STANDARD}",
+      "description": "Functional access"
+    },
+    {
+      "name": "No Access",
+      "user_env_var": "${USER_NO_ACCESS}",
+      "pass_env_var": "${PASS_NO_ACCESS}",
+      "description": "Negative permission testing"
+    }
+  ],
+  "policies": {
+    "qa_task_work_item_type": "Task",
+    "qa_task_tag": "QA",
+    "create_analysis_task": true,
+    "create_design_task": true,
+    "create_execution_task": true,
+    "require_istqb_analysis": true,
+    "min_happy_path_scenarios": 2,
+    "min_alternative_scenarios": 1,
+    "min_negative_scenarios": 2,
+    "bug_confidence_threshold": 0.7,
+    "max_retries_on_mcp_failure": 3,
+    "auto_create_bugs": true,
+    "auto_close_tasks_on_completion": true,
+    "require_evidence_for_pass": true,
+    "require_evidence_for_fail": true,
+    "blocked_us_states": ["Rejected", "Pending definition"],
+    "review_us_states": ["On Hold"],
+    "processable_us_states": {
+      "NEEDS_FULL_PIPELINE": ["New", "Doing", "Code Review"],
+      "NEEDS_EXECUTION_ONLY": ["Ready for test"],
+      "IN_EXECUTION": ["Testing in progress"],
+      "COMPLETED": ["PO Review", "Done", "Closed"]
+    },
+    "task_only_states": ["New", "On Hold", "Code Review"],
+    "no_action_states": ["Rejected", "Pending definition"],
+    "state_transitions": {
+      "on_execution_start": { "from": ["Ready for test"], "to": "Testing in progress", "comment_required": true },
+      "on_all_pass": { "from": ["Testing in progress"], "to": "PO Review", "comment_required": true },
+      "on_bugs_found": { "from": ["Testing in progress"], "to": "On Hold", "comment_required": true, "include_bug_links": true }
+    }
+  },
+  "naming_conventions": {
+    "analysis_task_title": "Requirement analysis - {us_title}",
+    "design_task_title": "Test design - {us_title}",
+    "execution_task_title": "Test execution - {us_title}",
+    "test_suite_name": "US #{us_id} - {us_title}",
+    "test_case_title": "[{scenario_id}] US #{us_id} - {scenario_description}",
+    "bug_title": "BUG - TC #{tc_id} - {failure_description}",
+    "evidence_filename": "TC-{tc_id}-step-{step}-{result}.png"
+  },
+  "fields_mapping": {
+    "custom_fields": {
+      "automation_candidate": "Custom.AutomationCandidate",
+      "regression_candidate": "Custom.RegressionCandidate",
+      "component": "Custom.Component"
+    },
+    "custom_field_values": {
+      "automation_candidate_yes": "Si",
+      "automation_candidate_no": "No",
+      "regression_candidate_yes": "Si",
+      "regression_candidate_no": "No"
+    },
+    "prohibited_fields": []
+  },
+  "navigation": {
+    "description": "Navigation routes for application under test",
+    "routes": []
+  }
+}

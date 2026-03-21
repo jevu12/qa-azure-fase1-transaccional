@@ -1,0 +1,210 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "StoryContext",
+  "description": "Contexto completo de una User Story extraída de Azure DevOps, incluyendo artefactos QA existentes",
+  "type": "object",
+  "required": ["us_id", "title", "state", "sprint_full_path", "area", "clasificacion", "status"],
+  "properties": {
+    "us_id": {
+      "type": "integer",
+      "description": "ID numérico de la User Story en Azure DevOps"
+    },
+    "title": {
+      "type": "string",
+      "description": "Título completo de la US"
+    },
+    "state": {
+      "type": "string",
+      "description": "Estado actual de la US en Azure DevOps"
+    },
+    "description": {
+      "type": ["string", "null"],
+      "description": "Campo Description de la US"
+    },
+    "acceptance_criteria": {
+      "type": ["string", "null"],
+      "description": "Criterios de aceptación de la US"
+    },
+    "sprint_full_path": {
+      "type": "string",
+      "description": "Ruta completa del sprint: '[proyecto]\\[iteracion]'"
+    },
+    "area": {
+      "type": "string",
+      "description": "System.AreaPath de la US"
+    },
+    "assigned_to_email": {
+      "type": ["string", "null"],
+      "description": "Email del asignado. Si qa_assignee.source es 'mcp_authenticated_user', se resuelve desde la identidad del usuario logueado en el MCP de Azure DevOps."
+    },
+    "assigned_to_name": {
+      "type": ["string", "null"],
+      "description": "Nombre completo del asignado. Si qa_assignee.source es 'mcp_authenticated_user', se resuelve desde la identidad del usuario logueado en el MCP de Azure DevOps."
+    },
+    "tags": {
+      "type": ["string", "null"],
+      "description": "Etiquetas de la US"
+    },
+    "epic_context": {
+      "type": ["string", "null"],
+      "description": "Contexto del Epic padre si existe"
+    },
+    "parent_id": {
+      "type": ["integer", "null"],
+      "description": "ID del Epic padre"
+    },
+    "clasificacion": {
+      "type": "string",
+      "enum": ["NEEDS_FULL_PIPELINE", "NEEDS_EXECUTION_ONLY", "IN_EXECUTION", "COMPLETED"],
+      "description": "Clasificación según el estado de la US"
+    },
+    "target_platforms": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Plataformas objetivo: web, android, ios, api, tablet"
+    },
+    "qa_tasks": {
+      "type": "object",
+      "description": "QA Tasks asociadas a esta US",
+      "properties": {
+        "analisis": { "$ref": "#/definitions/QaTaskRef" },
+        "diseño": { "$ref": "#/definitions/QaTaskRef" },
+        "ejecucion": { "$ref": "#/definitions/QaTaskRef" }
+      }
+    },
+    "existing_artifacts": {
+      "$ref": "#/definitions/ExistingArtifacts",
+      "description": "Artefactos QA ya existentes para esta US"
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "description": { "type": "boolean" },
+        "acceptance_criteria": { "type": "boolean" },
+        "sprint": { "type": "boolean" },
+        "state_valid": { "type": "boolean" }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["READY", "BLOCKED", "IGNORED", "ERROR"],
+      "description": "Estado de procesamiento de la US"
+    },
+    "ignore_reason": {
+      "type": ["string", "null"],
+      "description": "Motivo de ignorar si fue ignorada"
+    },
+    "block_reason": {
+      "type": ["string", "null"],
+      "description": "Motivo de bloqueo si está bloqueada"
+    },
+    "impediments": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Lista de impedimentos detectados"
+    },
+    "processed_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Timestamp ISO de procesamiento"
+    }
+  },
+  "definitions": {
+    "QaTaskRef": {
+      "type": "object",
+      "properties": {
+        "id": { "type": ["integer", "null"] },
+        "state": { "type": ["string", "null"] },
+        "exists": { "type": "boolean" },
+        "created_now": { "type": "boolean" }
+      }
+    },
+    "ExistingArtifacts": {
+      "type": "object",
+      "description": "Artefactos QA previamente creados en Azure DevOps",
+      "properties": {
+        "test_plan": {
+          "type": "object",
+          "properties": {
+            "id": { "type": ["integer", "null"] },
+            "name": { "type": ["string", "null"] },
+            "exists": { "type": "boolean" }
+          }
+        },
+        "test_suites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "test_case_count": { "type": "integer" }
+            }
+          }
+        },
+        "test_cases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "title": { "type": "string" },
+              "state": { "type": "string" },
+              "automation_status": { "type": "string" }
+            }
+          }
+        },
+        "test_runs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "name": { "type": "string" },
+              "state": { "type": "string" },
+              "total_tests": { "type": "integer" },
+              "passed": { "type": "integer" },
+              "failed": { "type": "integer" },
+              "blocked": { "type": "integer" }
+            }
+          }
+        },
+        "bugs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "title": { "type": "string" },
+              "state": { "type": "string" },
+              "severity": { "type": "string" }
+            }
+          }
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "text": { "type": "string" },
+              "created_date": { "type": "string" },
+              "author": { "type": "string" }
+            }
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "integer" },
+              "filename": { "type": "string" },
+              "attached_to": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

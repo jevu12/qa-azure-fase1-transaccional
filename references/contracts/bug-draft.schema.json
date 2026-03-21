@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BugDraft",
+  "description": "Borrador de Bug para creación en Azure DevOps, con trazabilidad a US, TC y ejecución",
+  "type": "object",
+  "required": ["title", "repro_steps", "expected", "actual", "severity", "linked_us_id", "linked_test_case_id"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Título descriptivo del bug"
+    },
+    "repro_steps": {
+      "type": "string",
+      "description": "Pasos de reproducción en formato HTML para Azure DevOps"
+    },
+    "expected": {
+      "type": "string",
+      "description": "Comportamiento esperado"
+    },
+    "actual": {
+      "type": "string",
+      "description": "Comportamiento real observado"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["1 - Critical", "2 - High", "3 - Medium", "4 - Low"],
+      "description": "Severidad del bug"
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4,
+      "description": "Prioridad del bug"
+    },
+    "linked_us_id": {
+      "type": "integer",
+      "description": "ID de la User Story relacionada"
+    },
+    "linked_test_case_id": {
+      "type": "integer",
+      "description": "ID del Test Case donde se detectó"
+    },
+    "linked_run_id": {
+      "type": ["integer", "null"],
+      "description": "ID del Test Run donde se detectó"
+    },
+    "linked_suite_id": {
+      "type": ["integer", "null"],
+      "description": "ID de la Test Suite"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "filename": { "type": "string" },
+          "type": { "type": "string" },
+          "path": { "type": "string" }
+        }
+      }
+    },
+    "environment": {
+      "type": "string",
+      "description": "Ambiente donde se encontró el bug"
+    },
+    "platform": {
+      "type": "string",
+      "description": "Plataforma afectada"
+    },
+    "browser": {
+      "type": ["string", "null"],
+      "description": "Navegador afectado si aplica"
+    },
+    "classification": {
+      "type": "string",
+      "enum": ["bug_funcional", "bug_visual", "bug_performance", "bug_seguridad", "bug_ux"],
+      "description": "Tipo de bug"
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Nivel de confianza de que es un bug real"
+    },
+    "area_path": {
+      "type": "string"
+    },
+    "iteration_path": {
+      "type": "string"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Email o identidad del asignado. Si qa_assignee.source es 'mcp_authenticated_user', corresponde al usuario logueado en el MCP de Azure DevOps."
+    },
+    "tags": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "duplicate_check": {
+      "type": "object",
+      "description": "Resultado de la verificación de duplicados",
+      "properties": {
+        "checked": { "type": "boolean" },
+        "existing_bug_id": { "type": ["integer", "null"] },
+        "is_duplicate": { "type": "boolean" },
+        "similarity_score": { "type": "number" }
+      }
+    }
+  }
+}

@@ -1,0 +1,241 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PipelineState",
+  "description": "Estado compartido del pipeline QA entre todos los agentes. Soporta ejecución incremental y reanudación desde cualquier punto.",
+  "type": "object",
+  "required": ["execution_id", "organization", "proyecto", "team", "sprint", "iteracion", "modo", "started_at", "stages"],
+  "properties": {
+    "execution_id": {
+      "type": "string",
+      "description": "Identificador único de la ejecución: [YYYY-MM-DD]-[NNN]"
+    },
+    "organization": {
+      "type": "string",
+      "description": "Organización de Azure DevOps"
+    },
+    "organization_url": {
+      "type": "string",
+      "description": "URL completa de la organización"
+    },
+    "proyecto": {
+      "type": "string",
+      "description": "Nombre del proyecto Azure DevOps"
+    },
+    "team": {
+      "type": "string",
+      "description": "Nombre del equipo"
+    },
+    "sprint": {
+      "type": "string",
+      "description": "Ruta completa del sprint: '[proyecto]\\[iteracion]'"
+    },
+    "iteracion": {
+      "type": "string",
+      "description": "Nombre corto de la iteración"
+    },
+    "modo": {
+      "type": "string",
+      "enum": ["full-pipeline", "analysis-only", "design-only", "execution-only", "detection-only"],
+      "description": "Modo de ejecución del pipeline"
+    },
+    "qa_assignee": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": ["mcp_authenticated_user", "manual"],
+          "description": "Fuente de identidad: 'mcp_authenticated_user' usa el usuario logueado en el MCP de Azure DevOps, 'manual' usa los valores explícitos de email/name"
+        },
+        "email": { "type": "string", "description": "Email del QA responsable (solo si source es 'manual')" },
+        "name": { "type": "string", "description": "Nombre del QA responsable (solo si source es 'manual')" }
+      }
+    },
+    "platforms": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Plataformas configuradas para esta ejecución"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "stages": {
+      "type": "object",
+      "properties": {
+        "deteccion": {
+          "$ref": "#/definitions/DetectionStage"
+        },
+        "ingestor": {
+          "$ref": "#/definitions/IngestorStage"
+        },
+        "analisis": {
+          "$ref": "#/definitions/AnalysisStage"
+        },
+        "disenador": {
+          "$ref": "#/definitions/DesignStage"
+        },
+        "ejecucion": {
+          "$ref": "#/definitions/ExecutionStage"
+        },
+        "bugs": {
+          "$ref": "#/definitions/BugStage"
+        },
+        "state_transitions": {
+          "$ref": "#/definitions/StateTransitionStage"
+        },
+        "evidencias": {
+          "$ref": "#/definitions/EvidenceStage"
+        }
+      }
+    },
+    "decisions_log": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DecisionEntry"
+      },
+      "description": "Registro de todas las decisiones tomadas por el orquestador"
+    }
+  },
+  "definitions": {
+    "StageStatus": {
+      "type": "string",
+      "enum": ["PENDING", "IN_PROGRESS", "COMPLETED", "SKIPPED", "FAILED", "PARTIAL"]
+    },
+    "DetectionStage": {
+      "type": "object",
+      "properties": {
+        "status": { "$ref": "#/definitions/StageStatus" },
+        "started_at": { "type": ["string", "null"] },
+        "completed_at": { "type": ["string", "null"] },
+        "artifacts_found": {
+          "type": "object",
+          "properties": {
+            "qa_tasks": { "type": "integer" },
+            "test_plans": { "type": "integer" },
+            "test_suites": { "type": "integer" },
+            "test_cases": { "type": "integer" },
+            "test_runs": { "type": "integer" },
+            "bugs": { "type": "integer" },
+            "comments": { "type": "integer" },
+            "evidence_files": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "IngestorStage": {
+      "type": "object",
+      "properties": {
+        "status": { "$ref": "#/definitions/StageStatus" },
+        "started_at": { "type": ["string", "null"] },
+        "completed_at": { "type": ["string", "null"] },
+        "full_pipeline": { "type": "array" },
+        "execution_only": { "type": "array" },
+        "in_execution": { "type": "array" },
+        "completed": { "type": "array" },
+        "ignored": { "type": "array" },
+        "blocked": { "type": "array" },
+        "errors": { "type": "array" }
+      }
+    },
+    "AnalysisStage": {
+      "type": "object",
+      "properties": {
+        "status": { "$ref": "#/definitions/StageStatus" },
+        "started_at": { "type": ["string", "null"] },
+        "completed_at": { "type": ["string", "null"] },
+        "tasks_created": { "type": "array" }
+      }
+    },
+    "DesignStage": {
+      "type": "object",
+      "properties": {
+        "status": { "$ref": "#/definitions/StageStatus" },
+        "started_at": { "type": ["string", "null"] },
+        "completed_at": { "type": ["string", "null"] },
+        "test_plan_id": { "type": ["integer", "null"] },
+        "suites_created": { "type": "integer" },
+        "test_cases_created": { "type": "integer" },
+        "us_designed": { "type": "array" }
+      }
+    },
+    "ExecutionStage": {
+      "type": "object",
+      "properties": {
+        "status": { "$ref": "#/definitions/StageStatus" },
+        "started_at": { "type": ["string", "null"] },
+        "completed_at": { "type": ["string", "null"] },
+        "runs_created": { "type": "array" },
+        "resultados": {
+          "type": "object",
+          "properties": {
+            "total": { "type": "integer" },
+            "pass": { "type": "integer" },
+            "fail": { "type": "integer" },
+            "blocked": { "type": "integer" }
+          }
+        },
+        "us_ejecutadas": { "type": "array" }
+      }
+    },
+    "BugStage": {
+      "type": "object",
+      "properties": {
+        "status": { "$ref": "#/definitions/StageStatus" },
+        "started_at": { "type": ["string", "null"] },
+        "completed_at": { "type": ["string", "null"] },
+        "bugs_created": { "type": "array" },
+        "bugs_skipped": { "type": "array" }
+      }
+    },
+    "StateTransitionStage": {
+      "type": "object",
+      "description": "Registro de transiciones de estado aplicadas a User Stories post-ejecución",
+      "properties": {
+        "status": { "$ref": "#/definitions/StageStatus" },
+        "started_at": { "type": ["string", "null"] },
+        "completed_at": { "type": ["string", "null"] },
+        "transitions_applied": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "us_id": { "type": "integer" },
+              "from_state": { "type": "string" },
+              "to_state": { "type": "string" },
+              "reason": { "type": "string", "enum": ["all_pass", "bugs_found", "blocked"] },
+              "bugs_linked": { "type": "array", "items": { "type": "integer" } },
+              "comment_added": { "type": "boolean" },
+              "timestamp": { "type": "string", "format": "date-time" }
+            }
+          }
+        }
+      }
+    },
+    "EvidenceStage": {
+      "type": "object",
+      "properties": {
+        "status": { "$ref": "#/definitions/StageStatus" },
+        "started_at": { "type": ["string", "null"] },
+        "completed_at": { "type": ["string", "null"] },
+        "files_uploaded": { "type": "integer" },
+        "files_linked": { "type": "integer" }
+      }
+    },
+    "DecisionEntry": {
+      "type": "object",
+      "properties": {
+        "timestamp": { "type": "string", "format": "date-time" },
+        "us_id": { "type": "integer" },
+        "agent": { "type": "string" },
+        "decision": { "type": "string" },
+        "reason": { "type": "string" },
+        "action_taken": { "type": "string" },
+        "artifacts_affected": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

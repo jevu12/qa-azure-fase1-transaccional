@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExecutionOutcome",
+  "description": "Resultado de la ejecución de un Test Case individual",
+  "type": "object",
+  "required": ["test_case_id", "us_id", "result", "executed_at"],
+  "properties": {
+    "test_case_id": {
+      "type": "integer",
+      "description": "ID del Test Case en Azure DevOps"
+    },
+    "us_id": {
+      "type": "integer",
+      "description": "ID de la User Story asociada"
+    },
+    "suite_id": {
+      "type": "integer",
+      "description": "ID de la Test Suite"
+    },
+    "run_id": {
+      "type": ["integer", "null"],
+      "description": "ID del Test Run si existe"
+    },
+    "scenario_id": {
+      "type": "string",
+      "description": "ID del escenario (ESC-HP-01, ESC-NEG-02, etc.)"
+    },
+    "result": {
+      "type": "string",
+      "enum": ["PASS", "FAIL", "BLOCKED", "NOT_EXECUTED"],
+      "description": "Resultado de la ejecución"
+    },
+    "steps_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "step_number": { "type": "integer" },
+          "action": { "type": "string" },
+          "expected": { "type": "string" },
+          "actual": { "type": "string" },
+          "result": { "type": "string", "enum": ["PASS", "FAIL", "BLOCKED"] },
+          "evidence_file": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "failure_details": {
+      "type": ["object", "null"],
+      "properties": {
+        "step_failed": { "type": "integer" },
+        "expected_behavior": { "type": "string" },
+        "actual_behavior": { "type": "string" },
+        "classification": {
+          "type": "string",
+          "enum": [
+            "bug_funcional",
+            "bug_visual",
+            "bug_performance",
+            "flaky_test",
+            "environment_problem",
+            "data_problem",
+            "automation_error",
+            "blocked_by_dependency"
+          ]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Nivel de confianza en la clasificación (0-1)"
+        },
+        "recommendation": {
+          "type": "string",
+          "enum": ["create_bug", "register_impediment", "document_finding", "retry", "skip"]
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "filename": { "type": "string" },
+          "type": { "type": "string", "enum": ["screenshot", "video", "log", "trace"] },
+          "step": { "type": ["integer", "null"] },
+          "path": { "type": "string" }
+        }
+      }
+    },
+    "duration_seconds": {
+      "type": "number",
+      "description": "Duración de la ejecución en segundos"
+    },
+    "executed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "executed_by": {
+      "type": "string",
+      "description": "Agente o usuario que ejecutó. Si qa_assignee.source es 'mcp_authenticated_user', corresponde al usuario logueado en el MCP de Azure DevOps."
+    },
+    "platform": {
+      "type": "string",
+      "description": "Plataforma donde se ejecutó: web, android, ios, api"
+    },
+    "environment": {
+      "type": "string",
+      "description": "Ambiente de ejecución: QA, staging, production"
+    },
+    "comments": {
+      "type": ["string", "null"],
+      "description": "Comentarios adicionales de la ejecución"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+interface:
+  display_name: "QA Azure Fase 1"
+  short_description: "QA transaccional e idempotente en Azure DevOps"
+  default_prompt: "Usa $qa-azure-fase1-transaccional para ejecutar la Fase 1 de QA en Azure DevOps para este sprint sin duplicar artefactos."
+
+policy:
+  allow_implicit_invocation: true
