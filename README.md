@@ -43,6 +43,18 @@ No incluye:
 - Configuración válida en `inputs/project-config.json`.
 - Permisos para leer/escribir Work Items, Test Plans, Test Suites y Test Cases.
 
+## Instalación desde GitHub
+```bash
+git clone https://github.com/jevu12/qa-azure-fase1-transaccional.git
+mkdir -p ~/.codex/skills/qa-azure-fase1-transaccional
+cp -R qa-azure-fase1-transaccional/. ~/.codex/skills/qa-azure-fase1-transaccional/
+```
+
+Verificación rápida:
+```bash
+ls ~/.codex/skills/qa-azure-fase1-transaccional
+```
+
 ## Cómo usarla
 1. Sigue `references/guia-configuracion-general.md`.
 2. Copia `templates/project-config.template.json` a `inputs/project-config.json` y ajusta valores.
