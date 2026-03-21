@@ -2,7 +2,13 @@
 
 Esta matriz resume qué operaciones ejecuta cada agente y con qué tipo de herramienta.
 
-## Fase 1 (en alcance)
+## Alcance operativo de esta skill
+
+- **Núcleo Fase 1 (default):** detección + QA Tasks + análisis + diseño + creación/vinculación de TCs/suite.
+- **Extensión de compatibilidad (solo si el usuario lo pide explícitamente):** ejecución, reporter de bugs y gestión de evidencias.
+- Si no hay instrucción explícita de ejecutar pruebas o reportar bugs, se opera solo en núcleo Fase 1.
+
+## Núcleo Fase 1 (en alcance)
 
 | Agente | Crear | Actualizar | Comentar | Vincular | Lectura/Detección |
 |---|---|---|---|---|---|
@@ -12,7 +18,11 @@ Esta matriz resume qué operaciones ejecuta cada agente y con qué tipo de herra
 | Analisis | (solo fallback si falta task) | QA Task análisis (Doing/Closed + Description HTML) + pipeline-state | Firma de análisis si aplica | No obligatorio | Sí |
 | Diseño | Test Case (con `wit_create_work_item`) + suite faltante | TCs incompletos a Ready + QA Task diseño + pipeline-state | Opcional resumen en task | TC -> US y TC -> QA Task diseño + membresía suite | Sí |
 
-## Fuera de alcance Fase 1 (documentado para compatibilidad)
+## Extensión de compatibilidad (condicional)
+
+Estos agentes no forman parte del núcleo transaccional por defecto, pero están documentados
+para continuidad de pipeline cuando el usuario solicita explícitamente ejecución de pruebas
+o gestión de defectos/evidencias.
 
 | Agente | Acción principal |
 |---|---|

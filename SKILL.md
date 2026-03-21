@@ -30,33 +30,39 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - Validar: `organization.url`, `project.name`, `project.team`, `project.iteration_path`, `execution.mode`.
 - Resolver `sprint_full_path` desde `project.iteration_path`.
 
-2. Cargar estado compartido
+2. Verificar MCP Azure DevOps (obligatorio)
+- Confirmar disponibilidad MCP con lectura simple de proyectos.
+- Confirmar acceso a `project.name`, team e iteración objetivo.
+- Resolver usuario autenticado MCP para reglas de asignación/ownership.
+- Si falla cualquier validación MCP: detener mutaciones y devolver `BLOCK` con diagnóstico.
+
+3. Cargar estado compartido
 - Leer `outputs/pipeline-state.json`.
 - Si no existe, inicializar según contrato de `references/contratos.md`.
 - Si existe pero es de otro proyecto/sprint, iniciar nueva ejecución.
 
-3. Obtener US objetivo
+4. Obtener US objetivo
 - Si `execution.user_stories` trae IDs, usar esa lista.
 - Si viene vacío, consultar US del sprint en Azure DevOps.
 
-4. Detección por US (siempre antes de crear)
+5. Detección por US (siempre antes de crear)
 - Leer US completa con relaciones.
 - Detectar: QA Tasks hijas, Test Cases vinculados, Suite/Plan relacionados, comentarios QA, evidencias.
 - Registrar hallazgos en `stages.deteccion` y `decisions_log`.
 
-5. Validaciones de elegibilidad
+6. Validaciones de elegibilidad
 - Estado permitido: aplicar reglas de `references/reglas-transiciones.md` y `references/reglas-decision.md`.
 - Contenido mínimo: `description` y criterios de aceptación.
 - Filtro técnico: `execution.exclude_technical_keywords`.
 
-6. Acciones transaccionales de Fase 1
+7. Acciones transaccionales de Fase 1
 - Crear QA Tasks faltantes (análisis, diseño, ejecución) como hijas de la US.
 - Crear/ubicar Test Plan y Test Suite del sprint.
 - Crear Test Cases faltantes.
 - Vincular Test Cases a US (Tests/Tested By) y a QA Task de diseño (Related).
 - Completar artefactos parciales; nunca recrear artefactos completos.
 
-7. Persistencia y auditoría
+8. Persistencia y auditoría
 - Actualizar `outputs/pipeline-state.json` por etapa.
 - Registrar toda decisión en `decisions_log` con motivo y artefactos afectados.
 
@@ -64,6 +70,7 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - Idempotencia primero: nunca crear sin detectar antes.
 - Anti-duplicado por título/patrón/relación de negocio.
 - No operaciones destructivas: no eliminar artefactos existentes.
+- No mutaciones sin MCP validado: si la verificación MCP falla, solo diagnóstico (`BLOCK`).
 - No ejecutar acciones fuera del estado permitido.
 - Mantener `AreaPath` e `IterationPath` alineados con la US.
 - En creación de bugs: asignar al último usuario asignado de la US que sea distinto al usuario autenticado en el MCP de Azure DevOps; aplicar fallback documentado si no existe candidato.

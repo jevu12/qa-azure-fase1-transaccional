@@ -59,6 +59,38 @@ Regla:
 - Estados de US mapeados correctamente en políticas.
 - Naming conventions y custom fields compatibles con el proyecto.
 
+## 4.1 Verificación obligatoria MCP Azure DevOps (instalación + configuración)
+
+Antes de ejecutar cualquier stage, validar en este orden:
+
+1. Disponibilidad del MCP de Azure DevOps
+- Ejecutar una lectura simple: `core_list_projects`.
+- Si falla por conexión/autenticación/permisos: bloquear pipeline (`BLOCK`) y no mutar artefactos.
+
+2. Acceso al proyecto configurado
+- Verificar que `project.name` de `project-config.json` exista en `core_list_projects`.
+- Si no existe o no es visible para el usuario MCP: `BLOCK` con motivo `PROJECT_NOT_ACCESSIBLE`.
+
+3. Acceso a equipo/iteración objetivo
+- Validar equipo con `core_list_project_teams(project.name)`.
+- Validar iteración objetivo con consulta de work/iteration del proyecto.
+- Si no hay acceso a team/sprint: `BLOCK` con motivo `ITERATION_NOT_ACCESSIBLE`.
+
+4. Identidad autenticada utilizable para asignaciones
+- Resolver identidad MCP (usuario autenticado) y usarla como referencia para:
+  - `qa_assignee.source = mcp_authenticated_user`
+  - reglas de ownership de ejecución
+  - exclusión de autoasignación de bugs al QA MCP
+- Si no se puede resolver identidad: `BLOCK` con motivo `MCP_IDENTITY_UNRESOLVED`.
+
+5. Prueba mínima de lectura de WI
+- Ejecutar lectura de una US del sprint (o consulta equivalente de backlog/iteración).
+- Si falla, no iniciar creación de tasks/casos ni transiciones de estado.
+
+Regla de seguridad:
+- Sin verificación MCP exitosa, la skill solo puede devolver diagnóstico y pasos correctivos.
+- No crear/actualizar/comentar/vincular artefactos mientras haya fallas MCP.
+
 ## 5) Errores frecuentes y corrección
 
 - Error de estado no procesable:
@@ -77,6 +109,7 @@ Regla:
 
 1. Copia `templates/project-config.template.json` a `inputs/project-config.json`.
 2. Copia `templates/.env.template` a `.env` y completa valores.
-3. Ejecuta en `detection-only` para validar contexto.
-4. Ejecuta `analysis-only` o `design-only` según necesidad.
-5. Ejecuta `full-pipeline` cuando la configuración esté validada.
+3. Ejecuta la verificación MCP Azure DevOps (sección 4.1).
+4. Ejecuta en `detection-only` para validar contexto.
+5. Ejecuta `analysis-only` o `design-only` según necesidad.
+6. Ejecuta `full-pipeline` cuando la configuración esté validada.
