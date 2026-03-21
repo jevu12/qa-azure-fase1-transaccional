@@ -70,6 +70,49 @@ Toma la configuración desde inputs/project-config.json, procesa el sprint actua
 no dupliques artefactos y entrega un resumen auditable por US con acciones CREATE/UPDATE/SKIP/BLOCK/ERROR.
 ```
 
+## Uso por distintos agentes (prompts ejemplo)
+Orquestador:
+```text
+Usa $qa-azure-fase1-transaccional con foco de Orquestador para clasificar US del sprint,
+aplicar reglas por estado y producir decisions_log con plan de acciones por agente.
+```
+
+Ingestor:
+```text
+Usa $qa-azure-fase1-transaccional con foco de Ingestor para crear QA Tasks faltantes
+de forma idempotente y vincularlas como hijas de cada US procesable.
+```
+
+Análisis:
+```text
+Usa $qa-azure-fase1-transaccional con foco de Análisis para completar QA Tasks de análisis
+con contenido ISTQB en HTML y cerrar solo las tasks validadas.
+```
+
+Diseño:
+```text
+Usa $qa-azure-fase1-transaccional con foco de Diseño para crear/corregir Test Cases en Ready,
+con Steps XML, fields obligatorios y vínculos TC->US/Task.
+```
+
+Ejecutor:
+```text
+Usa $qa-azure-fase1-transaccional con foco de Ejecutor para ejecutar TCs con Playwright,
+capturar evidencias por paso, comentar resultados en TC/US y actualizar pipeline-state.
+```
+
+ReporterBugs:
+```text
+Usa $qa-azure-fase1-transaccional con foco de ReporterBugs para deduplicar fallos,
+aplicar umbral de confianza, crear bugs con ReproSteps HTML y asignarlos al dev objetivo.
+```
+
+Gestor de Evidencias:
+```text
+Usa $qa-azure-fase1-transaccional con foco de GestorEvidencias para inventariar archivos,
+evitar duplicados y adjuntar/comentar evidencias en US/TC/Bug.
+```
+
 ## Buenas prácticas
 - Ejecuta primero en `detection-only` si quieres validar estado inicial.
 - Usa `analysis-only` o `design-only` para corridas acotadas.
