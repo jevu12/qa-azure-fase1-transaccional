@@ -52,13 +52,33 @@ Compatibilidad:
   - diseño: `naming_conventions.design_task_title`
   - ejecución: `naming_conventions.execution_task_title`
 
+6.1 Resolver colisiones de título:
+- Si existe mismo título pero intención diferente (ej. task manual no QA), no asumir equivalencia automática.
+- Confirmar equivalencia por combinación:
+  - relación hija directa con la US,
+  - `System.WorkItemType` esperado,
+  - tags QA (`policies.qa_task_tag`),
+  - trazabilidad previa en `decisions_log` (si existe).
+- Si hay colisión no resoluble: registrar `BLOCK` con `reason_code = CONTRACT_VALIDATION_FAILED` y no crear duplicado ciego.
+
 7. Crear faltantes (idempotente):
 - Solo crear task si no existe equivalente como hija directa.
 - Crear en `System.State = New`.
 - Vincular de inmediato como hija de US.
 
+7.1 Comportamiento transaccional create task + link:
+- Secuencia obligatoria:
+  1. `wit_create_work_item`
+  2. `wit_add_link` (Task -> US)
+- Si falla el link:
+  - NO borrar la task creada.
+  - Registrar `ERROR` parcial con `reason_code = CONTRACT_VALIDATION_FAILED`.
+  - Marcar `status = PARTIAL` para esa task.
+  - Reintentar solo el link en siguiente ciclo (idempotente).
+
 8. Registrar contexto de salida por US:
 - `clasificacion`, `qa_tasks.{analisis,diseno,ejecucion}`, `status`, `ignore_reason`, `processed_at`.
+- `qa_tasks_status` por cada task esperada: `created|existing|skipped|partial|error`.
 
 9. Cierre de etapa:
 - Actualizar `stages.ingestor` (`full_pipeline`, `execution_only`, `in_execution`, `completed`, `ignored`, `blocked`, `errors`).
@@ -89,8 +109,28 @@ Compatibilidad:
 }
 ```
 
+## Salida obligatoria por task esperada
+Registrar por US:
+
+```json
+{
+  "us_id": 12345,
+  "qa_tasks_status": {
+    "analisis": "created|existing|skipped|partial|error",
+    "diseno": "created|existing|skipped|partial|error",
+    "ejecucion": "created|existing|skipped|partial|error"
+  },
+  "qa_tasks_ids": {
+    "analisis": 2001,
+    "diseno": 2002,
+    "ejecucion": 2003
+  }
+}
+```
+
 ## Reglas estrictas
 - Requiere autorización previa del Orquestador para ejecutar mutaciones en Azure DevOps.
+- Aplicar contrato I/O estandar (`references/contrato-io-agentes.md`) y codigos de decision (`references/codigos-decision.md`).
 - No crear tasks duplicadas.
 - No hardcodear proyecto/sprint/assignee.
 - No procesar US técnicas.

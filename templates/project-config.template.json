@@ -66,11 +66,46 @@
     "min_alternative_scenarios": 1,
     "min_negative_scenarios": 2,
     "bug_confidence_threshold": 0.7,
+    "bug_confidence_by_classification": {
+      "bug_funcional": 0.9,
+      "bug_visual": 0.8,
+      "bug_performance": 0.7,
+      "flaky_test": 0.3,
+      "ambiente_problem": 0.2,
+      "data_problem": 0.4,
+      "automation_error": 0.1,
+      "blocked_by_dependency": 0.5
+    },
+    "bug_severity_priority_matrix": {
+      "critical_blocker": { "severity": "1 - Critical", "priority": 1 },
+      "high_functional": { "severity": "2 - High", "priority": 2 },
+      "medium_functional": { "severity": "3 - Medium", "priority": 2 },
+      "low_visual": { "severity": "4 - Low", "priority": 3 }
+    },
+    "bug_required_fields_by_type": {
+      "funcional": ["System.Title", "Microsoft.VSTS.TCM.ReproSteps", "Microsoft.VSTS.Common.Severity", "Microsoft.VSTS.Common.Priority"],
+      "visual": ["System.Title", "Microsoft.VSTS.TCM.ReproSteps", "Microsoft.VSTS.Common.Severity"],
+      "performance": ["System.Title", "Microsoft.VSTS.TCM.ReproSteps", "Microsoft.VSTS.Common.Priority"]
+    },
+    "flaky_retry_max_attempts": 2,
+    "step_retry_max_attempts": 2,
+    "step_timeout_seconds": 30,
+    "test_case_timeout_seconds": 300,
     "max_retries_on_mcp_failure": 3,
     "auto_create_bugs": true,
     "auto_close_tasks_on_completion": true,
     "require_evidence_for_pass": true,
     "require_evidence_for_fail": true,
+    "evidence_retention_sprints": 2,
+    "evidence_masking": {
+      "enabled": true,
+      "redact_patterns": ["password", "token", "authorization", "bearer", "cookie", "set-cookie"],
+      "redact_selectors": []
+    },
+    "coverage_min_by_risk": {
+      "medio": { "hp": 2, "alt": 1, "neg": 2 },
+      "alto": { "hp": 3, "alt": 2, "neg": 3 }
+    },
     "blocked_us_states": ["Rejected", "Pending definition"],
     "review_us_states": ["On Hold"],
     "processable_us_states": {
@@ -93,6 +128,7 @@
     "execution_task_title": "Test execution - {us_title}",
     "test_suite_name": "US #{us_id} - {us_title}",
     "test_case_title": "[{scenario_id}] US #{us_id} - {scenario_description}",
+    "scenario_id_pattern": "ESC-{TIPO}-{DOM}-{NN}",
     "bug_title": "BUG - TC #{tc_id} - {failure_description}",
     "evidence_filename": "TC-{tc_id}-step-{step}-{result}.png"
   },

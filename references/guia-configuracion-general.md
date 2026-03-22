@@ -37,8 +37,19 @@ Esta guía define **dónde configurar** y **qué configurar** para usar la skill
 - `bug_confidence_threshold`, reintentos
 - estados procesables/bloqueados y transiciones
 
+Parámetros recomendados adicionales:
+- `bug_confidence_by_classification` (confianza configurable por tipo de hallazgo)
+- `bug_severity_priority_matrix` (homogeneidad severidad/prioridad)
+- `bug_required_fields_by_type` (validación por proceso ADO)
+- `flaky_retry_max_attempts`, `step_retry_max_attempts`
+- `step_timeout_seconds`, `test_case_timeout_seconds`
+- `evidence_masking.*` (patrones/selectores de enmascaramiento)
+- `evidence_retention_sprints` (retención por sprint)
+- `coverage_min_by_risk` (mínimos HP/ALT/NEG por riesgo)
+
 ### 2.6 Convenciones y campos
 - `naming_conventions.*` para títulos/suites/bugs/evidencias
+- `naming_conventions.scenario_id_pattern` para estandarizar deduplicación de escenarios
 - `fields_mapping.*` para custom fields y campos prohibidos
 
 ## 3) Qué configurar en `.env`
@@ -112,4 +123,5 @@ Regla de seguridad:
 3. Ejecuta la verificación MCP Azure DevOps (sección 4.1).
 4. Ejecuta en `detection-only` para validar contexto.
 5. Ejecuta `analysis-only` o `design-only` según necesidad.
-6. Ejecuta `full-pipeline` cuando la configuración esté validada.
+6. Ejecuta `execution-only` solo si el Orquestador habilita la extensión de compatibilidad (ejecución/bugs/evidencias).
+7. Ejecuta `full-pipeline` cuando la configuración esté validada.

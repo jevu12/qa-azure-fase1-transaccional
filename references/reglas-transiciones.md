@@ -44,7 +44,7 @@ Cuando una US está en estado `Rejected`:
 - ❌ NO cambiar el estado de la US
 - ❌ NO agregar comentarios QA
 - ✅ Registrar en pipeline-state.json como `IGNORED` con motivo `"estado Rejected"`
-- ✅ Registrar en decisions_log con decisión `SKIP` y razón `"US en estado Rejected — no procesable"`
+- ✅ Registrar en decisions_log con decisión `SKIP`, `reason_code = US_NOT_PROCESSABLE_STATE` y razón `"US en estado Rejected — no procesable"`
 
 **Motivo:** Las historias rechazadas no deben recibir ninguna actividad QA.
 
@@ -60,7 +60,7 @@ Precondición obligatoria antes de transición `Ready for test -> Testing in pro
   - ❌ NO ejecutar Test Cases
   - ❌ NO crear Test Runs
   - ❌ NO cambiar estado de la US
-  - ✅ Registrar `SKIP` en `decisions_log` con motivo `EXECUTION_OWNERSHIP_MISMATCH`
+  - ✅ Registrar `SKIP` en `decisions_log` con `reason_code = EXECUTION_OWNERSHIP_MISMATCH`
   - ✅ Agregar comentario en la US solicitando reasignación explícita o ejecución por el owner actual
 
 #### Caso A — Sin Test Cases:

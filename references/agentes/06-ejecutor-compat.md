@@ -37,6 +37,34 @@ Antes de ejecutar TCs, verificar disponibilidad de automatización web:
 - Marcar ejecución como `BLOCKED` con motivo `dependencia_playwright_no_disponible`.
 - Registrar comentario en US con acción requerida.
 
+## Política anti-flaky (obligatoria)
+Antes de marcar un TC como `FAILED` o crear bug:
+- Reintentar el paso/validación fallida hasta `policies.flaky_retry_max_attempts` (recomendado: 2).
+- Si en reintento pasa: marcar resultado final `PASS_WITH_RETRY` en trazabilidad interna y `PASS` en ADO, registrando incidencia flaky.
+- Si persiste el fallo tras reintentos: marcar `FAILED` y habilitar flujo de bug.
+
+Regla:
+- No crear bug por fallo único no reproducible cuando el reintento controlado lo descarta.
+
+## Timeouts y retries operativos
+Aplicar límites para evitar bloqueos largos:
+- Timeout por paso: `policies.step_timeout_seconds` (recomendado: 30s).
+- Timeout por TC completo: `policies.test_case_timeout_seconds` (recomendado: 300s).
+- Retry por paso de interacción inestable: `policies.step_retry_max_attempts` (recomendado: 2).
+
+Si se supera timeout de paso o TC:
+- marcar `BLOCKED` o `FAILED` según evidencia,
+- registrar `reason_code = RETRY_EXHAUSTED` o causa específica en comentario.
+
+## Mascaramiento de datos sensibles en evidencias
+Antes de guardar/subir screenshots:
+- ocultar o difuminar datos sensibles visibles (tokens, passwords, cookies, PII).
+- aplicar reglas de `policies.evidence_masking` (patrones/labels/selectores).
+- evitar capturar pantallas con secretos en texto plano cuando exista alternativa.
+
+Ejemplos de patrones sensibles:
+- `password`, `token`, `authorization`, `bearer`, `cookie`, `set-cookie`, `documento`, `email`.
+
 ## Flujo paso a paso (operativo)
 1. Inicialización
 - Leer `inputs/project-config.json`.
@@ -145,6 +173,10 @@ El Ejecutor debe entregar estructura explícita para carga de evidencias:
 
 ## Reglas estrictas
 - Requiere autorización previa del Orquestador para ejecutar pruebas o mutaciones en Azure DevOps.
+- Aplicar contrato I/O estandar (`references/contrato-io-agentes.md`) y codigos de decision (`references/codigos-decision.md`).
+- Aplicar política anti-flaky antes de declarar `FAILED` o crear bug.
+- Respetar timeouts/retries por paso y por TC definidos en `policies`.
+- En evidencias, enmascarar datos sensibles antes de adjuntar o comentar.
 - Ejecutar gate de ownership antes de correr TCs: solo ejecutar si la QA Task de ejecución está asignada al usuario autenticado en el MCP de Azure DevOps.
 - Si `execution_owner != mcp_user`: NO ejecutar TCs, NO crear runs, NO cambiar estado de US, registrar `SKIP` con `EXECUTION_OWNERSHIP_MISMATCH` y comentar la US.
 - Solo permitir excepción con instrucción explícita del usuario o reasignación explícita y auditada.

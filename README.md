@@ -14,6 +14,7 @@ Skill para ejecutar la **Fase 1** del flujo QA en Azure DevOps: detección de ar
 Incluye:
 - Operación transaccional en Azure DevOps para análisis/diseño QA.
 - Reglas de idempotencia y control por estado.
+- Gobernanza de decisiones con catálogo de códigos y contrato I/O estándar por agente.
 
 No incluye:
 - Generación de código de automatización.
@@ -30,6 +31,8 @@ No incluye:
 - `references/reglas-idempotencia.md`: anti-duplicado/idempotencia.
 - `references/reglas-transiciones.md`: control por estado.
 - `references/contratos.md`: contratos y compatibilidad.
+- `references/codigos-decision.md`: catálogo unificado de códigos para `decisions_log`.
+- `references/contrato-io-agentes.md`: entradas/salidas/errores mínimos por agente.
 - `references/contracts/*.json`: contratos embebidos (portables).
 - `references/agentes/*.md`: catálogo operativo por agente (crear task, comentar, vincular, actualizar).
 - `references/agentes/09-templates-comentarios.md`: ejemplos listos de comentarios para US y QA Tasks.
@@ -62,6 +65,13 @@ ls ~/.codex/skills/qa-azure-fase1-transaccional
 4. Invoca la skill por nombre: `$qa-azure-fase1-transaccional`.
 5. Pide la operación para el sprint completo o una lista de US.
 6. Revisa el resumen de salida por US (CREATE/UPDATE/SKIP/BLOCK/ERROR).
+
+Modos soportados:
+- `full-pipeline`
+- `analysis-only`
+- `design-only`
+- `execution-only` (extensión de compatibilidad, requiere autorización del Orquestador)
+- `detection-only`
 
 ## Prompt recomendado (mejor inicio)
 ```text
@@ -116,4 +126,5 @@ evitar duplicados y adjuntar/comentar evidencias en US/TC/Bug.
 ## Buenas prácticas
 - Ejecuta primero en `detection-only` si quieres validar estado inicial.
 - Usa `analysis-only` o `design-only` para corridas acotadas.
+- Usa `execution-only` solo cuando el orquestador habilite extensión de ejecución/bugs/evidencias.
 - Si hay interrupciones, retoma desde `pipeline-state.json`.

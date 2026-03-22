@@ -17,6 +17,9 @@ Para comentarios de hallazgos, impedimentos y notificaciones de bug asignado, us
 Leer:
 - `project.name`, `project.area_path`, `project.iteration_path`
 - `policies.bug_confidence_threshold`, `policies.auto_create_bugs`
+- `policies.bug_confidence_by_classification` (configurable por equipo)
+- `policies.bug_severity_priority_matrix` (configurable por equipo)
+- `policies.bug_required_fields_by_type` (campos obligatorios por tipo de bug)
 - `naming_conventions.bug_title`
 - `qa_assignee.source`, `qa_assignee.email`
 
@@ -42,19 +45,29 @@ WHERE [System.WorkItemType] = 'Bug'
 Si hay equivalencia funcional: `SKIP` por duplicado.
 
 ### 3) Clasificar confianza
-Tabla base:
-- `bug_funcional`: 0.9
-- `bug_visual`: 0.8
-- `bug_performance`: 0.7
-- `flaky_test`: 0.3
-- `ambiente_problem`: 0.2
-- `data_problem`: 0.4
-- `automation_error`: 0.1
-- `blocked_by_dependency`: 0.5
-
 Regla:
+- Usar valores desde `policies.bug_confidence_by_classification` en `project-config.json`.
+- Si falta una clasificación, aplicar fallback conservador `0.4` y registrar advertencia.
 - `confidence >= threshold` -> crear bug
 - `confidence < threshold` -> comentar hallazgo en US, sin crear bug
+
+Ejemplo esperado en `project-config.json`:
+```json
+{
+  "policies": {
+    "bug_confidence_by_classification": {
+      "bug_funcional": 0.9,
+      "bug_visual": 0.8,
+      "bug_performance": 0.7,
+      "flaky_test": 0.3,
+      "ambiente_problem": 0.2,
+      "data_problem": 0.4,
+      "automation_error": 0.1,
+      "blocked_by_dependency": 0.5
+    }
+  }
+}
+```
 
 ### 4) Resolver asignación del bug (obligatorio)
 Objetivo: asignar al desarrollador y no al usuario autenticado en el MCP de Azure DevOps, salvo ausencia total de candidato.
@@ -77,6 +90,13 @@ Campos mínimos:
 - `Microsoft.VSTS.Common.Priority`
 - `System.AssignedTo` (si `bug_assignee` resuelto)
 
+Validación obligatoria por tipo de bug:
+- Antes de crear, validar `policies.bug_required_fields_by_type`.
+- Si falta un campo requerido para el tipo detectado:
+  - no crear bug automático,
+  - registrar `BLOCK` con `reason_code = CONTRACT_VALIDATION_FAILED`,
+  - comentar en US campos faltantes.
+
 ### 6) Vincular bug
 - Bug -> US (`System.LinkTypes.Related`)
 - Bug -> TC (`Microsoft.VSTS.Common.TestedBy-Reverse`)
@@ -96,6 +116,23 @@ Registrar:
 - `bugs_created[]` con `bug_id`, `tc_id`, `us_id`, `severity`, `confidence`, `bug_assignee`, `assignee_source`
 - `bugs_skipped[]`
 - `impediments_registered[]`
+
+## Regla de reabrir vs crear nuevo (obligatoria)
+- Reabrir bug existente cuando hay equivalencia funcional y bug previo `Resolved|Closed`.
+- Crear nuevo bug cuando el síntoma/causa es materialmente diferente o no hay trazabilidad suficiente.
+- Registrar decisión con `reason_code` explícito (`ALREADY_EXISTS_EQUIVALENT` o causa de bug nuevo).
+
+## Criterio mínimo de enriquecimiento del bug (obligatorio)
+No crear bug si no incluye, como mínimo:
+- `failed_step` (paso exacto),
+- `evidence_file` o referencia directa a evidencia,
+- `expected_behavior`,
+- `actual_behavior`.
+
+Si falta cualquiera:
+- registrar `BLOCK`/`SKIP` según política,
+- solicitar datos faltantes,
+- no crear bug automático.
 
 ## Template recomendado de ReproSteps (HTML)
 ```html
@@ -131,6 +168,7 @@ Registrar:
 
 ## Reglas estrictas
 - Requiere autorización previa del Orquestador para ejecutar mutaciones en Azure DevOps.
+- Aplicar contrato I/O estandar (`references/contrato-io-agentes.md`) y codigos de decision (`references/codigos-decision.md`).
 - Verificar duplicados antes de crear.
 - Nunca crear bug bajo umbral.
 - Vincular siempre a US y TC.

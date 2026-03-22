@@ -3,6 +3,47 @@
 Este archivo consolida plantillas de comentarios listas para usar en Azure DevOps.
 Se recomienda mantener siempre la firma del agente y el timestamp en formato ISO.
 
+## Versionado de plantillas (obligatorio)
+
+Todas las plantillas deben incluir `template_version` para trazabilidad.
+Formato recomendado en el encabezado:
+
+```md
+[Agente] — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
+```
+
+Valor recomendado inicial:
+- `template_version = v1.0.0`
+
+## Diccionario único de placeholders (obligatorio)
+
+Placeholders base transversales:
+- `timestamp`
+- `template_version`
+- `execution_id`
+- `us_id`
+- `us_title`
+- `project`
+- `iteration`
+- `agent_name`
+
+Placeholders frecuentes por ejecución:
+- `qa_task_analisis_id`
+- `qa_task_diseno_id`
+- `qa_task_ejecucion_id`
+- `tc_id`
+- `scenario_id`
+- `bug_id`
+- `failed_step`
+- `result`
+- `evidence_file`
+- `evidence_path`
+
+Regla:
+- No publicar plantilla con placeholders no resueltos.
+- Si falta un placeholder crítico, registrar `BLOCK` y solicitar dato faltante.
+
 ## Criterios de estilo aplicados
 
 - Tono más profesional y corporativo.
@@ -16,6 +57,7 @@ Se recomienda mantener siempre la firma del agente y el timestamp en formato ISO
 
 ```md
 Ingestor QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
 
 Estado: US bloqueada para QA
 
@@ -35,6 +77,7 @@ Pipeline: [execution_id]
 
 ```md
 Orquestador QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
 
 Actualización de estado: Ready for test → Testing in progress
 
@@ -48,6 +91,7 @@ Se inicia la ejecución de pruebas QA con el siguiente alcance:
 
 ```md
 Análisis QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
 
 Inicio de análisis QA bajo lineamientos ISTQB
 
@@ -63,6 +107,7 @@ Esta tarea será actualizada con el análisis correspondiente en formato HTML.
 
 ```md
 Análisis QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
 
 Análisis completado
 
@@ -80,6 +125,7 @@ Resumen:
 
 ```md
 Diseñador QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
 
 Diseño de casos de prueba completado
 
@@ -102,6 +148,7 @@ Validaciones realizadas:
 
 ```md
 Ejecutor QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
 
 Ejecución de casos de prueba finalizada
 
@@ -122,6 +169,9 @@ Ruta de evidencias: outputs/evidencias/[YYYY-MM-DD]/
 ## 7) Comentario final en US al completar ejecución (Ejecutor)
 
 ```md
+Ejecutor QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
+
 ## Resumen de ejecución QA — Agente Ejecutor
 **Fecha:** [YYYY-MM-DD] | **Sprint:** [iteration] | **Período de prueba:** [periodo]
 
@@ -151,6 +201,7 @@ Ruta: `outputs/evidencias/[YYYY-MM-DD]/`
 
 ```md
 Orquestador QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
 
 Resultado de validación QA: defectos identificados
 
@@ -180,6 +231,7 @@ Pipeline: [execution_id]
 
 ```md
 Bug Reporter — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
 
 Bug creado y asignado
 
@@ -197,6 +249,7 @@ Criterio aplicado:
 
 ```md
 Orquestador QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
 
 Validación QA completada satisfactoriamente
 
@@ -219,6 +272,7 @@ Pipeline: [execution_id]
 
 ```md
 [Orquestador QA|Bug Reporter] — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
 
 Impedimento identificado
 
@@ -228,6 +282,52 @@ Motivo: [detalle]
 
 Acción requerida:
 - [acción concreta para desbloquear]
+
+Pipeline: [execution_id]
+```
+
+## 11) Comentario de ownership mismatch en ejecución (Orquestador)
+
+```md
+Orquestador QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
+
+Ejecución omitida por ownership QA
+
+US: #[us_id]
+Estado US: [us_state]
+QA Task ejecución: #[qa_task_ejecucion_id]
+Owner ejecución: [execution_owner]
+Usuario MCP actual: [mcp_user]
+
+Decisión:
+- SKIP por `EXECUTION_OWNERSHIP_MISMATCH`
+
+Acción requerida:
+- Reasignar explícitamente la task de ejecución al QA owner correcto o solicitar ejecución explícita fuera de ownership.
+
+Pipeline: [execution_id]
+```
+
+## 12) Comentario de bloqueo MCP (Orquestador)
+
+```md
+Orquestador QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
+
+Bloqueo de pipeline por conectividad/permisos MCP
+
+Proyecto: [project]
+Sprint: [iteration]
+Motivo técnico: [mcp_error]
+Reason Code: [MCP_NOT_AVAILABLE|PROJECT_NOT_ACCESSIBLE|ITERATION_NOT_ACCESSIBLE|MCP_IDENTITY_UNRESOLVED]
+
+Impacto:
+- No se ejecutaron mutaciones en Azure DevOps.
+
+Acción requerida:
+- Validar conexión MCP, permisos del proyecto/sprint e identidad autenticada.
+- Reintentar ejecución cuando el preflight MCP sea exitoso.
 
 Pipeline: [execution_id]
 ```

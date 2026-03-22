@@ -63,7 +63,10 @@ Toda acción ejecutada por un agente DEBE registrarse en `decisions_log` del pip
   "us_state": "Ready for test",
   "agent": "nombre_del_agente",
   "decision": "CREATE | UPDATE | SKIP | BLOCK | ERROR",
+  "decision_code": "CREATE_NEW | UPDATE_EXISTING | SKIP_NO_ACTION | BLOCK_PROCESS | ERROR_RUNTIME",
   "reason": "Motivo claro de la decisión",
+  "reason_code": "Catalogo en references/codigos-decision.md",
+  "error_code": "Opcional, obligatorio si decision=ERROR",
   "execution_task_id": 67892,
   "execution_task_state": "New",
   "test_cases_ready": 8,
@@ -83,6 +86,8 @@ Regla obligatoria de consistencia:
   - `mcp_user`
   - `ownership_check`
   - `skip_reason_code`
+- Todo `SKIP|BLOCK|ERROR` debe registrar `reason_code` del catalogo central.
+- Todo `ERROR` debe registrar `error_code`.
 
 ### 2.2 Umbral de confianza para bugs
 La creación automática de bugs requiere superar el umbral definido en `policies.bug_confidence_threshold`.

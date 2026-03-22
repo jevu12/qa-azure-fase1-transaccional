@@ -28,6 +28,7 @@ No crear bug si confianza < `policies.bug_confidence_threshold`.
 ## Regla de orquestación obligatoria
 - Requiere autorización previa del Orquestador para ejecutar acciones en Azure DevOps.
 - No crear/actualizar bugs ni comentarios si no existe decisión previa del Orquestador en `decisions_log`.
+- Aplicar contrato I/O estandar (`references/contrato-io-agentes.md`) y codigos de decision (`references/codigos-decision.md`).
 
 ## Regla obligatoria de asignación de bug
 Al crear un bug, `System.AssignedTo` NO debe quedar en el usuario autenticado en el MCP de Azure DevOps si existe un desarrollador candidato.
@@ -43,3 +44,36 @@ Algoritmo:
 
 Regla de trazabilidad:
 - Registrar en `pipeline-state` el `bug_assignee` resuelto y la `assignee_source` (`us_revisions`, `us_current`, `fallback_manual`, `none`).
+
+## Matriz de severidad/prioridad por tipo de falla (base)
+| Tipo de falla | Severidad sugerida | Prioridad sugerida |
+|---|---|---|
+| Bloqueo total de flujo crítico | 1 - Critical | 1 |
+| Error funcional crítico con workaround nulo | 1 - Critical | 1 |
+| Error funcional alto impacto con workaround parcial | 2 - High | 2 |
+| Error de validación/media | 3 - Medium | 2 |
+| Defecto visual menor/no bloqueante | 4 - Low | 3 |
+| Issue de datos no crítico | 3 - Medium | 2 |
+
+Regla:
+- Si el proyecto define matriz propia en `project-config`, usar la del proyecto sobre esta base.
+
+## Regla explícita: reabrir bug existente vs crear nuevo
+- Reabrir bug existente cuando:
+  - hay evidencia funcionalmente equivalente,
+  - el bug está en `Resolved|Closed`,
+  - misma US/TC/causa raíz probable.
+- Crear bug nuevo cuando:
+  - el síntoma o causa difiere de forma material,
+  - cambió contexto funcional o criterio afectado,
+  - no existe trazabilidad suficiente para reabrir de forma segura.
+
+## Evidencia mínima obligatoria para crear bug
+Todo bug creado debe incluir referencia concreta a evidencia:
+- `evidence_file` (ruta/archivo),
+- `failed_step` (número de paso),
+- `actual` y `expected` resumidos.
+
+Si falta evidencia concreta:
+- no crear bug automático,
+- registrar hallazgo con `BLOCK` o `SKIP` según política y solicitar evidencia faltante.

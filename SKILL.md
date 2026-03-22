@@ -17,18 +17,26 @@ No uses esta skill para generación de código, PR automation, Appium o clasific
 ## Entradas esperadas
 - `project` (nombre del proyecto ADO)
 - `iteration_path` (sprint completo)
-- `mode` (`full-pipeline`, `analysis-only`, `design-only`, `detection-only`)
+- `mode` (`full-pipeline`, `analysis-only`, `design-only`, `execution-only`, `detection-only`)
 - `user_stories` opcional (lista de IDs; vacío = todas del sprint)
 
 Fuente de configuración obligatoria: `inputs/project-config.json`.
 Guía general de configuración: `references/guia-configuracion-general.md`.
 Templates recomendados: `templates/project-config.template.json` y `templates/.env.template`.
 
+## Modos de ejecución unificados
+- `full-pipeline`: detección + ingesta + análisis + diseño (+ ejecución/bugs/evidencias solo si hay instrucción explícita de extensión compat).
+- `analysis-only`: detección + ingesta + análisis.
+- `design-only`: detección + ingesta + diseño.
+- `execution-only`: extensión de compatibilidad para ejecución/reporter/evidencias (requiere autorización del Orquestador).
+- `detection-only`: solo detección y diagnóstico.
+
 ## Proceso obligatorio (orden estricto)
 1. Cargar y validar configuración
 - Leer `inputs/project-config.json`.
 - Validar: `organization.url`, `project.name`, `project.team`, `project.iteration_path`, `execution.mode`.
 - Resolver `sprint_full_path` desde `project.iteration_path`.
+- Si falta `project-config.json`: bloquear (`CONFIG_INVALID`), salvo `detection-only` con instrucción explícita de fallback a `inputs/us-list.md`.
 
 2. Verificar MCP Azure DevOps (obligatorio)
 - Confirmar disponibilidad MCP con lectura simple de proyectos.
@@ -46,6 +54,7 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - Solo después de esta validación, el orquestador puede delegar la ejecución a un agente especializado.
 
 4. Cargar estado compartido
+- Activar lock de concurrencia para `outputs/pipeline-state.json`.
 - Leer `outputs/pipeline-state.json`.
 - Si no existe, inicializar según contrato de `references/contratos.md`.
 - Si existe pero es de otro proyecto/sprint, iniciar nueva ejecución.
@@ -73,7 +82,7 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 
 9. Persistencia y auditoría
 - Actualizar `outputs/pipeline-state.json` por etapa.
-- Registrar toda decisión en `decisions_log` con motivo y artefactos afectados.
+- Registrar toda decisión en `decisions_log` con motivo, códigos y artefactos afectados.
 
 ## Reglas obligatorias
 - Idempotencia primero: nunca crear sin detectar antes.
@@ -82,7 +91,10 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - No mutaciones sin MCP validado: si la verificación MCP falla, solo diagnóstico (`BLOCK`).
 - Ningún agente puede ejecutarse directamente sobre Azure DevOps sin autorización previa del QA Orchestrator Service.
 - No ejecutar acciones fuera del estado permitido.
+- Si falta información crítica de testabilidad, usar `next_action = WAIT_USER_INPUT` y no mutar hasta resolverla.
 - Mantener `AreaPath` e `IterationPath` alineados con la US.
+- Aplicar contrato I/O estándar por agente (`references/contrato-io-agentes.md`).
+- Usar catálogo de códigos de decisión (`references/codigos-decision.md`) en `decisions_log`.
 - En creación de bugs: asignar al último usuario asignado de la US que sea distinto al usuario autenticado en el MCP de Azure DevOps; aplicar fallback documentado si no existe candidato.
 - Para comentarios automáticos (US, QA Tasks, bugs, impedimentos): usar como estándar `references/agentes/09-templates-comentarios.md`.
 
@@ -93,18 +105,20 @@ Detalles normativos: leer en este orden:
 4. `references/reglas-decision.md`
 5. `references/reglas-idempotencia.md`
 6. `references/reglas-transiciones.md`
-7. `references/contratos.md`
-8. `references/agentes/00-matriz-acciones.md`
-9. `references/agentes/01-orquestador-fase1.md`
-10. `references/agentes/02-detector-artefactos-fase1.md`
-11. `references/agentes/03-ingestor-fase1.md`
-12. `references/agentes/04-analisis-fase1.md`
-13. `references/agentes/05-diseno-fase1.md`
-14. `references/agentes/06-ejecutor-compat.md`
-15. `references/agentes/07-reporter-bugs-compat.md`
-16. `references/agentes/08-gestor-evidencias-compat.md`
-17. `references/agentes/09-templates-comentarios.md`
-18. `references/agentes/10-reporter-bugs-detallado.md`
+7. `references/codigos-decision.md`
+8. `references/contrato-io-agentes.md`
+9. `references/contratos.md`
+10. `references/agentes/00-matriz-acciones.md`
+11. `references/agentes/01-orquestador-fase1.md`
+12. `references/agentes/02-detector-artefactos-fase1.md`
+13. `references/agentes/03-ingestor-fase1.md`
+14. `references/agentes/04-analisis-fase1.md`
+15. `references/agentes/05-diseno-fase1.md`
+16. `references/agentes/06-ejecutor-compat.md`
+17. `references/agentes/07-reporter-bugs-compat.md`
+18. `references/agentes/08-gestor-evidencias-compat.md`
+19. `references/agentes/09-templates-comentarios.md`
+20. `references/agentes/10-reporter-bugs-detallado.md`
 
 ## Fuera de alcance explícito
 - Generación de código de automatización.

@@ -40,6 +40,23 @@ Si la historia no es clara o no es testeable:
 - no diseñar casos cerrados;
 - registrar preguntas y dejar la task en estado de espera controlada.
 
+## Estandar de `scenario_id` (obligatorio)
+Formato canónico:
+- `ESC-{TIPO}-{DOM}-{NN}`
+- `TIPO`: `HP|ALT|NEG|NFR|REG|CONF`
+- `DOM`: `UI|API|DAT|INT|UX|COMP|ADAPT|INST|A11Y|SEC|PERF`
+- `NN`: correlativo de 2 o 3 dígitos por US.
+
+Ejemplos:
+- `ESC-HP-UI-01`
+- `ESC-NEG-API-03`
+- `ESC-REG-DAT-02`
+
+Reglas de unicidad:
+- `scenario_id` debe ser único por US.
+- No reutilizar `scenario_id` para escenarios con intención distinta.
+- Si existe colisión, crear nuevo correlativo y registrar `reason_code = ALREADY_EXISTS_EQUIVALENT` para el original detectado.
+
 ## Campos obligatorios por Test Case
 Cada TC debe terminar en `Ready` con estos campos:
 - `System.Title`
@@ -89,6 +106,19 @@ Campo prohibido para TC en este flujo:
 - HTML puro (no markdown).
 - Debe contener: información del caso, precondiciones, datos de prueba, resultado esperado final y criterio de aceptación cubierto.
 
+## Trazabilidad obligatoria AC -> condición -> TC
+Cada TC debe incluir trazabilidad explícita en tabla (en `System.Description` o bloque equivalente):
+
+| AC | Condición de prueba | TC |
+|---|---|---|
+| AC-01 | CP-01 | ESC-HP-UI-01 |
+| AC-02 | CP-03 | ESC-NEG-API-03 |
+
+Reglas:
+- Ningún TC sin condición de prueba asociada.
+- Ninguna condición de prueba sin AC de origen.
+- Cierre de diseño bloqueado si falta trazabilidad completa.
+
 ## Flujo detallado
 1. Leer análisis (`qa_task_analisis_id`) y US base.
 2. Cambiar QA Task diseño a `Doing`.
@@ -116,6 +146,31 @@ Regla de secuencia:
 - diseñar primero casos de alto nivel;
 - desglosar después en casos de bajo nivel ejecutables.
 
+## Cobertura mínima por ISTQB/dominio/riesgo
+Aplicar mínimos base por US (ajustables por `policies`):
+
+1. Historia funcional (riesgo medio)
+- HP >= 2
+- ALT >= 1
+- NEG >= 2
+
+2. Historia funcional (riesgo alto)
+- HP >= 3
+- ALT >= 2
+- NEG >= 3
+
+3. API
+- mínimo 1 HP + 1 NEG de autenticación + 1 NEG de contrato/errores por endpoint crítico.
+
+4. Datos
+- mínimo 1 caso por operación CRUD relevante + 1 validación de integridad/consistencia.
+
+5. No funcional
+- definir mínimo 1 caso por atributo declarado en la US (A11Y, seguridad, performance, etc.).
+
+6. Change-related (bugfix/cambio)
+- incluir mínimo 1 caso de confirmation y 1 caso de regression por área impactada.
+
 ## Reglas por tipo de historia
 1. API
 - Diseñar validación funcional del servicio.
@@ -137,6 +192,7 @@ Regla de secuencia:
 
 ## Reglas duras
 - Requiere autorización previa del Orquestador para ejecutar mutaciones en Azure DevOps.
+- Aplicar contrato I/O estandar (`references/contrato-io-agentes.md`) y codigos de decision (`references/codigos-decision.md`).
 - No usar `testplan_create_test_case`.
 - No dejar TC en `Design`.
 - No cerrar si falta algún campo obligatorio.

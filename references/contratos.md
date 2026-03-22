@@ -7,6 +7,10 @@ Esta skill es portable: todos los contratos requeridos viven dentro de `referenc
 - `references/contracts/execution-outcome.schema.json`
 - `references/contracts/bug-draft.schema.json`
 
+Estandares transversales complementarios:
+- `references/contrato-io-agentes.md`
+- `references/codigos-decision.md`
+
 ## Contratos mínimos usados en Fase 1
 
 ### PipelineState
@@ -28,3 +32,4 @@ Esta skill es portable: todos los contratos requeridos viven dentro de `referenc
 
 ## Requisito de consistencia
 Toda escritura en `pipeline-state.json` debe mantener compatibilidad con `references/contracts/pipeline-state.schema.json`.
+Adicionalmente, `decisions_log` debe usar codigos del catalogo en `references/codigos-decision.md`.

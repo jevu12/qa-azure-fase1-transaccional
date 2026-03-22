@@ -352,3 +352,20 @@ Todos los parámetros provienen de `inputs/project-config.json`:
 | `policies.*` | config | Reglas de negocio y umbrales |
 | `naming_conventions.*` | config | Nombres de artefactos |
 | `fields_mapping.*` | config | Campos custom del proyecto |
+
+---
+
+## 8. Estandar de codigos en decisions_log
+
+Toda decision registrada por el motor debe usar:
+- `decision_code`
+- `reason_code`
+- `error_code` (si `decision = ERROR`)
+
+Fuente normativa:
+- `references/codigos-decision.md`
+
+Reglas:
+- `SKIP` y `BLOCK` siempre con `reason_code`.
+- `ERROR` siempre con `error_code`.
+- No usar codigos ad-hoc fuera del catalogo sin actualizar el documento central.
