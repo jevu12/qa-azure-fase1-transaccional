@@ -25,6 +25,10 @@ Este archivo (`07`) funciona como resumen rápido de compatibilidad.
 ## Regla clave
 No crear bug si confianza < `policies.bug_confidence_threshold`.
 
+## Regla de orquestación obligatoria
+- Requiere autorización previa del Orquestador para ejecutar acciones en Azure DevOps.
+- No crear/actualizar bugs ni comentarios si no existe decisión previa del Orquestador en `decisions_log`.
+
 ## Regla obligatoria de asignación de bug
 Al crear un bug, `System.AssignedTo` NO debe quedar en el usuario autenticado en el MCP de Azure DevOps si existe un desarrollador candidato.
 

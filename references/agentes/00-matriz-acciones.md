@@ -31,6 +31,8 @@ o gestión de defectos/evidencias.
 | GestorEvidencias | Inventaría evidencias por patrón, evita duplicados, sube/adjunta y comenta trazabilidad |
 
 ## Reglas transversales
+- Toda ejecución de agente especializado requiere autorización previa del Orquestador (QA Orchestrator Service).
+- Ningún agente especializado puede operar directo en Azure DevOps sin decisión previa en `decisions_log`.
 - Detectar antes de crear (idempotencia).
 - No duplicar artefactos equivalentes.
 - Usar identidad MCP (`qa_assignee.source`).

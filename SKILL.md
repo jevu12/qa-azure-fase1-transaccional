@@ -36,33 +36,42 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - Resolver usuario autenticado MCP para reglas de asignación/ownership.
 - Si falla cualquier validación MCP: detener mutaciones y devolver `BLOCK` con diagnóstico.
 
-3. Cargar estado compartido
+3. QA Orchestrator Service (obligatorio)
+- Consultar estado actual de la User Story.
+- Validar si la historia es procesable según las reglas del flujo.
+- Verificar tareas QA, casos de prueba, suites, ejecuciones, bugs, comentarios y evidencias existentes.
+- Aplicar reglas de idempotencia, deduplicación y gobernanza.
+- Decidir si corresponde ejecutar una acción, omitirla o continuar desde un punto previo.
+- Seleccionar el agente adecuado y el foco de ejecución.
+- Solo después de esta validación, el orquestador puede delegar la ejecución a un agente especializado.
+
+4. Cargar estado compartido
 - Leer `outputs/pipeline-state.json`.
 - Si no existe, inicializar según contrato de `references/contratos.md`.
 - Si existe pero es de otro proyecto/sprint, iniciar nueva ejecución.
 
-4. Obtener US objetivo
+5. Obtener US objetivo
 - Si `execution.user_stories` trae IDs, usar esa lista.
 - Si viene vacío, consultar US del sprint en Azure DevOps.
 
-5. Detección por US (siempre antes de crear)
+6. Detección por US (siempre antes de crear)
 - Leer US completa con relaciones.
 - Detectar: QA Tasks hijas, Test Cases vinculados, Suite/Plan relacionados, comentarios QA, evidencias.
 - Registrar hallazgos en `stages.deteccion` y `decisions_log`.
 
-6. Validaciones de elegibilidad
+7. Validaciones de elegibilidad
 - Estado permitido: aplicar reglas de `references/reglas-transiciones.md` y `references/reglas-decision.md`.
 - Contenido mínimo: `description` y criterios de aceptación.
 - Filtro técnico: `execution.exclude_technical_keywords`.
 
-7. Acciones transaccionales de Fase 1
+8. Acciones transaccionales de Fase 1
 - Crear QA Tasks faltantes (análisis, diseño, ejecución) como hijas de la US.
 - Crear/ubicar Test Plan y Test Suite del sprint.
 - Crear Test Cases faltantes.
 - Vincular Test Cases a US (Tests/Tested By) y a QA Task de diseño (Related).
 - Completar artefactos parciales; nunca recrear artefactos completos.
 
-8. Persistencia y auditoría
+9. Persistencia y auditoría
 - Actualizar `outputs/pipeline-state.json` por etapa.
 - Registrar toda decisión en `decisions_log` con motivo y artefactos afectados.
 
@@ -71,6 +80,7 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - Anti-duplicado por título/patrón/relación de negocio.
 - No operaciones destructivas: no eliminar artefactos existentes.
 - No mutaciones sin MCP validado: si la verificación MCP falla, solo diagnóstico (`BLOCK`).
+- Ningún agente puede ejecutarse directamente sobre Azure DevOps sin autorización previa del QA Orchestrator Service.
 - No ejecutar acciones fuera del estado permitido.
 - Mantener `AreaPath` e `IterationPath` alineados con la US.
 - En creación de bugs: asignar al último usuario asignado de la US que sea distinto al usuario autenticado en el MCP de Azure DevOps; aplicar fallback documentado si no existe candidato.

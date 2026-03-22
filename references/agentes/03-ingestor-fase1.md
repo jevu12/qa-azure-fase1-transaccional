@@ -90,6 +90,7 @@ Compatibilidad:
 ```
 
 ## Reglas estrictas
+- Requiere autorización previa del Orquestador para ejecutar mutaciones en Azure DevOps.
 - No crear tasks duplicadas.
 - No hardcodear proyecto/sprint/assignee.
 - No procesar US técnicas.

@@ -144,6 +144,7 @@ El Ejecutor debe entregar estructura explícita para carga de evidencias:
 - evidencias generadas
 
 ## Reglas estrictas
+- Requiere autorización previa del Orquestador para ejecutar pruebas o mutaciones en Azure DevOps.
 - Ejecutar gate de ownership antes de correr TCs: solo ejecutar si la QA Task de ejecución está asignada al usuario autenticado en el MCP de Azure DevOps.
 - Si `execution_owner != mcp_user`: NO ejecutar TCs, NO crear runs, NO cambiar estado de US, registrar `SKIP` con `EXECUTION_OWNERSHIP_MISMATCH` y comentar la US.
 - Solo permitir excepción con instrucción explícita del usuario o reasignación explícita y auditada.

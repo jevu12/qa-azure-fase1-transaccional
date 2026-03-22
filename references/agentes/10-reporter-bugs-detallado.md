@@ -130,6 +130,7 @@ Registrar:
 ```
 
 ## Reglas estrictas
+- Requiere autorización previa del Orquestador para ejecutar mutaciones en Azure DevOps.
 - Verificar duplicados antes de crear.
 - Nunca crear bug bajo umbral.
 - Vincular siempre a US y TC.

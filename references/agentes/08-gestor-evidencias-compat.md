@@ -49,3 +49,7 @@ Clasificar cada archivo por patrón:
 
 ## Regla clave
 Nunca subir dos veces el mismo archivo al mismo destino.
+
+## Regla de orquestación obligatoria
+- Requiere autorización previa del Orquestador para adjuntar evidencias o comentar en Azure DevOps.
+- No ejecutar cargas/adjuntos directos sin decisión previa en `decisions_log`.

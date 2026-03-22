@@ -17,6 +17,7 @@ Detectar TODO lo existente antes de cualquier creación.
 
 ## Regla dura
 - No crea ni modifica nada; solo reporta.
+- Solo se ejecuta por invocación del Orquestador (no ejecución directa autónoma).
 
 ## Salida mínima
 Objeto de artefactos existentes por US para motor de decisiones.

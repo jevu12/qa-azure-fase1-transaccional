@@ -29,6 +29,17 @@ Leer `inputs/project-config.json` y usar:
 
 Si existe `references/configuracion-app.md`, usarla para navegación y roles.
 
+## Entrada obligatoria desde Análisis
+Antes de diseñar TCs, consumir y respetar:
+- tipo ISTQB primario de la US.
+- dominio operativo de la US.
+- condiciones de prueba derivadas de criterios de aceptación.
+- preguntas abiertas de testabilidad (si existen).
+
+Si la historia no es clara o no es testeable:
+- no diseñar casos cerrados;
+- registrar preguntas y dejar la task en estado de espera controlada.
+
 ## Campos obligatorios por Test Case
 Cada TC debe terminar en `Ready` con estos campos:
 - `System.Title`
@@ -91,7 +102,41 @@ Campo prohibido para TC en este flujo:
 10. Actualizar resumen de QA Task diseño y cerrar en estado final del proyecto.
 11. Actualizar `pipeline-state` y reporte de diseño.
 
+## Diseño basado en riesgo y técnicas ISTQB
+Aplicar técnicas según el riesgo y naturaleza de la historia:
+- EP/BVA para entradas y rangos.
+- Decision Table para reglas de negocio.
+- State Transition para máquinas/estados.
+- Scenario-Based para flujos end-to-end.
+- CRUD para ciclo de vida de datos.
+- Domain/Combinatorial para múltiples parámetros.
+- Exploratory/Checklist/Error Guessing como complemento.
+
+Regla de secuencia:
+- diseñar primero casos de alto nivel;
+- desglosar después en casos de bajo nivel ejecutables.
+
+## Reglas por tipo de historia
+1. API
+- Diseñar validación funcional del servicio.
+- Cubrir errores, autenticación/autorización, contratos y transformaciones.
+
+2. Datos
+- Diseñar validación de integridad, CRUD, transformaciones, consistencia y formato.
+
+3. No funcional
+- Diseñar criterios y casos por atributo:
+  - usabilidad/accesibilidad
+  - adaptabilidad/instalación
+  - interoperabilidad
+  - performance/seguridad/confiabilidad (especializado o escalado)
+
+4. Change-related (cambio/bugfix)
+- Añadir obligatoriamente confirmation testing.
+- Añadir regression testing proporcional al impacto/riesgo.
+
 ## Reglas duras
+- Requiere autorización previa del Orquestador para ejecutar mutaciones en Azure DevOps.
 - No usar `testplan_create_test_case`.
 - No dejar TC en `Design`.
 - No cerrar si falta algún campo obligatorio.
@@ -99,3 +144,4 @@ Campo prohibido para TC en este flujo:
 - No usar valores `Yes/No` en campos custom esperados en español (`Si/No`).
 - Si `Custom.Component` no se puede inferir, pedir valor al usuario antes de crear.
 - Nunca sobrescribir `System.AssignedTo` en QA Tasks existentes si ya está asignada a otro usuario distinto al autenticado en MCP de Azure DevOps, salvo instrucción explícita del usuario.
+- Siempre convertir criterios de aceptación en condiciones de prueba trazables en los TCs.
