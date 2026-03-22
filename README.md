@@ -47,6 +47,12 @@ No incluye:
 - Permisos para leer/escribir Work Items, Test Plans, Test Suites y Test Cases.
 
 ## Instalación desde GitHub
+Instalación rápida:
+```bash
+npx skills add https://github.com/jevu12/qa-azure-fase1-transaccional
+```
+
+Instalación manual:
 ```bash
 git clone https://github.com/jevu12/qa-azure-fase1-transaccional.git
 mkdir -p ~/.codex/skills/qa-azure-fase1-transaccional
