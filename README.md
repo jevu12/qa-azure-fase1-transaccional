@@ -9,6 +9,7 @@ Skill para ejecutar la **Fase 1** del flujo QA en Azure DevOps: detección de ar
 - Vincula US <-> Task <-> Test Case.
 - Registra decisiones auditables en `decisions_log` y actualiza `outputs/pipeline-state.json`.
 - En bugs (fases de ejecución): resuelve asignación al último responsable de la US distinto al QA autenticado en MCP.
+- En ejecución (compat): aplica `execute_and_publish` por historia (resolver contexto, test points, run planificado, publicar resultados, cerrar run, trazar runId/URL).
 
 ## Alcance
 Incluye:
@@ -68,9 +69,10 @@ ls ~/.codex/skills/qa-azure-fase1-transaccional
 1. Sigue `references/guia-configuracion-general.md`.
 2. Copia `templates/project-config.template.json` a `inputs/project-config.json` y ajusta valores.
 3. Copia `templates/.env.template` a `.env` y completa URLs/credenciales.
-4. Invoca la skill por nombre: `$qa-azure-fase1-transaccional`.
-5. Pide la operación para el sprint completo o una lista de US.
-6. Revisa el resumen de salida por US (CREATE/UPDATE/SKIP/BLOCK/ERROR).
+4. Si usarás PAT, define `AZURE_DEVOPS_EXT_PAT` en `.env` y configura `auth.mode=pat` o `auto`.
+5. Invoca la skill por nombre: `$qa-azure-fase1-transaccional`.
+6. Pide la operación para el sprint completo o una lista de US.
+7. Revisa el resumen de salida por US (CREATE/UPDATE/SKIP/BLOCK/ERROR).
 
 Modos soportados:
 - `full-pipeline`

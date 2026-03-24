@@ -20,11 +20,20 @@ Esta guía define **dónde configurar** y **qué configurar** para usar la skill
 - `project.name`, `project.team`, `project.iteration_path`, `project.area_path`
 
 ### 2.2 Asignación QA
+- `auth.mode`: `auto` (recomendado), `interactive` o `pat`
+- `auth.pat_env`: variable de entorno del PAT (`AZURE_DEVOPS_EXT_PAT`)
+- `identity.source`: `mcp_authenticated_user` (recomendado)
 - `qa_assignee.source`: `mcp_authenticated_user` (recomendado) o `manual`
 - `qa_assignee.email`, `qa_assignee.name` (si `manual`)
 
+Compatibilidad:
+- `identity.source` define la identidad operativa transversal.
+- `qa_assignee.*` se mantiene para compatibilidad con configuraciones anteriores.
+
 ### 2.3 Ejecución
 - `execution.mode`: `full-pipeline`, `analysis-only`, `design-only`, `execution-only`, `detection-only`
+- `execution.publish_to_execute`: habilita publicación de resultados al flujo `execute_and_publish`
+- `execution.resolve_context_from_story`: obliga resolver `planId/suiteId/testCaseIds` desde la US antes de publicar
 - `execution.user_stories`: IDs específicos o vacío para todo el sprint
 - `execution.exclude_technical_keywords`
 
@@ -57,6 +66,7 @@ Parámetros recomendados adicionales:
 Variables sugeridas mínimas:
 - `APP_BASE_URL`, `APP_LOGIN_URL`
 - `USER_<ROL>`, `PASS_<ROL>` para cada rol definido en `project-config.json`
+- `AZURE_DEVOPS_EXT_PAT` (solo si `auth.mode=pat` o `auto` con PAT)
 
 Regla:
 - nunca guardar credenciales reales en la skill o en archivos versionados.

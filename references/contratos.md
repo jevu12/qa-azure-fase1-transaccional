@@ -10,6 +10,7 @@ Esta skill es portable: todos los contratos requeridos viven dentro de `referenc
 Estandares transversales complementarios:
 - `references/contrato-io-agentes.md`
 - `references/codigos-decision.md`
+- `references/agentes/11-execute-and-publish-generico.md`
 
 ## Contratos mínimos usados en Fase 1
 
@@ -17,6 +18,7 @@ Estandares transversales complementarios:
 - Archivo: `outputs/pipeline-state.json`
 - Rol: memoria compartida entre etapas/agentes.
 - Claves esenciales: `execution_id`, `proyecto`, `sprint`, `modo`, `stages`, `decisions_log`.
+- En ejecución/publicación (compat), incluir trazabilidad de run: `execute_run_id`, `execute_url`, conteos y `us_ejecutadas[]`.
 
 ### StoryContext
 - Rol: representar US con artefactos detectados y contexto funcional.

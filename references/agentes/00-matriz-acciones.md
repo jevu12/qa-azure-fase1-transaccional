@@ -32,13 +32,14 @@ Esta matriz define quién ejecuta qué, en qué `mode`, con qué entradas/salida
 | Ingestor | Núcleo Fase 1 | US procesables + `naming_conventions` + `policies` | QA Tasks creadas/completadas + links US<-Task + `decisions_log` | Autorización del Orquestador + no estar en `no_action_states` | `CREATE_NEW`, `UPDATE_EXISTING`, `SKIP_NO_ACTION`, `ERROR_RUNTIME` |
 | Analisis | Núcleo Fase 1 | US + QA Task análisis + criterios de aceptación | análisis ISTQB en task + handoff a diseño + `decisions_log` | Autorización del Orquestador + task análisis existente/creada | `UPDATE_EXISTING`, `SKIP_NO_ACTION`, `BLOCK_PROCESS`, `ERROR_RUNTIME` |
 | Diseño | Núcleo Fase 1 | US + análisis + QA Task diseño + config de campos | TCs en `Ready`, suite/links consistentes + `decisions_log` | Autorización del Orquestador + historia testeable + `Custom.Component` resuelto | `CREATE_NEW`, `UPDATE_EXISTING`, `SKIP_NO_ACTION`, `BLOCK_PROCESS`, `ERROR_RUNTIME` |
-| Ejecutor | Compatibilidad | TCs `Ready`, ownership validado, contexto de ejecución | `execution_outcomes`, comentarios TC/US, evidencias + `decisions_log` | Instrucción explícita + autorización del Orquestador + `execution_owner == mcp_user` (o excepción auditada) | `UPDATE_EXISTING`, `SKIP_NO_ACTION`, `BLOCK_PROCESS`, `ERROR_RUNTIME` |
+| Ejecutor | Compatibilidad | TCs `Ready`, ownership validado, contexto de ejecución | `execution_outcomes`, `execute_run_id/execute_url`, comentarios TC/US, evidencias + `decisions_log` | Instrucción explícita + autorización del Orquestador + `execution_owner == mcp_user` (o excepción auditada) + setup `planId/suiteId/testPoints` completo | `UPDATE_EXISTING`, `SKIP_NO_ACTION`, `BLOCK_PROCESS`, `ERROR_RUNTIME` (`reason_code`: `BLOCKED_SETUP` si falta setup) |
 | ReporterBugs | Compatibilidad | `execution_outcomes`, `us_context`, umbral de confianza | `bugs_created/skipped`, vínculos y asignación + `decisions_log` | Instrucción explícita + autorización del Orquestador + deduplicación previa | `CREATE_NEW`, `SKIP_NO_ACTION`, `BLOCK_PROCESS`, `ERROR_RUNTIME` |
 | GestorEvidencias | Compatibilidad | inventario de archivos + outcomes de ejecución | archivos adjuntados/enlazados/omitidos + comentario resumen + `decisions_log` | Instrucción explícita + autorización del Orquestador | `UPDATE_EXISTING`, `SKIP_NO_ACTION`, `BLOCK_PROCESS`, `ERROR_RUNTIME` |
 
 Referencia obligatoria de códigos y contratos:
 - `references/codigos-decision.md`
 - `references/contrato-io-agentes.md`
+- `references/agentes/11-execute-and-publish-generico.md`
 
 ## Regla de precedencia por US (cuando dos agentes compiten)
 

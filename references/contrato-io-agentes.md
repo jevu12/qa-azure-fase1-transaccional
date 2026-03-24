@@ -75,12 +75,15 @@ Definir entradas, salidas y errores minimos por agente para ejecucion consistent
 ## 06 - Ejecutor (compat)
 - Input minimo:
   - TCs en `Ready`, ownership validado, `configuracion-app`/credenciales
+  - contexto `execute_and_publish`: `project`, `userStoryId`, `executionDate`, `results[]`, `metadata` (o equivalentes internos)
 - Output minimo:
   - `execution_outcomes[]` por TC
+  - `execute_run_id`, `execute_url`
   - comentarios TC/US
   - evidencias en inventario estandar
+  - trazabilidad de publicación (`planId`, `suiteId`, `pointIds_resolved`)
 - Errores clave:
-  - `EXECUTION_OWNERSHIP_MISMATCH`, `MCP_NOT_AVAILABLE`, `RETRY_EXHAUSTED`
+  - `EXECUTION_OWNERSHIP_MISMATCH`, `BLOCKED_SETUP`, `MCP_NOT_AVAILABLE`, `RETRY_EXHAUSTED`
 
 ## 07 - ReporterBugs (compat)
 - Input minimo:
@@ -112,3 +115,14 @@ Definir entradas, salidas y errores minimos por agente para ejecucion consistent
   - bug draft final, links y trazabilidad
 - Errores clave:
   - `RETRY_EXHAUSTED`, `UNEXPECTED_EXCEPTION`
+
+## 11 - Execute and Publish (guia transversal de compatibilidad)
+- Input minimo:
+  - `project`, `userStoryId`
+  - `results[]` con outcome por TC
+- Output minimo:
+  - run planificado creado/reusado (`run_id`)
+  - resultados publicados por test point
+  - run cerrado y comentario de trazabilidad en QA Task de ejecución
+- Errores clave:
+  - `BLOCKED_SETUP`, `EXECUTION_OWNERSHIP_MISMATCH`, `RETRY_EXHAUSTED`

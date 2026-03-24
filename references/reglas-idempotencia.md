@@ -17,6 +17,7 @@ Antes de crear cualquier artefacto en Azure DevOps, el sistema DEBE verificar si
 | QA Task (Ejecución) | Buscar hijos de la US con título que contenga `naming_conventions.execution_task_title` | Coincidencia exacta de título como hijo directo de la US |
 | Test Suite | Buscar suites en el Test Plan con nombre que contenga el ID y título de la US | Nombre coincidente dentro de la carpeta del sprint |
 | Test Case | Buscar TCs vinculados a la US con relación "Tests/Tested By" | Coincidencia de scenario_id en el título del TC |
+| Test Run (planificado) | Buscar runs abiertos por `userStoryId + executionDate` y misma huella de `pointIds` | Reutilizar run abierto equivalente; no crear run duplicado |
 | Bug | Buscar bugs vinculados a la US con estado Active/New | Coincidencia de TC_id + descripción del fallo |
 | Comentario QA | Leer comentarios existentes de la US | Texto del comentario contiene la firma del agente y el mismo contenido |
 | Evidencia | Listar attachments del work item | Nombre de archivo coincidente |
@@ -34,6 +35,8 @@ Antes de crear cualquier artefacto en Azure DevOps, el sistema DEBE verificar si
 | Test Suite existe | Vacía | Poblar con TCs |
 | Test Case existe | Ready con Steps completos | SKIP — no recrear |
 | Test Case existe | Design con Steps vacíos | Actualizar con Steps completos, mover a Ready |
+| Test Run equivalente abierto | Con mismos `pointIds` y fecha de ejecución | Reutilizar run existente y continuar publicación |
+| Test Run equivalente cerrado | Completado para la misma corrida/fecha | SKIP — no recrear run |
 | Bug existe | Active | SKIP — no crear duplicado |
 | Bug existe | Closed/Resolved | Evaluar si reabrirlo o crear nuevo |
 | Comentario existe | Mismo contenido | SKIP — no duplicar |
@@ -47,6 +50,15 @@ Para cada US se calcula un hash basado en:
 - `description` (hash MD5 del contenido)
 
 Si el hash no ha cambiado desde la última ejecución, los artefactos no se regeneran (a menos que estén incompletos).
+
+### 1.4 Idempotencia específica de `execute_and_publish`
+Para publicación de resultados por historia:
+- Clave de idempotencia mínima: `userStoryId + executionDate`.
+- Si existe run abierto de esa clave, reutilizar y publicar en ese `runId`.
+- No crear runs paralelos para la misma US/fecha salvo instrucción explícita del usuario.
+- Si falta `planId`, `suiteId` o `testPointId` para cualquier TC esperado:
+  - bloquear setup (`BLOCKED_SETUP`),
+  - no publicar resultados parciales en run no planificado.
 
 ---
 

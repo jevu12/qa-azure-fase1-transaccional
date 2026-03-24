@@ -5,9 +5,21 @@
   "type": "object",
   "required": ["test_case_id", "us_id", "result", "executed_at"],
   "properties": {
+    "test_point_id": {
+      "type": ["integer", "null"],
+      "description": "ID del Test Point resuelto para publicar resultado en run planificado"
+    },
     "test_case_id": {
       "type": "integer",
       "description": "ID del Test Case en Azure DevOps"
+    },
+    "test_case_revision": {
+      "type": ["integer", "null"],
+      "description": "Revisión del Test Case al momento de publicar resultado"
+    },
+    "test_case_title": {
+      "type": ["string", "null"],
+      "description": "Título del Test Case al momento de publicar resultado"
     },
     "us_id": {
       "type": "integer",
@@ -29,6 +41,11 @@
       "type": "string",
       "enum": ["PASS", "FAIL", "BLOCKED", "NOT_EXECUTED"],
       "description": "Resultado de la ejecución"
+    },
+    "outcome": {
+      "type": ["string", "null"],
+      "enum": ["Passed", "Failed", "Blocked", "NotApplicable", null],
+      "description": "Outcome compatible con publicación de resultados en Azure DevOps Test Runs"
     },
     "steps_results": {
       "type": "array",

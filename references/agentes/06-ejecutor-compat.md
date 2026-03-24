@@ -10,12 +10,122 @@ Para comentarios por TC, resumen en US y cierre de task de ejecución, usar:
 - `references/configuracion-app.md` (navegación, roles, ambiente)
 - `references/agentes/08-gestor-evidencias-compat.md` (inventario y subida)
 - `references/agentes/10-reporter-bugs-detallado.md` (reglas de bug)
+- `references/agentes/11-execute-and-publish-generico.md` (flujo transversal de publicación)
+
+## Flujo genérico `execute_and_publish` (obligatorio)
+Ejecutar EXACTAMENTE en este orden por cada historia:
+
+1. Descubrir contexto por historia
+- Input mínimo: `project`, `userStoryId`.
+- Resolver automáticamente:
+  - `planId` (plan activo del sprint/proyecto)
+  - `suiteId` de la historia (convención de nombre o relación)
+  - `testCaseIds` vinculados a la historia (`Tested By`) o contenidos en la suite
+
+2. Resolver Test Points (obligatorio)
+- Obtener test points por `planId + suiteId`.
+- Construir mapa: `testCaseId -> { testPointId, revision, title }`.
+- Validar cobertura:
+  - si falta test point para un test case esperado, marcar `BLOCKED_SETUP`,
+  - registrar diagnóstico en `decisions_log`,
+  - no publicar resultados hasta completar setup.
+
+3. Crear run planificado
+- Crear run con `plan.id` y `pointIds`.
+- Guardar `runId`.
+- Endpoint de referencia: `POST /test/runs`.
+
+4. Publicar resultados (por lote)
+- Para cada caso ejecutado publicar:
+  - `testPointId`
+  - `testCaseId`
+  - `testCaseRevision`
+  - `testCaseTitle`
+  - `outcome` (`Passed|Failed|Blocked|NotApplicable`)
+  - `state: Completed`
+  - `comment`
+- Endpoint de referencia: `POST /test/runs/{runId}/results`.
+
+5. Cerrar run
+- Cerrar run con `state: Completed`.
+- Endpoint de referencia: `PATCH /test/runs/{runId}`.
+
+6. Trazabilidad
+- Actualizar `pipeline-state.json`:
+  - `execute_run_id`
+  - `execute_url`
+  - conteos de resultados
+  - `us_ejecutadas[]`
+- Comentar en QA Task de ejecución:
+  - resumen
+  - URL del run
+
+## Contrato recomendado de entrada (genérico)
+```json
+{
+  "project": "MisResultados",
+  "userStoryId": 140508,
+  "executionDate": "2026-03-24",
+  "results": [
+    { "testCaseId": 143482, "outcome": "Passed", "comment": "..." },
+    { "testCaseId": 143485, "outcome": "Blocked", "comment": "..." }
+  ],
+  "metadata": {
+    "tester": "qa.user@empresa.com",
+    "environment": "qa",
+    "baseUrl": "https://qa.example.com/"
+  }
+}
+```
+
+## Reglas de robustez `execute_and_publish` (obligatorias)
+1. Idempotencia:
+- Si existe run abierto para `userStoryId + executionDate`, reutilizar.
+- No crear runs duplicados.
+
+2. Validaciones previas:
+- Sin `suiteId` o `planId`: abortar con error claro (`BLOCKED_SETUP`).
+- Sin test points: no publicar resultados; dejar diagnóstico.
+
+3. Reintentos:
+- Reintentar `429/5xx` con backoff.
+- No reintentar `4xx` funcionales.
+
+4. Consistencia:
+- Publicar siempre contra run planificado (`plan + pointIds`).
+- No publicar contra run genérico sin `pointIds`.
+
+5. Seguridad:
+- PAT solo por variable de entorno (`AZURE_DEVOPS_EXT_PAT`).
+- Nunca hardcodear ni loguear PAT.
+
+## Identidad y autenticación (portable para cualquier equipo)
+Principio:
+- Nunca usar `assigned_to` fijo ni IDs de usuario hardcodeados.
+- Tomar usuario actual desde sesión/token activa de Azure DevOps MCP.
+
+Modos soportados:
+- `interactive` (usuario inicia sesión con su cuenta)
+- `pat` vía `AZURE_DEVOPS_EXT_PAT`
+
+Configuración mínima recomendada:
+```yaml
+auth:
+  mode: auto
+  pat_env: AZURE_DEVOPS_EXT_PAT
+identity:
+  source: mcp_authenticated_user
+execution:
+  publish_to_execute: true
+  resolve_context_from_story: true
+```
 
 ## Qué hace
 - Ejecuta TCs con Playwright MCP.
 - Comenta resultado en cada TC y resumen en la US.
 - Puede crear bugs por fallos.
 - Actualiza QA Task de ejecución y `pipeline-state`.
+- Publica resultados en run planificado usando test points.
 
 ## Dependencias y verificación obligatoria
 Antes de ejecutar TCs, verificar disponibilidad de automatización web:
@@ -174,12 +284,15 @@ El Ejecutor debe entregar estructura explícita para carga de evidencias:
 ## Reglas estrictas
 - Requiere autorización previa del Orquestador para ejecutar pruebas o mutaciones en Azure DevOps.
 - Aplicar contrato I/O estandar (`references/contrato-io-agentes.md`) y codigos de decision (`references/codigos-decision.md`).
+- Ejecutar el flujo `execute_and_publish` en orden estricto (contexto -> points -> run -> resultados -> cierre -> trazabilidad).
 - Aplicar política anti-flaky antes de declarar `FAILED` o crear bug.
 - Respetar timeouts/retries por paso y por TC definidos en `policies`.
 - En evidencias, enmascarar datos sensibles antes de adjuntar o comentar.
 - Ejecutar gate de ownership antes de correr TCs: solo ejecutar si la QA Task de ejecución está asignada al usuario autenticado en el MCP de Azure DevOps.
 - Si `execution_owner != mcp_user`: NO ejecutar TCs, NO crear runs, NO cambiar estado de US, registrar `SKIP` con `EXECUTION_OWNERSHIP_MISMATCH` y comentar la US.
 - Solo permitir excepción con instrucción explícita del usuario o reasignación explícita y auditada.
+- Sin `planId/suiteId/testPoints` válidos: NO publicar ni cerrar run; registrar `BLOCK` con `reason_code = BLOCKED_SETUP`.
+- Nunca usar asignado fijo; siempre resolver identidad desde MCP Azure DevOps o PAT del ejecutor.
 - No detener ejecución global por fallo de un TC.
 - Tomar evidencia por paso y evidencia final por TC.
 - Comentar cada TC y cada US procesada.

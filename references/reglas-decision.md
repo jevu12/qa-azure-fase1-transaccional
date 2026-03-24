@@ -87,6 +87,19 @@ Comportamiento:
 - Iniciar transición `Ready for test -> Testing in progress`
 - Delegar inmediatamente al Agente Ejecutor
 - Registrar en `decisions_log` con `next_agent = "Ejecutor"` y `next_action = "EXECUTE_PENDING"`
+- Ejecutar publicación mediante flujo `execute_and_publish` (`contexto -> test points -> run -> resultados -> cierre -> trazabilidad`)
+
+Precondición técnica obligatoria de setup:
+- `planId` resuelto para la US/sprint
+- `suiteId` resuelto para la US
+- `testCaseIds` detectados para la US
+- `testPointId` disponible para cada TC objetivo
+
+Si falla setup técnico:
+- No delegar al Ejecutor.
+- No crear/publicar/cerrar run.
+- Registrar `BLOCK` con `reason_code = BLOCKED_SETUP`.
+- Agregar comentario en US con diagnóstico de setup faltante.
 
 Precondición obligatoria de ownership QA:
 - La QA Task de ejecución debe estar asignada al usuario autenticado en el MCP de Azure DevOps.
@@ -175,6 +188,7 @@ Para la US validada:
 
 | Test Cases | Test Runs | Resultados | Decisión |
 |---|---|---|---|
+| Ready | Sin `planId/suiteId/testPoints` válidos | — | `BLOCK` (`reason_code = BLOCKED_SETUP`) |
 | Ready | No hay runs | — | Ejecutar todos los TCs |
 | Ready | Run parcial | Mix | Ejecutar TCs no ejecutados |
 | Ready | Run completo | Todos PASS | SKIP ejecución |
@@ -290,6 +304,14 @@ Si la US está en estado `New`, `On Hold` o `Code Review` (definidos en `policie
 Si la US está en estado `Rejected` o `Pending definition` (definidos en `policies.no_action_states`):
 - El motor NO realiza ninguna acción sobre la US
 - Se registra en decisions_log como `SKIP` con motivo `"estado no procesable"`
+
+### 5.8 Regla de coherencia de publicación (`execute_and_publish`)
+Para cada US en ejecución:
+- Resolver contexto por historia (`planId`, `suiteId`, `testCaseIds`)
+- Resolver test points (`testCaseId -> testPointId`) antes de crear run
+- Publicar resultados solo sobre run planificado con `pointIds`
+- Reusar run abierto del mismo `userStoryId + executionDate` para idempotencia
+- Si falta setup mínimo, registrar `BLOCKED_SETUP` y detener mutaciones de ejecución para esa US
 
 ---
 

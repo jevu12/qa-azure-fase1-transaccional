@@ -4,6 +4,9 @@
 Para cualquier comentario en US (estado, impedimentos, cierre), usar:
 - `references/agentes/09-templates-comentarios.md`
 
+## Guías relacionadas
+- `references/agentes/11-execute-and-publish-generico.md` (flujo transversal para delegar ejecución/publicación)
+
 ## Objetivo operativo
 Coordinar el flujo, clasificar US y delegar mutaciones a Ingestor/Análisis/Diseño.
 Cuando aplique extensión de compatibilidad, delegar además a Ejecutor -> ReporterBugs -> GestorEvidencias.
@@ -11,8 +14,9 @@ Cuando aplique extensión de compatibilidad, delegar además a Ejecutor -> Repor
 ## Configuración obligatoria de entrada
 Leer primero `inputs/project-config.json` y extraer:
 - `organization.url`, `project.name`, `project.team`, `project.iteration_path`, `project.area_path`
+- `auth.mode`, `auth.pat_env`, `identity.source`
 - `qa_assignee.source`, `qa_assignee.email`, `qa_assignee.name`
-- `execution.mode`, `execution.user_stories`, `execution.exclude_technical_keywords`
+- `execution.mode`, `execution.publish_to_execute`, `execution.resolve_context_from_story`, `execution.user_stories`, `execution.exclude_technical_keywords`
 - `policies.*`, `naming_conventions.*`, `fields_mapping.*`
 
 Compatibilidad:
@@ -27,6 +31,7 @@ Compatibilidad:
 4. Leer/crear `outputs/pipeline-state.json` y reanudar de forma idempotente.
 5. Obtener US objetivo (lista explícita o sprint completo).
 6. Ejecutar detección de artefactos por US antes de decidir acciones.
+7. Si la US entra a ejecución, resolver contexto `execute_and_publish` (`planId`, `suiteId`, `testCaseIds`, `testPoints`) antes de delegar al Ejecutor.
 
 ### Control de concurrencia de `pipeline-state` (obligatorio)
 - Antes de escribir en `outputs/pipeline-state.json`, crear lock de ejecución (`outputs/pipeline-state.lock`).
@@ -120,9 +125,27 @@ Si falta definición funcional, testabilidad o dato obligatorio que no pueda inf
 - Evalúa estado de US + artefactos detectados.
 - Decide `CREATE/UPDATE/SKIP/BLOCK` por US.
 - Evalúa ownership de ejecución (`execution_owner` vs `mcp_user`) antes de delegar a Ejecutor.
+- Evalúa elegibilidad técnica de publicación (`planId`, `suiteId`, `testPointIds`) antes de delegar a Ejecutor.
 - Si hay mismatch de ownership en ejecución, registrar `SKIP` con `EXECUTION_OWNERSHIP_MISMATCH` y comentar la US.
+- Si falta setup de ejecución/publicación, registrar `BLOCK` con `reason_code = BLOCKED_SETUP`, `next_action = WAIT_USER_INPUT` y comentario en US.
 - Actualiza estado de US solo si política lo permite.
 - Comenta impedimentos o transiciones en la US.
+
+## Gate para delegación a Ejecutor (`execute_and_publish`)
+Antes de autorizar al Ejecutor, validar en este orden:
+1. `US.state` habilita ejecución (`Ready for test` o `Testing in progress`).
+2. Ownership válido (`execution_owner == mcp_user`) o excepción explícita auditada.
+3. Contexto resuelto por historia:
+  - `planId` presente,
+  - `suiteId` presente,
+  - `testCaseIds` identificados.
+4. Test points completos para todos los TCs objetivo.
+
+Si falla (3) o (4):
+- no delegar ejecución,
+- no permitir creación/publicación/cierre de run,
+- registrar `BLOCK_PROCESS` con `reason_code = BLOCKED_SETUP`,
+- dejar comentario con acción requerida para completar setup.
 
 ## Operaciones típicas
 - `wit_get_work_item`, `wit_get_work_items_by_query`

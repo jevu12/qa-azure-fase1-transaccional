@@ -11,6 +11,13 @@
     "iteration_path": "My Project\\Sprint 1",
     "area_path": "My Project"
   },
+  "auth": {
+    "mode": "auto",
+    "pat_env": "AZURE_DEVOPS_EXT_PAT"
+  },
+  "identity": {
+    "source": "mcp_authenticated_user"
+  },
   "qa_assignee": {
     "source": "mcp_authenticated_user",
     "email": "",
@@ -18,6 +25,8 @@
   },
   "execution": {
     "mode": "full-pipeline",
+    "publish_to_execute": true,
+    "resolve_context_from_story": true,
     "user_stories": [],
     "exclude_technical_keywords": [
       "AWS", "VPN", "infraestructura", "pipeline", "deploy", "CI/CD",

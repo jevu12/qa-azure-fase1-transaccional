@@ -19,6 +19,7 @@ No uses esta skill para generación de código, PR automation, Appium o clasific
 - `iteration_path` (sprint completo)
 - `mode` (`full-pipeline`, `analysis-only`, `design-only`, `execution-only`, `detection-only`)
 - `user_stories` opcional (lista de IDs; vacío = todas del sprint)
+- Para flujo de ejecución/publicación (compat): contrato por historia con `project`, `userStoryId`, `executionDate`, `results[]`, `metadata`.
 
 Fuente de configuración obligatoria: `inputs/project-config.json`.
 Guía general de configuración: `references/guia-configuracion-general.md`.
@@ -80,7 +81,15 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - Vincular Test Cases a US (Tests/Tested By) y a QA Task de diseño (Related).
 - Completar artefactos parciales; nunca recrear artefactos completos.
 
-9. Persistencia y auditoría
+9. Flujo genérico `execute_and_publish` (obligatorio si aplica ejecución)
+- Descubrir contexto por historia (`planId`, `suiteId`, `testCaseIds` desde US/suite).
+- Resolver Test Points por `planId + suiteId` y construir mapa `testCaseId -> testPointId/revision/title`.
+- Validar cobertura: si falta test point de un TC esperado, bloquear setup (`BLOCKED_SETUP`) y registrar diagnóstico.
+- Crear run planificado con `plan.id + pointIds`; guardar `runId`.
+- Publicar resultados por lote con `testPointId`, `testCaseId`, `testCaseRevision`, `testCaseTitle`, `outcome`, `state=Completed`, `comment`.
+- Cerrar run (`state=Completed`) y registrar trazabilidad en `pipeline-state` (`execute_run_id`, `execute_url`, conteos, `us_ejecutadas[]`) + comentario en QA Task de ejecución.
+
+10. Persistencia y auditoría
 - Actualizar `outputs/pipeline-state.json` por etapa.
 - Registrar toda decisión en `decisions_log` con motivo, códigos y artefactos afectados.
 
@@ -93,6 +102,8 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - No ejecutar acciones fuera del estado permitido.
 - Si falta información crítica de testabilidad, usar `next_action = WAIT_USER_INPUT` y no mutar hasta resolverla.
 - Mantener `AreaPath` e `IterationPath` alineados con la US.
+- Nunca usar `assigned_to` fijo ni IDs de usuario hardcodeados; resolver identidad desde usuario autenticado MCP de Azure DevOps.
+- Si se usa PAT, debe venir exclusivamente desde variable de entorno `AZURE_DEVOPS_EXT_PAT` (sin hardcodeo ni logging).
 - Aplicar contrato I/O estándar por agente (`references/contrato-io-agentes.md`).
 - Usar catálogo de códigos de decisión (`references/codigos-decision.md`) en `decisions_log`.
 - En creación de bugs: asignar al último usuario asignado de la US que sea distinto al usuario autenticado en el MCP de Azure DevOps; aplicar fallback documentado si no existe candidato.
@@ -119,6 +130,7 @@ Detalles normativos: leer en este orden:
 18. `references/agentes/08-gestor-evidencias-compat.md`
 19. `references/agentes/09-templates-comentarios.md`
 20. `references/agentes/10-reporter-bugs-detallado.md`
+21. `references/agentes/11-execute-and-publish-generico.md`
 
 ## Fuera de alcance explícito
 - Generación de código de automatización.

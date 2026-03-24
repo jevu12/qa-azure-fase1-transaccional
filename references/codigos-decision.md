@@ -45,6 +45,7 @@ Campos condicionales recomendados:
 - `EXECUTE_PENDING`
 - `EXECUTION_OWNERSHIP_MISMATCH`
 - `EXECUTION_NOT_REQUIRED`
+- `BLOCKED_SETUP`
 
 ### Configuracion / MCP
 - `MCP_NOT_AVAILABLE`

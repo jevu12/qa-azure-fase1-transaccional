@@ -62,6 +62,16 @@ Precondición obligatoria antes de transición `Ready for test -> Testing in pro
   - ❌ NO cambiar estado de la US
   - ✅ Registrar `SKIP` en `decisions_log` con `reason_code = EXECUTION_OWNERSHIP_MISMATCH`
   - ✅ Agregar comentario en la US solicitando reasignación explícita o ejecución por el owner actual
+- Debe existir setup técnico completo de ejecución/publicación:
+  - `planId` resuelto,
+  - `suiteId` resuelto,
+  - `testCaseIds` detectados,
+  - `testPointId` para cada TC objetivo.
+- Si falta setup técnico:
+  - ❌ NO crear/publicar/cerrar run
+  - ❌ NO cambiar estado de la US
+  - ✅ Registrar `BLOCK` con `reason_code = BLOCKED_SETUP`
+  - ✅ Agregar comentario en US con diagnóstico y acción requerida para completar setup
 
 #### Caso A — Sin Test Cases:
 1. ✅ Crear los Test Cases
