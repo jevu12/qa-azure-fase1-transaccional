@@ -128,6 +128,8 @@ Si falta definición funcional, testabilidad o dato obligatorio que no pueda inf
 - Evalúa elegibilidad técnica de publicación (`planId`, `suiteId`, `testPointIds`) antes de delegar a Ejecutor.
 - Si hay mismatch de ownership en ejecución, registrar `SKIP` con `EXECUTION_OWNERSHIP_MISMATCH` y comentar la US.
 - Si falta setup de ejecución/publicación, registrar `BLOCK` con `reason_code = BLOCKED_SETUP`, `next_action = WAIT_USER_INPUT` y comentario en US.
+- Validar cobertura de evidencia por paso (`steps_executed == steps_with_uploaded_verified_evidence`) antes de autorizar cierre de TC/US/run.
+- Si falta evidencia verificada, registrar `BLOCK` con `reason_code = BLOCKED_EVIDENCE` y no cerrar transición.
 - Actualiza estado de US solo si política lo permite.
 - Comenta impedimentos o transiciones en la US.
 

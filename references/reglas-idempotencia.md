@@ -20,7 +20,7 @@ Antes de crear cualquier artefacto en Azure DevOps, el sistema DEBE verificar si
 | Test Run (planificado) | Buscar runs abiertos por `userStoryId + executionDate` y misma huella de `pointIds` | Reutilizar run abierto equivalente; no crear run duplicado |
 | Bug | Buscar bugs vinculados a la US con estado Active/New | Coincidencia de TC_id + descripción del fallo |
 | Comentario QA | Leer comentarios existentes de la US | Texto del comentario contiene la firma del agente y el mismo contenido |
-| Evidencia | Listar attachments del work item | Nombre de archivo coincidente |
+| Evidencia | Listar attachments del work item + manifest por TC | Coincidencia por `checksum + tc_id + step_number + attempt` (o filename si no hay checksum) |
 
 ### 1.2 Acciones según detección
 
@@ -60,6 +60,16 @@ Para publicación de resultados por historia:
   - bloquear setup (`BLOCKED_SETUP`),
   - no publicar resultados parciales en run no planificado.
 
+### 1.5 Idempotencia específica de evidencias por paso
+- Toda evidencia de paso debe vivir en: `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/`.
+- No se permite deduplicación global por historia; la deduplicación es por caso y paso.
+- Clave recomendada de deduplicación: `checksum + tc_id + step_number + attempt`.
+- Si el archivo ya está adjunto/verificado para esa clave:
+  - marcar `SKIP`,
+  - no volver a subir.
+- Si falta evidencia de un paso ejecutado:
+  - bloquear cierre de TC/US/run con `BLOCKED_EVIDENCE`.
+
 ---
 
 ## 2. Reglas de Gobernanza
@@ -93,6 +103,7 @@ Toda acción ejecutada por un agente DEBE registrarse en `decisions_log` del pip
 
 Regla obligatoria de consistencia:
 - Si `execution_started == false` y `execution_task_state` está en `New|Doing`, NUNCA registrar la US como `cerrada` o `completa`.
+- Si `steps_executed > steps_with_uploaded_verified_evidence`, NUNCA registrar ejecución como completa para el TC/US.
 - Campos mínimos adicionales para auditoría de ownership:
   - `execution_owner`
   - `mcp_user`

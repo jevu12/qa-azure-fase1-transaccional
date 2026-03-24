@@ -81,9 +81,11 @@ Definir entradas, salidas y errores minimos por agente para ejecucion consistent
   - `execute_run_id`, `execute_url`
   - comentarios TC/US
   - evidencias en inventario estandar
+  - estructura por evidencia `US/TC` + `manifest.json` por TC
+  - `steps_executed`, `steps_with_uploaded_verified_evidence` por TC
   - trazabilidad de publicación (`planId`, `suiteId`, `pointIds_resolved`)
 - Errores clave:
-  - `EXECUTION_OWNERSHIP_MISMATCH`, `BLOCKED_SETUP`, `MCP_NOT_AVAILABLE`, `RETRY_EXHAUSTED`
+  - `EXECUTION_OWNERSHIP_MISMATCH`, `BLOCKED_SETUP`, `BLOCKED_EVIDENCE`, `MCP_NOT_AVAILABLE`, `RETRY_EXHAUSTED`
 
 ## 07 - ReporterBugs (compat)
 - Input minimo:
@@ -96,12 +98,14 @@ Definir entradas, salidas y errores minimos por agente para ejecucion consistent
 
 ## 08 - GestorEvidencias (compat)
 - Input minimo:
-  - inventario de archivos + `execution_outcomes[]`
+  - inventario de archivos por `US/TC` + `execution_outcomes[]`
+  - `manifest.json` por TC con estados de subida por paso
 - Output minimo:
   - `files_uploaded`, `files_linked`, `files_skipped`
+  - `steps_with_uploaded_verified_evidence`, `missing_evidence_steps`
   - comentario resumen en US (o fallback)
 - Errores clave:
-  - `ALREADY_EXISTS_EQUIVALENT`, `RETRY_EXHAUSTED`
+  - `ALREADY_EXISTS_EQUIVALENT`, `BLOCKED_EVIDENCE`, `RETRY_EXHAUSTED`
 
 ## 09 - Templates de comentarios
 - Input: placeholders de contexto.

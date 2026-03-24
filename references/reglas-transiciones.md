@@ -204,11 +204,14 @@ Precondiciones obligatorias para pasar a `PO Review`:
 - `failed == 0`
 - `blocked == 0`
 - `execution_task_state` en `Closed|Done`
+- `steps_executed == steps_with_uploaded_verified_evidence` para todos los TCs ejecutados
+- `missing_evidence_steps == 0`
 
 Si alguna precondición falla:
 - ❌ NO cambiar a `PO Review`
 - ✅ Mantener la US en `Testing in progress` o `On Hold` según corresponda
 - ✅ Registrar motivo en `decisions_log` y comentario en la US
+- ✅ Si la falla es de evidencia, usar `reason_code = BLOCKED_EVIDENCE`
 
 1. ✅ **Cambiar el estado de la US a `PO Review`**
 2. ✅ **Agregar comentario automático** con resumen de ejecución y trazabilidad
@@ -269,6 +272,10 @@ Cuando algunos TCs resultan `BLOCKED` pero no hay `FAIL`:
 - ❌ NO cambiar el estado de la US a `PO Review` (no todos pasaron)
 - ✅ Dejar la US en `Testing in progress` para re-ejecución posterior
 - ✅ Registrar en pipeline-state.json como `PARTIAL`
+
+También aplica a bloqueo por evidencia:
+- Si un TC queda bloqueado por falta de evidencia subida/verificada por paso, tratar como `BLOCKED` operativo.
+- No permitir transición a `PO Review` hasta resolver cobertura de evidencias.
 
 ---
 

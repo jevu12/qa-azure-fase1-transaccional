@@ -39,6 +39,9 @@ Placeholders frecuentes por ejecución:
 - `result`
 - `evidence_file`
 - `evidence_path`
+- `us_evidence_dir`
+- `tc_evidence_dir`
+- `manifest_file`
 
 Regla:
 - No publicar plantilla con placeholders no resueltos.
@@ -163,7 +166,7 @@ Métricas de ejecución:
 - BLOCKED: [n]
 - Bugs creados: [n]
 
-Ruta de evidencias: outputs/evidencias/[YYYY-MM-DD]/
+Ruta de evidencias: outputs/evidencias/[SPRINT]/US-[us_id]/TC-[tc_id]/
 ```
 
 ## 7) Comentario final en US al completar ejecución (Ejecutor)
@@ -191,7 +194,7 @@ Template-Version: [template_version]
 | #[tc_id] | [escenario] | [PASS/FAIL/BLOCKED] |
 
 ### Evidencias
-Ruta: `outputs/evidencias/[YYYY-MM-DD]/`
+Ruta: `outputs/evidencias/[SPRINT]/US-[us_id]/TC-[tc_id]/`
 
 ### QA Task de ejecución
 #[qa_task_ejecucion_id] — **Closed**

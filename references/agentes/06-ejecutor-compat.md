@@ -126,6 +126,7 @@ execution:
 - Puede crear bugs por fallos.
 - Actualiza QA Task de ejecución y `pipeline-state`.
 - Publica resultados en run planificado usando test points.
+- Genera evidencias segmentadas por `US/TC` con manifiesto por caso.
 
 ## Dependencias y verificación obligatoria
 Antes de ejecutar TCs, verificar disponibilidad de automatización web:
@@ -180,7 +181,9 @@ Ejemplos de patrones sensibles:
 - Leer `inputs/project-config.json`.
 - Leer `outputs/pipeline-state.json` y seleccionar US con QA Task ejecución en `New|Doing`.
 - Si la task de ejecución ya está `Closed`, marcar `SKIP`.
-- Crear carpeta de evidencias `outputs/evidencias/[YYYY-MM-DD]/`.
+- Crear estructura de evidencias por sprint/US/TC:
+  - `outputs/evidencias/<sprint>/US-<us_id>/`
+  - `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/`
 
 2. Verificaciones previas por ambiente
 - Verificar acceso a app (`APP_BASE_URL`) y estado de conectividad.
@@ -199,10 +202,11 @@ Ejemplos de patrones sensibles:
 - Login del rol.
 - Verificación de pantalla inicial y contexto (snapshot).
 - Ejecutar cada TC del grupo:
-  - captura pre-ejecución,
+  - captura pre-ejecución en carpeta del TC,
   - recorrer pasos del XML (acción + validación),
-  - screenshot por paso (`passed|failed`),
-  - screenshot final del TC (`PASSED|FAILED|BLOCKED`).
+  - screenshot por paso (`passed|failed|blocked`) guardado en carpeta del TC,
+  - actualizar `manifest.json` del TC por cada paso (`capture_status`, `upload_status=PENDING`, `checksum`),
+  - screenshot final del TC (`PASSED|FAILED|BLOCKED`) en carpeta del TC.
 - Si cambia rol, hacer logout y continuar.
 
 5. Resultado por TC (obligatorio)
@@ -224,10 +228,19 @@ Ejemplos de patrones sensibles:
   - evidencias clave,
   - acción requerida.
 
-8. Cierre de task de ejecución
+8. Gate de evidencia por TC (obligatorio)
+- Antes de cerrar TC/US/run, validar por TC:
+  - `steps_executed == steps_with_uploaded_verified_evidence`
+  - no existen pasos con `upload_status != UPLOADED_VERIFIED`
+- Si falla:
+  - NO cerrar TC como `PASSED|FAILED`,
+  - marcar TC como `BLOCKED` por evidencia pendiente,
+  - registrar `reason_code = BLOCKED_EVIDENCE`.
+
+9. Cierre de task de ejecución
 - Actualizar QA Task ejecución a estado final del proyecto (normalmente `Closed`).
 
-9. Persistencia
+10. Persistencia
 - Actualizar `stages.ejecucion` en `pipeline-state`.
 - Publicar reporte `outputs/reports/ejecutor-[YYYY-MM-DD].md`.
 
@@ -240,12 +253,17 @@ Ejemplos de patrones sensibles:
 
 ## Evidencias obligatorias por TC y por paso
 Capturar y persistir evidencia mínima:
-- `TC-{id}-pre-{timestamp}.png` (antes de ejecutar pasos).
-- `TC-{id}-paso-{n}-passed.png` o `TC-{id}-paso-{n}-failed.png` (cada paso).
-- `TC-{id}-RESULTADO-[PASSED|FAILED|BLOCKED].png` (resultado final del TC).
+- Carpeta base por caso:
+  - `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/`
+- Archivos mínimos por caso:
+  - `STEP-000-PRE-attempt-1-<timestamp>.png`
+  - `STEP-<nnn>-<PASSED|FAILED|BLOCKED>-attempt-<n>-<timestamp>.png` (cada paso ejecutado)
+  - `RESULT-<PASSED|FAILED|BLOCKED>-<timestamp>.png`
+  - `manifest.json` (registro transaccional del TC)
 
 Reglas:
 - Siempre capturar evidencia antes/después de acciones relevantes.
+- Nunca guardar evidencia de paso fuera de la carpeta `TC-<tc_id>`.
 - Nunca detener ejecución global por fallo de un TC; continuar y documentar.
 - Mantener naming estable para permitir inventario automático del Gestor de Evidencias.
 
@@ -255,6 +273,7 @@ El Ejecutor debe entregar estructura explícita para carga de evidencias:
 ```json
 {
   "us_id": 12345,
+  "us_evidence_dir": "outputs/evidencias/Sprint-24/US-12345",
   "execution_outcomes": [
     {
       "tc_id": 144801,
@@ -262,10 +281,14 @@ El Ejecutor debe entregar estructura explícita para carga de evidencias:
       "result": "PASS|FAIL|BLOCKED",
       "failed_step": 0,
       "bug_id": null,
+      "tc_evidence_dir": "outputs/evidencias/Sprint-24/US-12345/TC-144801",
+      "manifest_file": "outputs/evidencias/Sprint-24/US-12345/TC-144801/manifest.json",
+      "steps_executed": 5,
+      "steps_with_uploaded_verified_evidence": 5,
       "evidence_files": [
-        "outputs/evidencias/2026-03-21/TC-144801-pre-081100.png",
-        "outputs/evidencias/2026-03-21/TC-144801-paso-1-passed.png",
-        "outputs/evidencias/2026-03-21/TC-144801-RESULTADO-PASSED.png"
+        "outputs/evidencias/Sprint-24/US-12345/TC-144801/STEP-000-PRE-attempt-1-081100.png",
+        "outputs/evidencias/Sprint-24/US-12345/TC-144801/STEP-001-PASSED-attempt-1-081130.png",
+        "outputs/evidencias/Sprint-24/US-12345/TC-144801/RESULT-PASSED-081500.png"
       ]
     }
   ]
@@ -292,6 +315,7 @@ El Ejecutor debe entregar estructura explícita para carga de evidencias:
 - Si `execution_owner != mcp_user`: NO ejecutar TCs, NO crear runs, NO cambiar estado de US, registrar `SKIP` con `EXECUTION_OWNERSHIP_MISMATCH` y comentar la US.
 - Solo permitir excepción con instrucción explícita del usuario o reasignación explícita y auditada.
 - Sin `planId/suiteId/testPoints` válidos: NO publicar ni cerrar run; registrar `BLOCK` con `reason_code = BLOCKED_SETUP`.
+- Sin cobertura completa de evidencia subida/verificada por paso: NO cerrar TC/US/run como completados; registrar `BLOCK` con `reason_code = BLOCKED_EVIDENCE`.
 - Nunca usar asignado fijo; siempre resolver identidad desde MCP Azure DevOps o PAT del ejecutor.
 - No detener ejecución global por fallo de un TC.
 - Tomar evidencia por paso y evidencia final por TC.

@@ -27,6 +27,7 @@ Estandares transversales complementarios:
 ### ExecutionOutcome
 - Rol: resultado de ejecución por caso.
 - Uso en Fase 1: opcional, solo para interoperabilidad con etapas posteriores.
+- En compat de ejecución: incluye evidencia segmentada por carpeta `US/TC`, `manifest.json` y cobertura de subida verificada por paso.
 
 ### BugDraft
 - Rol: borrador de bug con contexto.

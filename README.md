@@ -10,6 +10,7 @@ Skill para ejecutar la **Fase 1** del flujo QA en Azure DevOps: detección de ar
 - Registra decisiones auditables en `decisions_log` y actualiza `outputs/pipeline-state.json`.
 - En bugs (fases de ejecución): resuelve asignación al último responsable de la US distinto al QA autenticado en MCP.
 - En ejecución (compat): aplica `execute_and_publish` por historia (resolver contexto, test points, run planificado, publicar resultados, cerrar run, trazar runId/URL).
+- Evidencias segmentadas por caso de prueba: `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/`.
 
 ## Alcance
 Incluye:

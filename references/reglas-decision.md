@@ -189,6 +189,7 @@ Para la US validada:
 | Test Cases | Test Runs | Resultados | Decisión |
 |---|---|---|---|
 | Ready | Sin `planId/suiteId/testPoints` válidos | — | `BLOCK` (`reason_code = BLOCKED_SETUP`) |
+| Ready/Executed | Cobertura de evidencia por paso incompleta | — | `BLOCK` (`reason_code = BLOCKED_EVIDENCE`) |
 | Ready | No hay runs | — | Ejecutar todos los TCs |
 | Ready | Run parcial | Mix | Ejecutar TCs no ejecutados |
 | Ready | Run completo | Todos PASS | SKIP ejecución |
@@ -312,6 +313,8 @@ Para cada US en ejecución:
 - Publicar resultados solo sobre run planificado con `pointIds`
 - Reusar run abierto del mismo `userStoryId + executionDate` para idempotencia
 - Si falta setup mínimo, registrar `BLOCKED_SETUP` y detener mutaciones de ejecución para esa US
+- Exigir cobertura de evidencia por paso (`steps_executed == steps_with_uploaded_verified_evidence`) antes de cierre exitoso
+- Si falta evidencia verificada, registrar `BLOCKED_EVIDENCE` y bloquear transición de cierre
 
 ---
 

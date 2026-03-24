@@ -3,7 +3,18 @@
   "title": "ExecutionOutcome",
   "description": "Resultado de la ejecución de un Test Case individual",
   "type": "object",
-  "required": ["test_case_id", "us_id", "result", "executed_at"],
+  "required": [
+    "test_case_id",
+    "us_id",
+    "result",
+    "executed_at",
+    "tc_evidence_dir",
+    "manifest_file",
+    "steps_executed",
+    "steps_with_uploaded_verified_evidence",
+    "steps_results",
+    "evidence"
+  ],
   "properties": {
     "test_point_id": {
       "type": ["integer", "null"],
@@ -24,6 +35,35 @@
     "us_id": {
       "type": "integer",
       "description": "ID de la User Story asociada"
+    },
+    "us_evidence_dir": {
+      "type": ["string", "null"],
+      "description": "Carpeta contenedora por US: outputs/evidencias/<sprint>/US-<us_id>/"
+    },
+    "tc_evidence_dir": {
+      "type": "string",
+      "description": "Carpeta obligatoria por TC: outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/"
+    },
+    "manifest_file": {
+      "type": "string",
+      "description": "Ruta al manifest transaccional del TC"
+    },
+    "steps_executed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "steps_with_uploaded_verified_evidence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "missing_evidence_steps": {
+      "type": "array",
+      "items": { "type": "integer" }
+    },
+    "evidence_coverage_percent": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 100
     },
     "suite_id": {
       "type": "integer",
@@ -57,7 +97,12 @@
           "expected": { "type": "string" },
           "actual": { "type": "string" },
           "result": { "type": "string", "enum": ["PASS", "FAIL", "BLOCKED"] },
-          "evidence_file": { "type": ["string", "null"] }
+          "evidence_file": { "type": ["string", "null"] },
+          "upload_status": {
+            "type": ["string", "null"],
+            "enum": ["PENDING", "UPLOADED_VERIFIED", "FAILED", null]
+          },
+          "attachment_id": { "type": ["string", "null"] }
         }
       }
     },
@@ -100,7 +145,12 @@
           "filename": { "type": "string" },
           "type": { "type": "string", "enum": ["screenshot", "video", "log", "trace"] },
           "step": { "type": ["integer", "null"] },
-          "path": { "type": "string" }
+          "path": { "type": "string" },
+          "upload_status": {
+            "type": ["string", "null"],
+            "enum": ["PENDING", "UPLOADED_VERIFIED", "FAILED", null]
+          },
+          "attachment_id": { "type": ["string", "null"] }
         }
       }
     },

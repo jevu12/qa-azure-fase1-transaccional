@@ -53,10 +53,12 @@ Actualizar `pipeline-state.json` con:
 - `execute_url`
 - conteos de resultados
 - `us_ejecutadas[]`
+- métricas de cobertura de evidencia por paso (`steps_executed`, `steps_with_uploaded_verified_evidence`, `missing_evidence_steps`)
 
 Comentar en QA Task de ejecución:
 - resumen de resultados
 - URL del run
+- estado de evidencia por TC (verificada o bloqueada)
 
 ## Contrato recomendado de entrada (genérico)
 
@@ -95,6 +97,8 @@ Comentar en QA Task de ejecución:
 4. Consistencia:
 - publicar siempre contra run planificado (`plan + pointIds`)
 - no usar run genérico sin `pointIds`
+- guardar evidencias por estructura `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/`
+- no cerrar TC/US/run si falta evidencia subida/verificada por algún paso (`BLOCKED_EVIDENCE`)
 
 5. Seguridad:
 - PAT solo por variable de entorno (`AZURE_DEVOPS_EXT_PAT`)

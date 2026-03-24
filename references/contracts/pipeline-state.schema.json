@@ -224,7 +224,24 @@
         "started_at": { "type": ["string", "null"] },
         "completed_at": { "type": ["string", "null"] },
         "files_uploaded": { "type": "integer" },
-        "files_linked": { "type": "integer" }
+        "files_linked": { "type": "integer" },
+        "files_skipped": { "type": "integer" },
+        "files_skipped_by_checksum": { "type": "integer" },
+        "steps_executed": { "type": "integer" },
+        "steps_with_uploaded_verified_evidence": { "type": "integer" },
+        "missing_evidence_steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "us_id": { "type": "integer" },
+              "tc_id": { "type": "integer" },
+              "step_number": { "type": "integer" }
+            }
+          }
+        },
+        "evidence_coverage_percent": { "type": "number" },
+        "blocked_by_evidence_count": { "type": "integer" }
       }
     },
     "DecisionEntry": {

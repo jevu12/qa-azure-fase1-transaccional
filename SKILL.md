@@ -87,7 +87,9 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - Validar cobertura: si falta test point de un TC esperado, bloquear setup (`BLOCKED_SETUP`) y registrar diagnóstico.
 - Crear run planificado con `plan.id + pointIds`; guardar `runId`.
 - Publicar resultados por lote con `testPointId`, `testCaseId`, `testCaseRevision`, `testCaseTitle`, `outcome`, `state=Completed`, `comment`.
-- Cerrar run (`state=Completed`) y registrar trazabilidad en `pipeline-state` (`execute_run_id`, `execute_url`, conteos, `us_ejecutadas[]`) + comentario en QA Task de ejecución.
+- Gestionar evidencias por estructura obligatoria `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/` con `manifest.json` por TC.
+- Validar cobertura de evidencia por paso: si `steps_executed != steps_with_uploaded_verified_evidence`, bloquear cierre (`BLOCKED_EVIDENCE`).
+- Cerrar run (`state=Completed`) solo con evidencia validada y registrar trazabilidad en `pipeline-state` (`execute_run_id`, `execute_url`, conteos, `us_ejecutadas[]`) + comentario en QA Task de ejecución.
 
 10. Persistencia y auditoría
 - Actualizar `outputs/pipeline-state.json` por etapa.
@@ -104,6 +106,8 @@ Templates recomendados: `templates/project-config.template.json` y `templates/.e
 - Mantener `AreaPath` e `IterationPath` alineados con la US.
 - Nunca usar `assigned_to` fijo ni IDs de usuario hardcodeados; resolver identidad desde usuario autenticado MCP de Azure DevOps.
 - Si se usa PAT, debe venir exclusivamente desde variable de entorno `AZURE_DEVOPS_EXT_PAT` (sin hardcodeo ni logging).
+- Evidencias de ejecución: siempre segmentadas por carpeta `US/TC`; nunca almacenar capturas de paso solo a nivel US.
+- No cerrar TC/US/run como completados si falta evidencia subida/verificada por algún paso ejecutado (`BLOCKED_EVIDENCE`).
 - Aplicar contrato I/O estándar por agente (`references/contrato-io-agentes.md`).
 - Usar catálogo de códigos de decisión (`references/codigos-decision.md`) en `decisions_log`.
 - En creación de bugs: asignar al último usuario asignado de la US que sea distinto al usuario autenticado en el MCP de Azure DevOps; aplicar fallback documentado si no existe candidato.
@@ -171,4 +175,5 @@ Devuelve un resumen auditable y compacto:
 - ¿Se ejecutó detección previa a toda creación?
 - ¿Se evitó duplicación por estado y relaciones?
 - ¿Se registraron decisiones en `decisions_log`?
+- ¿La evidencia quedó segmentada por `US/TC` y validada por paso antes del cierre?
 - ¿Se respetó el límite de alcance Fase 1?

@@ -59,6 +59,9 @@ Parámetros recomendados adicionales:
 ### 2.6 Convenciones y campos
 - `naming_conventions.*` para títulos/suites/bugs/evidencias
 - `naming_conventions.scenario_id_pattern` para estandarizar deduplicación de escenarios
+- `naming_conventions.evidence_base_dir`: base por evidencia segmentada `sprint/US/TC`
+- `naming_conventions.evidence_step_filename`: naming canónico por paso
+- `naming_conventions.evidence_result_filename`: naming canónico de resultado
 - `fields_mapping.*` para custom fields y campos prohibidos
 
 ## 3) Qué configurar en `.env`

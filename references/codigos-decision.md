@@ -46,6 +46,7 @@ Campos condicionales recomendados:
 - `EXECUTION_OWNERSHIP_MISMATCH`
 - `EXECUTION_NOT_REQUIRED`
 - `BLOCKED_SETUP`
+- `BLOCKED_EVIDENCE`
 
 ### Configuracion / MCP
 - `MCP_NOT_AVAILABLE`

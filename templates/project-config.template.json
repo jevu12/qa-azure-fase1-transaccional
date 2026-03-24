@@ -139,7 +139,9 @@
     "test_case_title": "[{scenario_id}] US #{us_id} - {scenario_description}",
     "scenario_id_pattern": "ESC-{TIPO}-{DOM}-{NN}",
     "bug_title": "BUG - TC #{tc_id} - {failure_description}",
-    "evidence_filename": "TC-{tc_id}-step-{step}-{result}.png"
+    "evidence_base_dir": "outputs/evidencias/{sprint}/US-{us_id}/TC-{tc_id}",
+    "evidence_step_filename": "STEP-{step}-{result}-attempt-{attempt}-{timestamp}.png",
+    "evidence_result_filename": "RESULT-{result}-{timestamp}.png"
   },
   "fields_mapping": {
     "custom_fields": {
