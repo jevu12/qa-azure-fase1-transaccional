@@ -169,6 +169,28 @@ Métricas de ejecución:
 Ruta de evidencias: outputs/evidencias/[SPRINT]/US-[us_id]/TC-[tc_id]/
 ```
 
+## 6.1) Comentario en QA Task de ejecución (permanece en Doing por bugs/bloqueos)
+
+```md
+Ejecutor QA — Pipeline QA Automatizado — [timestamp]
+Template-Version: [template_version]
+
+Ejecución con resultados pendientes de resolución
+
+US: #[us_id]
+Task de ejecución: #[qa_task_ejecucion_id]
+Estado final de la task: Doing
+
+Motivo de continuidad:
+- Failed: [n]
+- Blocked: [n]
+
+Acción requerida:
+- Corregir bugs/impedimentos y retornar la US a estado Ready for test para reejecución.
+
+Ruta de evidencias: outputs/evidencias/[SPRINT]/US-[us_id]/TC-[tc_id]/
+```
+
 ## 7) Comentario final en US al completar ejecución (Ejecutor)
 
 ```md
@@ -197,7 +219,7 @@ Template-Version: [template_version]
 Ruta: `outputs/evidencias/[SPRINT]/US-[us_id]/TC-[tc_id]/`
 
 ### QA Task de ejecución
-#[qa_task_ejecucion_id] — **Closed**
+#[qa_task_ejecucion_id] — **[Doing|Closed]**
 ```
 
 ## 8) Comentario en US cuando hay bugs y la historia vuelve a On Hold (Orquestador)

@@ -79,6 +79,7 @@ Definir entradas, salidas y errores minimos por agente para ejecucion consistent
 - Output minimo:
   - `execution_outcomes[]` por TC
   - `execute_run_id`, `execute_url`
+  - `execution_task_state_before`, `execution_task_state_after`
   - comentarios TC/US
   - evidencias en inventario estandar
   - estructura por evidencia `US/TC` + `manifest.json` por TC

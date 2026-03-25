@@ -67,7 +67,8 @@ US.state
 >
 > **REGLA CRÍTICA — Estado `Ready for test`:**
 > El sistema crea TCs (si no existen), ejecuta las pruebas, y cambia
-> el estado a `Testing in progress`. Después de la ejecución, aplica
+> el estado a `Testing in progress`. Al iniciar, la QA Task de ejecución
+> debe pasar a `Doing` si está en `New|To Do`. Después de la ejecución, aplica
 > las reglas de transición post-ejecución (ver sección 6).
 
 ### 2.4 Nueva decisión formal: `EXECUTE_PENDING`
@@ -85,6 +86,7 @@ Condición obligatoria:
 
 Comportamiento:
 - Iniciar transición `Ready for test -> Testing in progress`
+- Cambiar QA Task de ejecución `New|To Do -> Doing` antes de correr TCs
 - Delegar inmediatamente al Agente Ejecutor
 - Registrar en `decisions_log` con `next_agent = "Ejecutor"` y `next_action = "EXECUTE_PENDING"`
 - Ejecutar publicación mediante flujo `execute_and_publish` (`contexto -> test points -> run -> resultados -> cierre -> trazabilidad`)
@@ -190,9 +192,9 @@ Para la US validada:
 |---|---|---|---|
 | Ready | Sin `planId/suiteId/testPoints` válidos | — | `BLOCK` (`reason_code = BLOCKED_SETUP`) |
 | Ready/Executed | Cobertura de evidencia por paso incompleta | — | `BLOCK` (`reason_code = BLOCKED_EVIDENCE`) |
-| Ready | No hay runs | — | Ejecutar todos los TCs |
+| Ready | No hay runs | — | Ejecutar todos los TCs + mover QA Task ejecución a `Doing` |
 | Ready | Run parcial | Mix | Ejecutar TCs no ejecutados |
-| Ready | Run completo | Todos PASS | SKIP ejecución |
+| Ready | Run completo | Todos PASS | Cerrar QA Task ejecución y cerrar flujo |
 | Ready | Run completo | Hay FAIL | Evaluar para bugs |
 | Ready | Run completo | Hay BLOCKED | Registrar impedimentos |
 | Design | — | — | BLOQUEAR (TCs incompletos) |
@@ -315,6 +317,10 @@ Para cada US en ejecución:
 - Si falta setup mínimo, registrar `BLOCKED_SETUP` y detener mutaciones de ejecución para esa US
 - Exigir cobertura de evidencia por paso (`steps_executed == steps_with_uploaded_verified_evidence`) antes de cierre exitoso
 - Si falta evidencia verificada, registrar `BLOCKED_EVIDENCE` y bloquear transición de cierre
+- Gestionar estado de QA Task ejecución:
+  - inicio: `New|To Do -> Doing`
+  - con `FAIL` o `BLOCKED`: mantener `Doing`
+  - todo OK (`PASS` sin bloqueos/fallos): `Doing -> Closed`
 
 ---
 
@@ -325,11 +331,13 @@ Ver documento completo: `references/reglas-transiciones.md`
 ### 6.1 Al iniciar la ejecución
 Cuando el Agente Ejecutor comienza a ejecutar TCs de una US en estado `Ready for test`:
 - **Cambiar estado:** `Ready for test` → `Testing in progress`
+- **Cambiar QA Task ejecución:** `New|To Do` → `Doing`
 - **Comentario obligatorio:** Resumen de ejecución iniciada con cantidad de TCs y plataformas
 
 ### 6.2 Si la ejecución detecta bugs
 Cuando la ejecución genera TCs con resultado `FAIL` y se crean bugs:
 - **Cambiar estado:** `Testing in progress` → `On Hold`
+- **QA Task ejecución:** mantener `Doing`
 - **Comentario obligatorio:** Resumen de defectos encontrados con links directos a los bugs creados
 - **Incluir en el comentario:**
   - Tabla de bugs con ID, título, severidad y TC relacionado
@@ -339,6 +347,7 @@ Cuando la ejecución genera TCs con resultado `FAIL` y se crean bugs:
 ### 6.3 Si todos los TCs pasan sin bugs
 Cuando TODOS los TCs ejecutados resultan `PASS` y no se generaron bugs:
 - **Cambiar estado:** `Testing in progress` → `PO Review`
+- **QA Task ejecución:** `Doing` → `Closed`
 - **Comentario obligatorio:** Resumen de ejecución exitosa con trazabilidad completa
 - **Incluir en el comentario:**
   - Tabla de TCs ejecutados con resultado y evidencia
@@ -348,6 +357,7 @@ Cuando TODOS los TCs ejecutados resultan `PASS` y no se generaron bugs:
 ### 6.4 Si hay TCs bloqueados sin fallos
 Cuando hay TCs `BLOCKED` pero no hay `FAIL`:
 - **NO cambiar estado** — la US permanece en `Testing in progress`
+- **QA Task ejecución:** mantener `Doing`
 - **Comentario:** Registrar impedimentos detectados
 - **Registrar en pipeline-state.json como `PARTIAL`**
 
@@ -374,6 +384,7 @@ Todos los parámetros provienen de `inputs/project-config.json`:
 | `policies.task_only_states` | config | Estados donde solo se crean QA Tasks (sin ejecución) |
 | `policies.no_action_states` | config | Estados donde no se realiza ninguna acción |
 | `policies.state_transitions.*` | config | Transiciones de estado de la US post-ejecución |
+| `policies.execution_task_transitions.*` | config | Transiciones de estado de QA Task de ejecución |
 | `policies.*` | config | Reglas de negocio y umbrales |
 | `naming_conventions.*` | config | Nombres de artefactos |
 | `fields_mapping.*` | config | Campos custom del proyecto |

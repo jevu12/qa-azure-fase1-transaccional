@@ -45,6 +45,10 @@ Compatibilidad:
 - Tipo de QA Task, tag QA, escenarios mínimos
 - `bug_confidence_threshold`, reintentos
 - estados procesables/bloqueados y transiciones
+- `execution_task_transitions` para task de ejecución:
+  - inicio: `New|To Do -> Doing`
+  - con bugs/bloqueos: mantener `Doing`
+  - todo OK: `Doing -> Closed`
 
 Parámetros recomendados adicionales:
 - `bug_confidence_by_classification` (confianza configurable por tipo de hallazgo)
@@ -119,6 +123,12 @@ Regla de seguridad:
 
 - Error de estado no procesable:
   - revisar `policies.processable_us_states`, `task_only_states`, `no_action_states`.
+
+- Task de ejecución no cambia correctamente:
+  - revisar `policies.execution_task_transitions` para asegurar:
+    - inicio: `New|To Do -> Doing`
+    - con bugs/bloqueos: mantener `Doing`
+    - todo OK: `Doing -> Closed`
 
 - Error en custom fields:
   - corregir `fields_mapping.custom_fields` o mover campo a `prohibited_fields`.

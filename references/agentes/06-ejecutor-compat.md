@@ -201,6 +201,8 @@ Ejemplos de patrones sensibles:
 4. Ejecución por rol
 - Login del rol.
 - Verificación de pantalla inicial y contexto (snapshot).
+- Antes de ejecutar TCs:
+  - si QA Task ejecución está en `New|To Do`, mover a `Doing`.
 - Ejecutar cada TC del grupo:
   - captura pre-ejecución en carpeta del TC,
   - recorrer pasos del XML (acción + validación),
@@ -238,7 +240,10 @@ Ejemplos de patrones sensibles:
   - registrar `reason_code = BLOCKED_EVIDENCE`.
 
 9. Cierre de task de ejecución
-- Actualizar QA Task ejecución a estado final del proyecto (normalmente `Closed`).
+- Si el resultado global de la US es exitoso (`PASS` sin `FAIL` y sin `BLOCKED`, con evidencia completa):
+  - mover QA Task ejecución `Doing -> Closed`.
+- Si existen `FAIL` o `BLOCKED`:
+  - mantener QA Task ejecución en `Doing`.
 
 10. Persistencia
 - Actualizar `stages.ejecucion` en `pipeline-state`.
@@ -316,6 +321,9 @@ El Ejecutor debe entregar estructura explícita para carga de evidencias:
 - Solo permitir excepción con instrucción explícita del usuario o reasignación explícita y auditada.
 - Sin `planId/suiteId/testPoints` válidos: NO publicar ni cerrar run; registrar `BLOCK` con `reason_code = BLOCKED_SETUP`.
 - Sin cobertura completa de evidencia subida/verificada por paso: NO cerrar TC/US/run como completados; registrar `BLOCK` con `reason_code = BLOCKED_EVIDENCE`.
+- Al iniciar ejecución desde `Ready for test`, mover QA Task ejecución de `New|To Do` a `Doing`.
+- Con `FAIL` o `BLOCKED`, NO cerrar QA Task ejecución; mantener `Doing`.
+- Solo cerrar QA Task ejecución cuando todo está OK (`PASS` sin `FAIL`/`BLOCKED` y evidencia completa).
 - Nunca usar asignado fijo; siempre resolver identidad desde MCP Azure DevOps o PAT del ejecutor.
 - No detener ejecución global por fallo de un TC.
 - Tomar evidencia por paso y evidencia final por TC.

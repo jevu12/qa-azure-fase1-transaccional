@@ -90,12 +90,28 @@ Precondición obligatoria antes de transición `Ready for test -> Testing in pro
 Ready for test → Testing in progress
 ```
 
+**Cambio de estado obligatorio de QA Task de ejecución (inicio):**
+```
+New|To Do → Doing
+```
+Reglas:
+- Si la task ya está en `Doing`, mantenerla en `Doing`.
+- Si la task está en `Closed`, no reabrir automáticamente salvo instrucción explícita del usuario.
+
 **Herramienta para el cambio de estado:**
 ```
 mcp_ado_wit_update_work_item
 id: [us_id]
 fields:
   - System.State: "Testing in progress"
+```
+
+**Herramienta para task de ejecución:**
+```
+mcp_ado_wit_update_work_item
+id: [qa_task_ejecucion_id]
+fields:
+  - System.State: "Doing"
 ```
 
 **Comentario obligatorio al cambiar estado:**
@@ -145,6 +161,7 @@ Cuando los resultados de ejecución incluyen TCs con resultado `FAIL` y se crean
 4. ✅ Asociar cada bug a la ejecución (Test Run) si aplica
 5. ✅ **Cambiar el estado de la US a `On Hold`**
 6. ✅ **Agregar comentario en la US** con detalle de defectos y links a bugs
+7. ✅ Mantener QA Task de ejecución en `Doing` (NO cerrar)
 
 **Cambio de estado obligatorio:**
 ```
@@ -215,6 +232,7 @@ Si alguna precondición falla:
 
 1. ✅ **Cambiar el estado de la US a `PO Review`**
 2. ✅ **Agregar comentario automático** con resumen de ejecución y trazabilidad
+3. ✅ Cerrar QA Task de ejecución (`Doing -> Closed`)
 
 **Cambio de estado obligatorio:**
 ```
@@ -227,6 +245,14 @@ mcp_ado_wit_update_work_item
 id: [us_id]
 fields:
   - System.State: "PO Review"
+```
+
+**Herramienta para cierre de task de ejecución:**
+```
+mcp_ado_wit_update_work_item
+id: [qa_task_ejecucion_id]
+fields:
+  - System.State: "Closed"
 ```
 
 **Comentario obligatorio en la US:**
@@ -272,6 +298,7 @@ Cuando algunos TCs resultan `BLOCKED` pero no hay `FAIL`:
 - ❌ NO cambiar el estado de la US a `PO Review` (no todos pasaron)
 - ✅ Dejar la US en `Testing in progress` para re-ejecución posterior
 - ✅ Registrar en pipeline-state.json como `PARTIAL`
+- ✅ Mantener QA Task de ejecución en `Doing` (NO cerrar)
 
 También aplica a bloqueo por evidencia:
 - Si un TC queda bloqueado por falta de evidencia subida/verificada por paso, tratar como `BLOCKED` operativo.
@@ -287,6 +314,19 @@ Cuando hay una combinación de resultados:
 - ✅ Registrar impedimentos para los TCs `BLOCKED`
 - ✅ **Cambiar el estado de la US a `On Hold`** (los bugs tienen prioridad)
 - ✅ Agregar comentario con resumen completo (bugs + impedimentos)
+- ✅ Mantener QA Task de ejecución en `Doing` (NO cerrar)
+
+---
+
+## 2.5 Matriz obligatoria de estado de QA Task de ejecución
+
+| Evento | Estado esperado QA Task ejecución |
+|---|---|
+| Inicio ejecución desde US `Ready for test` | `New|To Do -> Doing` |
+| Resultado con `FAIL` (con bugs) | `Doing` |
+| Resultado con `BLOCKED` (sin FAIL) | `Doing` |
+| Resultado mixto (`PASS/FAIL/BLOCKED`) | `Doing` |
+| Todo OK (`PASS`, sin `FAIL`, sin `BLOCKED`, evidencia completa) | `Doing -> Closed` |
 
 ---
 
@@ -358,6 +398,23 @@ Las transiciones de estado están configuradas en `inputs/project-config.json`:
         "to": "On Hold",
         "comment_required": true,
         "include_bug_links": true
+      }
+    },
+    "execution_task_transitions": {
+      "on_execution_start": {
+        "from": ["New", "To Do"],
+        "to": "Doing",
+        "comment_required": true
+      },
+      "on_bugs_or_blocked": {
+        "from": ["Doing"],
+        "to": "Doing",
+        "comment_required": true
+      },
+      "on_all_pass": {
+        "from": ["Doing"],
+        "to": "Closed",
+        "comment_required": true
       }
     },
     "task_only_states": ["New", "On Hold", "Code Review"],

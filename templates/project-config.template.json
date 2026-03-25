@@ -129,6 +129,11 @@
       "on_execution_start": { "from": ["Ready for test"], "to": "Testing in progress", "comment_required": true },
       "on_all_pass": { "from": ["Testing in progress"], "to": "PO Review", "comment_required": true },
       "on_bugs_found": { "from": ["Testing in progress"], "to": "On Hold", "comment_required": true, "include_bug_links": true }
+    },
+    "execution_task_transitions": {
+      "on_execution_start": { "from": ["New", "To Do"], "to": "Doing", "comment_required": true },
+      "on_bugs_or_blocked": { "from": ["Doing"], "to": "Doing", "comment_required": true },
+      "on_all_pass": { "from": ["Doing"], "to": "Closed", "comment_required": true }
     }
   },
   "naming_conventions": {

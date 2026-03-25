@@ -130,6 +130,9 @@ Si falta definición funcional, testabilidad o dato obligatorio que no pueda inf
 - Si falta setup de ejecución/publicación, registrar `BLOCK` con `reason_code = BLOCKED_SETUP`, `next_action = WAIT_USER_INPUT` y comentario en US.
 - Validar cobertura de evidencia por paso (`steps_executed == steps_with_uploaded_verified_evidence`) antes de autorizar cierre de TC/US/run.
 - Si falta evidencia verificada, registrar `BLOCK` con `reason_code = BLOCKED_EVIDENCE` y no cerrar transición.
+- Al iniciar ejecución en US `Ready for test`, forzar QA Task ejecución `New|To Do -> Doing`.
+- Con `FAIL` o `BLOCKED`, mantener QA Task ejecución en `Doing`.
+- Solo permitir QA Task ejecución `Doing -> Closed` cuando US califica para `PO Review`.
 - Actualiza estado de US solo si política lo permite.
 - Comenta impedimentos o transiciones en la US.
 
