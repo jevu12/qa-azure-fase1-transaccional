@@ -25,8 +25,25 @@ Resolver automáticamente:
 - Crear run con `plan.id` y `pointIds`
 - Guardar `runId`
 
-Referencia API (si aplica por integración):
-- `POST /test/runs`
+Mecanismo (Prioridad 1 — curl via Bash tool):
+```bash
+PAT_B64=$(echo -n ":${AZURE_DEVOPS_EXT_PAT}" | base64)
+curl -s -X POST \
+  "https://dev.azure.com/{org}/{project}/_apis/test/runs?api-version=7.1" \
+  -H "Authorization: Basic ${PAT_B64}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "QA Run US-{us_id} {executionDate}",
+    "plan": {"id": {planId}},
+    "pointIds": [{pointId1}, {pointId2}, ...],
+    "automated": false
+  }'
+```
+→ Guardar `.id` de la respuesta como `runId` en `pipeline-state.json`.
+
+Mecanismo (Prioridad 2 — Playwright UI, cuando REST no disponible):
+- `browser_navigate` → `https://dev.azure.com/{org}/{project}/_testPlans/execute?planId={planId}&suiteId={suiteId}`
+- El run se crea implícitamente al marcar el primer outcome en la UI.
 
 ### 4) Publicar resultados (por lote)
 Para cada caso ejecutado publicar:
@@ -38,14 +55,70 @@ Para cada caso ejecutado publicar:
 - `state: Completed`
 - `comment`
 
-Referencia API (si aplica por integración):
-- `POST /test/runs/{runId}/results`
+Guardar `resultId` por TC (necesario para subir adjuntos en paso 4b).
+
+Mecanismo (Prioridad 1 — curl via Bash tool):
+```bash
+curl -s -X POST \
+  "https://dev.azure.com/{org}/{project}/_apis/test/runs/{runId}/results?api-version=7.1" \
+  -H "Authorization: Basic ${PAT_B64}" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "testPoint": {"id": {testPointId}},
+      "testCase": {"id": {testCaseId}},
+      "testCaseRevision": {revision},
+      "testCaseTitle": "{title}",
+      "outcome": "Passed",
+      "state": "Completed",
+      "comment": "{comment}"
+    }
+  ]'
+```
+→ Guardar `.value[n].id` de la respuesta como `resultId` por TC.
+
+Mecanismo (Prioridad 2 — Playwright UI visual):
+Ver sección **"Flujo Playwright para ADO test runner"** en `08-gestor-evidencias-compat.md`.
+
+### 4b) [NUEVO] Subir evidencias al run (gate obligatorio antes de cerrar)
+- Por cada TC, subir todos los archivos de `outputs/evidencias/<sprint>/US-<id>/TC-<id>/`.
+- Confirmar que cada adjunto queda visible en ADO.
+- Actualizar `manifest.json` con `upload_status = UPLOADED_VERIFIED` por archivo confirmado.
+- Si algún archivo no se confirma: NO cerrar run → `BLOCKED_EVIDENCE`.
+
+Mecanismo (Prioridad 1 — curl REST, requiere `resultId`):
+```bash
+FILE_B64=$(base64 -i "{ruta_archivo}")
+curl -s -X POST \
+  "https://dev.azure.com/{org}/{project}/_apis/test/runs/{runId}/results/{resultId}/attachments?api-version=7.1" \
+  -H "Authorization: Basic ${PAT_B64}" \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"stream\": \"${FILE_B64}\",
+    \"fileName\": \"{nombre_archivo}.png\",
+    \"comment\": \"Evidencia paso {n} — TC {tc_id}\",
+    \"attachmentType\": \"GeneralAttachment\"
+  }"
+```
+
+Mecanismo (Prioridad 2 — Playwright UI visual):
+Ver sección **"Flujo Playwright para ADO test runner"** en `08-gestor-evidencias-compat.md`.
 
 ### 5) Cerrar run
 - Cerrar run con `state: Completed`
+- Solo ejecutar si todos los TCs tienen `upload_status = UPLOADED_VERIFIED` en su `manifest.json`.
 
-Referencia API (si aplica por integración):
-- `PATCH /test/runs/{runId}`
+Mecanismo (Prioridad 1 — curl via Bash tool):
+```bash
+curl -s -X PATCH \
+  "https://dev.azure.com/{org}/{project}/_apis/test/runs/{runId}?api-version=7.1" \
+  -H "Authorization: Basic ${PAT_B64}" \
+  -H "Content-Type: application/json" \
+  -d '{"state": "Completed"}'
+```
+
+Mecanismo (Prioridad 2 — Playwright UI):
+- El run se cierra automáticamente al completar todos los outcomes en la UI de ADO.
 
 ### 6) Trazabilidad
 Actualizar `pipeline-state.json` con:

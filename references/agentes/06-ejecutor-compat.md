@@ -33,7 +33,7 @@ Ejecutar EXACTAMENTE en este orden por cada historia:
 3. Crear run planificado
 - Crear run con `plan.id` y `pointIds`.
 - Guardar `runId`.
-- Endpoint de referencia: `POST /test/runs`.
+- Mecanismo obligatorio: ver sección **"Estrategia de publicación de resultados"** más abajo.
 
 4. Publicar resultados (por lote)
 - Para cada caso ejecutado publicar:
@@ -44,11 +44,20 @@ Ejecutar EXACTAMENTE en este orden por cada historia:
   - `outcome` (`Passed|Failed|Blocked|NotApplicable`)
   - `state: Completed`
   - `comment`
-- Endpoint de referencia: `POST /test/runs/{runId}/results`.
+- Guardar `resultId` por TC (requerido para subir adjuntos en paso 4b).
+- Mecanismo obligatorio: ver sección **"Estrategia de publicación de resultados"** más abajo.
+
+4b. Subir evidencias al run (obligatorio, gate de cierre)
+- Por cada TC, subir todos los archivos de evidencia de la carpeta `TC-<tc_id>/`.
+- Validar que cada adjunto queda visible en ADO antes de continuar.
+- Actualizar `manifest.json`: `upload_status = UPLOADED_VERIFIED` por cada archivo confirmado.
+- Si falta confirmar algún archivo: NO cerrar run → registrar `BLOCKED_EVIDENCE`.
+- Mecanismo obligatorio: ver sección **"Estrategia de subida de evidencias"** más abajo.
 
 5. Cerrar run
 - Cerrar run con `state: Completed`.
-- Endpoint de referencia: `PATCH /test/runs/{runId}`.
+- Solo ejecutar si todos los TCs tienen `upload_status = UPLOADED_VERIFIED`.
+- Mecanismo obligatorio: ver sección **"Estrategia de publicación de resultados"** más abajo.
 
 6. Trazabilidad
 - Actualizar `pipeline-state.json`:
@@ -308,6 +317,59 @@ El Ejecutor debe entregar estructura explícita para carga de evidencias:
 - resultados por TC (`PASS/FAIL/BLOCKED`)
 - bugs creados
 - evidencias generadas
+
+## Estrategia de publicación de resultados (orden de prioridad)
+
+El agente debe resolver el mecanismo disponible al inicio de cada ejecución y registrar cuál usó en `decisions_log`.
+
+### Prioridad 1 — REST API via curl (Bash tool)
+Usar cuando `AZURE_DEVOPS_EXT_PAT` está disponible en el entorno.
+
+**Crear run:**
+```bash
+PAT_B64=$(echo -n ":${AZURE_DEVOPS_EXT_PAT}" | base64)
+curl -s -X POST \
+  "https://dev.azure.com/{org}/{project}/_apis/test/runs?api-version=7.1" \
+  -H "Authorization: Basic ${PAT_B64}" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "QA Run US-{us_id} {executionDate}",
+    "plan": {"id": {planId}},
+    "pointIds": [{pointId1}, {pointId2}],
+    "automated": false
+  }'
+```
+→ Guardar `.id` de la respuesta como `runId`.
+
+**Publicar resultados:**
+```bash
+curl -s -X POST \
+  "https://dev.azure.com/{org}/{project}/_apis/test/runs/{runId}/results?api-version=7.1" \
+  -H "Authorization: Basic ${PAT_B64}" \
+  -H "Content-Type: application/json" \
+  -d '[{"testPoint":{"id":{pointId}},"testCase":{"id":{tcId}},"testCaseRevision":{rev},"testCaseTitle":"{title}","outcome":"Passed","state":"Completed","comment":"{comment}"}]'
+```
+→ Guardar `.value[n].id` de la respuesta como `resultId` por TC.
+
+**Cerrar run:**
+```bash
+curl -s -X PATCH \
+  "https://dev.azure.com/{org}/{project}/_apis/test/runs/{runId}?api-version=7.1" \
+  -H "Authorization: Basic ${PAT_B64}" \
+  -H "Content-Type: application/json" \
+  -d '{"state": "Completed"}'
+```
+
+### Prioridad 2 — Playwright UI visual
+Usar cuando REST no está disponible, o cuando se requiere carga visual de evidencias en el runner.
+El flujo completo de navegación, marcado de outcome y subida de archivos está definido en:
+`references/agentes/08-gestor-evidencias-compat.md` → sección "Flujo Playwright para ADO test runner".
+
+### Regla de selección de mecanismo
+1. Verificar disponibilidad de PAT: `echo $AZURE_DEVOPS_EXT_PAT` — si tiene valor, usar Prioridad 1.
+2. Si PAT no disponible o falla la llamada REST: activar Prioridad 2 (Playwright UI).
+3. Para subida de evidencias: siempre ejecutar Prioridad 2 (Playwright UI visual) salvo que el flujo REST haya generado `resultId` válidos para todos los TCs.
+4. Registrar en `decisions_log` qué mecanismo se usó y por qué.
 
 ## Reglas estrictas
 - Requiere autorización previa del Orquestador para ejecutar pruebas o mutaciones en Azure DevOps.

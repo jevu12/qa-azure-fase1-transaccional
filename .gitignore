@@ -1,0 +1,108 @@
+# Ignorar archivos de entorno y configuración sensible
+.env
+.env.local
+.env.*.local
+
+# Ignorar logs
+logs/
+*.log
+*.logs
+**/logs/
+
+# Ignorar evidencias y archivos multimedia
+outputs/evidencias/
+**/evidencias/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.ico
+*.svg
+*.webp
+*.heic
+*.heif
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.tar.bz2
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+*.mp3
+*.wav
+*.ogg
+*.flac
+
+# Ignorar archivos de estado y temporales
+outputs/pipeline-state/
+outputs/pipeline-state.json
+outputs/reports/
+*.tmp
+*.temp
+*.cache
+*.pid
+*.lock
+
+# Ignorar directorios de herramientas y dependencias
+.node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar archivos de IDE y editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+**/playwright-cli/
+**/playwright-mcp/
+**/.playwright-cli/
+**/.playwright-mcp/
+
+# Ignorar archivos de Azure CLI
+.azure/
+
+# Ignorar archivos generados automáticamente
+*.generated.*
+*.auto.*
+dist/
+build/
+out/
+
+# Permitir solo archivos específicos de agentes
+!references/agentes/*.md
+!agents/*.md
+
+# Ignorar todo lo demás en references excepto los agentes
+references/*
+!references/agentes/
+references/agentes/*
+!references/agentes/*.md
+
+# Ignorar todo lo demás en agents excepto los .md
+agents/*
+!agents/*.md
+
+inputs/
