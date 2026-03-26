@@ -106,3 +106,8 @@ agents/*
 !agents/*.md
 
 inputs/
+
+Mis Resultados/
+
+# Contexto de aprendizaje de la app (no se pushea)
+app-context-learning.md

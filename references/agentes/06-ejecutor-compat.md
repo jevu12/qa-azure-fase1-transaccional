@@ -47,11 +47,16 @@ Ejecutar EXACTAMENTE en este orden por cada historia:
 - Guardar `resultId` por TC (requerido para subir adjuntos en paso 4b).
 - Mecanismo obligatorio: ver sección **"Estrategia de publicación de resultados"** más abajo.
 
-4b. Subir evidencias al run (obligatorio, gate de cierre)
-- Por cada TC, subir todos los archivos de evidencia de la carpeta `TC-<tc_id>/`.
-- Validar que cada adjunto queda visible en ADO antes de continuar.
-- Actualizar `manifest.json`: `upload_status = UPLOADED_VERIFIED` por cada archivo confirmado.
-- Si falta confirmar algún archivo: NO cerrar run → registrar `BLOCKED_EVIDENCE`.
+4b. Comprimir y subir evidencias al run (obligatorio, gate de cierre)
+- **Paso previo obligatorio — compresión zip por TC:**
+  - Comprimir todos los PNGs de `TC-<tc_id>/` en un único archivo: `evidencias-TC-<tc_id>.zip`
+  - Ruta: `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/evidencias-TC-<tc_id>.zip`
+  - Comando: `cd outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/ && zip evidencias-TC-<tc_id>.zip *.png`
+  - Actualizar `manifest.json` del TC: añadir campo `zip_file = "evidencias-TC-<tc_id>.zip"`.
+  - El zip es el **único archivo** que se sube al ADO test runner (una sola interacción de upload).
+- Subir `evidencias-TC-<tc_id>.zip` al run y validar que queda visible en ADO.
+- Actualizar `manifest.json`: `upload_status = UPLOADED_VERIFIED` al confirmar el zip adjunto.
+- Si el zip no se confirma: NO cerrar run → registrar `BLOCKED_EVIDENCE`.
 - Mecanismo obligatorio: ver sección **"Estrategia de subida de evidencias"** más abajo.
 
 5. Cerrar run
@@ -130,12 +135,12 @@ execution:
 ```
 
 ## Qué hace
-- Ejecuta TCs con Playwright MCP.
-- Comenta resultado en cada TC y resumen en la US.
-- Puede crear bugs por fallos.
-- Actualiza QA Task de ejecución y `pipeline-state`.
-- Publica resultados en run planificado usando test points.
+- **FASE 1:** Ejecuta TCs con Playwright MCP en la aplicación bajo prueba, capturando evidencias por paso.
+- **FASE 2:** Comprime evidencias por TC en archivos zip.
+- **FASE 3:** Navega al ADO Test Runner con Playwright, selecciona todos los TCs, marca outcomes y sube evidencias (zips) uno a uno.
+- **FASE 4:** Crea bugs por fallos, comenta resultados en TCs y US, actualiza estados de QA Task y US.
 - Genera evidencias segmentadas por `US/TC` con manifiesto por caso.
+- Actualiza `app-context-learning.md` con hallazgos de cada ejecución.
 
 ## Dependencias y verificación obligatoria
 Antes de ejecutar TCs, verificar disponibilidad de automatización web:
@@ -185,11 +190,15 @@ Antes de guardar/subir screenshots:
 Ejemplos de patrones sensibles:
 - `password`, `token`, `authorization`, `bearer`, `cookie`, `set-cookie`, `documento`, `email`.
 
-## Flujo paso a paso (operativo)
+## Flujo paso a paso (operativo) — ACTUALIZADO
+
+### FASE 1: Ejecución de Pruebas con Playwright (en la app)
+
 1. Inicialización
 - Leer `inputs/project-config.json`.
 - Leer `outputs/pipeline-state.json` y seleccionar US con QA Task ejecución en `New|Doing`.
 - Si la task de ejecución ya está `Closed`, marcar `SKIP`.
+- Leer `app-context-learning.md` para conocer navegación, selectores y patrones de la app.
 - Crear estructura de evidencias por sprint/US/TC:
   - `outputs/evidencias/<sprint>/US-<us_id>/`
   - `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/`
@@ -200,63 +209,113 @@ Ejemplos de patrones sensibles:
 - Si falla credencial de un rol, marcar TCs de ese rol como `BLOCKED`.
 
 3. Preparación de TCs
-- Listar TCs de suite por US.
+- Listar TCs de suite por US desde Azure DevOps.
 - Leer cada TC y extraer:
   - `Microsoft.VSTS.TCM.Steps` (XML),
   - `System.Description`,
   - rol requerido.
 - Agrupar TCs por rol para minimizar cambios de sesión.
 
-4. Ejecución por rol
-- Login del rol.
-- Verificación de pantalla inicial y contexto (snapshot).
+4. Ejecución de TCs con Playwright (en la aplicación bajo prueba)
+- Login del rol usando MCP Playwright (`browser_navigate`, `browser_type`, `browser_click`).
+- Verificación de pantalla inicial y contexto (`browser_snapshot`).
 - Antes de ejecutar TCs:
-  - si QA Task ejecución está en `New|To Do`, mover a `Doing`.
-- Ejecutar cada TC del grupo:
-  - captura pre-ejecución en carpeta del TC,
-  - recorrer pasos del XML (acción + validación),
-  - screenshot por paso (`passed|failed|blocked`) guardado en carpeta del TC,
-  - actualizar `manifest.json` del TC por cada paso (`capture_status`, `upload_status=PENDING`, `checksum`),
-  - screenshot final del TC (`PASSED|FAILED|BLOCKED`) en carpeta del TC.
+  - si QA Task ejecución está en `New|To Do`, mover a `Doing` en Azure DevOps.
+- **Ejecutar cada TC del grupo siguiendo los pasos del XML:**
+  - Captura pre-ejecución (`STEP-000-PRE-attempt-1-<timestamp>.png`) en carpeta del TC.
+  - Recorrer pasos del XML (acción + validación esperada).
+  - Por cada paso:
+    - Ejecutar acción en la app con Playwright.
+    - Validar resultado esperado.
+    - Capturar screenshot (`STEP-<nnn>-<PASSED|FAILED|BLOCKED>-attempt-<n>-<timestamp>.png`).
+    - Actualizar `manifest.json` del TC: `steps_executed++`, `capture_status`, `upload_status=PENDING`.
+  - Captura final del TC (`RESULT-<PASSED|FAILED|BLOCKED>-<timestamp>.png`).
+  - Actualizar `manifest.json` con resultado final del TC.
 - Si cambia rol, hacer logout y continuar.
+- **Al finalizar todos los TCs: todas las evidencias están capturadas en carpetas locales.**
 
-5. Resultado por TC (obligatorio)
-- Comentar cada TC en Azure DevOps con:
-  - resultado,
-  - paso fallido (si aplica),
-  - evidencias,
-  - bug asociado (si aplica).
+### FASE 2: Compresión de Evidencias por TC
 
-6. Bug por fallo (si aplica)
-- Para `FAILED`, crear bug solo si el flujo/política lo permite.
+5. Comprimir evidencias por TC (obligatorio antes de subir)
+- Por cada TC ejecutado:
+  - Navegar a `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/`.
+  - Comprimir todos los PNGs en un único zip:
+    ```bash
+    cd outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/
+    zip evidencias-TC-<tc_id>.zip *.png
+    ```
+  - Actualizar `manifest.json` del TC: `zip_file = "evidencias-TC-<tc_id>.zip"`.
+  - El zip es el **único archivo** que se subirá al ADO runner.
+
+### FASE 3: Carga de Evidencias en Azure DevOps Test Runner
+
+6. Navegar al ADO Test Runner con Playwright
+- Usar MCP Playwright para navegar al runner:
+  ```
+  browser_navigate → https://dev.azure.com/{org}/{project}/_testPlans/execute?planId={planId}&suiteId={suiteId}
+  browser_snapshot → verificar carga del runner y listar TCs visibles
+  ```
+
+7. Seleccionar todos los TCs y ejecutarlos en el runner
+- **Seleccionar todos los TCs de la suite** (checkbox de selección múltiple o selección individual).
+- Iniciar ejecución en el runner (esto crea el run automáticamente).
+
+8. Marcar outcome y subir evidencias por cada TC (uno a uno)
+- **Por cada TC en orden:**
+  - Seleccionar el TC en el runner (`browser_click` en la fila del TC).
+  - Verificar que el panel de ejecución lateral está abierto (`browser_snapshot`).
+  - **Marcar outcome del TC:**
+    - Si el TC pasó: click en ícono "Passed".
+    - Si el TC falló: click en ícono "Failed" y marcar el paso específico que falló.
+    - Si el TC está bloqueado: click en ícono "Blocked".
+  - **Subir el zip de evidencias:**
+    - Click en botón "Add attachment" o ícono de clip.
+    - `browser_file_upload` → ruta absoluta del zip (`evidencias-TC-<tc_id>.zip`).
+    - Verificar que el zip aparece como adjunto (`browser_snapshot`).
+    - Capturar screenshot de confirmación (`UPLOAD-VERIFIED-TC-<tc_id>-<timestamp>.png`).
+    - Actualizar `manifest.json`: `upload_status = UPLOADED_VERIFIED`.
+  - **Agregar comentario al TC (si aplica):**
+    - Si el TC falló, agregar comentario con detalle del fallo y referencia al bug.
+    - Si el TC está bloqueado, agregar comentario con razón del bloqueo.
+  - Pasar al siguiente TC.
+
+9. Cerrar el runner
+- Una vez completados todos los TCs, cerrar el runner con "Save and Close".
+- El run se cierra automáticamente con todos los outcomes y evidencias cargadas.
+
+### FASE 4: Actualización de Estados en Azure DevOps
+
+10. Crear bugs por fallos (si aplica)
+- Para cada TC `FAILED`, crear bug solo si el flujo/política lo permite.
 - Aplicar regla de asignación de bug definida abajo.
 - Vincular bug con US y TC.
 
-7. Resumen por US (obligatorio)
+11. Comentar resultados en TCs y US
+- Comentar cada TC en Azure DevOps con:
+  - resultado,
+  - paso fallido (si aplica),
+  - evidencias (referencia al zip),
+  - bug asociado (si aplica).
 - Comentar en la US resumen ejecutivo:
   - total/pass/fail/blocked,
   - bugs creados,
   - evidencias clave,
   - acción requerida.
 
-8. Gate de evidencia por TC (obligatorio)
-- Antes de cerrar TC/US/run, validar por TC:
-  - `steps_executed == steps_with_uploaded_verified_evidence`
-  - no existen pasos con `upload_status != UPLOADED_VERIFIED`
-- Si falla:
-  - NO cerrar TC como `PASSED|FAILED`,
-  - marcar TC como `BLOCKED` por evidencia pendiente,
-  - registrar `reason_code = BLOCKED_EVIDENCE`.
+12. Actualizar estados de QA Task y US
+- **QA Task de ejecución:**
+  - Si todos los TCs fueron ejecutados (Passed o Failed) y evidencia completa: `Doing -> Closed`.
+  - Si existen TCs `BLOCKED` o evidencia incompleta: mantener en `Doing`.
+- **User Story:**
+  - Si todos los TCs pasaron: mover a `PO Review`.
+  - Si existen bugs: mover a `On Hold`.
+  - Si existen TCs bloqueados: mantener en `On Hold`.
 
-9. Cierre de task de ejecución
-- Si el resultado global de la US es exitoso (`PASS` sin `FAIL` y sin `BLOCKED`, con evidencia completa):
-  - mover QA Task ejecución `Doing -> Closed`.
-- Si existen `FAIL` o `BLOCKED`:
-  - mantener QA Task ejecución en `Doing`.
-
-10. Persistencia
+13. Persistencia
 - Actualizar `stages.ejecucion` en `pipeline-state`.
+- Registrar en `decisions_log` el resultado de la ejecución.
 - Publicar reporte `outputs/reports/ejecutor-[YYYY-MM-DD].md`.
+- **Actualizar `app-context-learning.md` con hallazgos de la ejecución** (selectores confirmados, lecciones aprendidas, datos de prueba).
 
 ## Regla de asignación de bug (cuando el Ejecutor crea bug)
 - Resolver `bug_assignee` con la misma política del ReporterBugs:
@@ -274,12 +333,16 @@ Capturar y persistir evidencia mínima:
   - `STEP-<nnn>-<PASSED|FAILED|BLOCKED>-attempt-<n>-<timestamp>.png` (cada paso ejecutado)
   - `RESULT-<PASSED|FAILED|BLOCKED>-<timestamp>.png`
   - `manifest.json` (registro transaccional del TC)
+  - `evidencias-TC-<tc_id>.zip` (archivo zip obligatorio con todos los PNGs del TC)
 
 Reglas:
 - Siempre capturar evidencia antes/después de acciones relevantes.
 - Nunca guardar evidencia de paso fuera de la carpeta `TC-<tc_id>`.
 - Nunca detener ejecución global por fallo de un TC; continuar y documentar.
 - Mantener naming estable para permitir inventario automático del Gestor de Evidencias.
+- **Una vez capturados todos los PNGs del TC, comprimir en zip antes de subir a ADO.**
+- El zip se llama `evidencias-TC-<tc_id>.zip` y es el único archivo que se sube al runner.
+- No subir PNGs individuales al runner; siempre usar el zip como unidad de subida.
 
 ## Handoff obligatorio al Gestor de Evidencias (08)
 El Ejecutor debe entregar estructura explícita para carga de evidencias:
@@ -384,8 +447,11 @@ El flujo completo de navegación, marcado de outcome y subida de archivos está 
 - Sin `planId/suiteId/testPoints` válidos: NO publicar ni cerrar run; registrar `BLOCK` con `reason_code = BLOCKED_SETUP`.
 - Sin cobertura completa de evidencia subida/verificada por paso: NO cerrar TC/US/run como completados; registrar `BLOCK` con `reason_code = BLOCKED_EVIDENCE`.
 - Al iniciar ejecución desde `Ready for test`, mover QA Task ejecución de `New|To Do` a `Doing`.
-- Con `FAIL` o `BLOCKED`, NO cerrar QA Task ejecución; mantener `Doing`.
-- Solo cerrar QA Task ejecución cuando todo está OK (`PASS` sin `FAIL`/`BLOCKED` y evidencia completa).
+- Al iniciar ejecución desde `Ready for test`, mover QA Task ejecución de `New|To Do` a `Doing`.
+- **ACTUALIZADO 2026-03-26:** Con `BLOCKED`, NO cerrar QA Task ejecución; mantener `On Hold`.
+- **ACTUALIZADO 2026-03-26:** Con `FAIL` pero todos los TCs ejecutados y evidencia completa, SÍ cerrar QA Task ejecución.
+- **ACTUALIZADO 2026-03-26:** Cerrar QA Task ejecución cuando todos los TCs fueron ejecutados (Passed o Failed) y evidencia completa. El cierre NO depende del outcome sino de si todos fueron ejecutados.
+- Nunca usar asignado fijo; siempre resolver identidad desde MCP Azure DevOps o PAT del ejecutor.
 - Nunca usar asignado fijo; siempre resolver identidad desde MCP Azure DevOps o PAT del ejecutor.
 - No detener ejecución global por fallo de un TC.
 - Tomar evidencia por paso y evidencia final por TC.

@@ -6,10 +6,12 @@ Para fallback de adjuntos y resumen de evidencias en US, usar:
 
 ## Qué hace
 - Inventaria evidencias por patrón de archivo.
+- Comprime evidencias por TC en archivos zip.
+- Carga evidencias en el ADO Test Runner usando Playwright (navegación visual).
 - Evita resubidas duplicadas.
-- Adjunta evidencia a TC/US/Bug o comenta fallback.
 - Publica resumen de evidencias en la US.
 - Enforcea segmentación de evidencias por `US/TC`.
+- **NOTA:** La carga de evidencias se hace SIEMPRE en el ADO Test Runner con Playwright, NO con REST API.
 
 ## Input esperado desde Ejecutor
 - `us_id`
@@ -33,29 +35,13 @@ Clasificar cada archivo por patrón:
 | `BUG-{id}-evidencia-{n}.png` | Evidencia específica de bug | Bug #{id} |
 | `US-{id}-resumen.png` | Resumen visual de US | User Story #{id} |
 
-## Estrategia de subida de evidencias (orden de prioridad)
+## Estrategia de subida de evidencias — ACTUALIZADO
 
-### Prioridad 1 — REST API via curl (requiere `runId` + `resultId`)
-Disponible cuando el flujo `execute_and_publish` completó los pasos 3 y 4 y guardó `resultId` por TC.
+### ÚNICA ESTRATEGIA: Playwright UI visual en ADO Test Runner
 
-```bash
-PAT_B64=$(echo -n ":${AZURE_DEVOPS_EXT_PAT}" | base64)
-FILE_B64=$(base64 -i "{ruta_absoluta_archivo}")
-curl -s -X POST \
-  "https://dev.azure.com/{org}/{project}/_apis/test/runs/{runId}/results/{resultId}/attachments?api-version=7.1" \
-  -H "Authorization: Basic ${PAT_B64}" \
-  -H "Content-Type: application/json" \
-  -d "{
-    \"stream\": \"${FILE_B64}\",
-    \"fileName\": \"{nombre_archivo}.png\",
-    \"comment\": \"Evidencia {paso} — TC {tc_id}\",
-    \"attachmentType\": \"GeneralAttachment\"
-  }"
-```
-→ Si respuesta HTTP 200/201: marcar `upload_status = UPLOADED_VERIFIED` en `manifest.json`.
-→ Si respuesta error: registrar en `decisions_log` y pasar a Prioridad 2.
+**IMPORTANTE:** La carga de evidencias se hace SIEMPRE mediante navegación visual en el ADO Test Runner con Playwright MCP. NO se usa REST API para subir evidencias.
 
-### Prioridad 2 — Playwright UI visual (obligatoria cuando se solicita carga visual o no hay `resultId`)
+**Razón:** El flujo de ejecución requiere que el tester (o agente) seleccione todos los TCs, los ejecute en el runner, marque outcomes y suba evidencias uno a uno en la interfaz visual. Esto garantiza trazabilidad completa y visibilidad en Azure DevOps.
 
 #### Flujo Playwright para ADO test runner
 
@@ -84,9 +70,16 @@ browser_snapshot → verificar que el outcome cambió visualmente en la fila
 browser_take_screenshot → OUTCOME-SET-TC-{id}-{timestamp}.png (evidencia del marcado)
 ```
 
-2c. Subir cada archivo de evidencia del TC:
+2c. Comprimir y subir evidencias del TC (obligatorio — zip único):
 ```
-Por cada archivo en outputs/evidencias/<sprint>/US-<id>/TC-<id>/:
+Antes de abrir el diálogo de adjunto, comprimir todos los PNGs del TC:
+  cd outputs/evidencias/<sprint>/US-<id>/TC-<id>/
+  zip evidencias-TC-{tc_id}.zip *.png
+  → Ruta resultante: outputs/evidencias/<sprint>/US-<id>/TC-<id>/evidencias-TC-{tc_id}.zip
+  → El zip es el ÚNICO archivo a subir. No subir PNGs individuales.
+
+Subir el zip (una sola interacción):
+Por cada archivo a subir (solo el zip: evidencias-TC-{tc_id}.zip):
   browser_snapshot → identificar botón "Add attachment" o ícono de clip en el panel del TC
   browser_click → botón "Add attachment"
   browser_snapshot → verificar que el diálogo/input de archivo se abrió
@@ -108,17 +101,44 @@ browser_snapshot → verificar vista general de la suite con todos los outcomes 
 browser_take_screenshot → SUITE-FINAL-{suiteId}-{timestamp}.png
 ```
 
-## Flujo operativo
+## Flujo operativo — ACTUALIZADO
+
+### FASE 1: Inventario y Compresión
 1. Inventariar estructura por sprint/US/TC: `outputs/evidencias/<sprint>/US-<id>/TC-<id>/`.
 2. Validar que cada evidencia de paso pertenezca a una carpeta `TC-<tc_id>`.
 3. Leer `manifest.json` por TC y cruzar con `evidence_files[]`.
-4. Resolver destino por archivo (TC/BUG/US).
-5. Verificar adjuntos existentes por nombre y checksum (idempotencia robusta).
-6. Subir solo faltantes usando la estrategia de prioridad definida arriba.
-7. Marcar `upload_status = UPLOADED_VERIFIED` en manifest al confirmar adjunto con snapshot.
-8. Si no se puede confirmar el adjunto visualmente o por API: dejar `BLOCKED_EVIDENCE` y registrar en `decisions_log`.
-9. Publicar comentario resumen en la US.
-10. Actualizar `stages.evidencias` en `pipeline-state`.
+4. **Comprimir evidencias por TC:**
+   - Por cada TC con evidencias capturadas:
+     ```bash
+     cd outputs/evidencias/<sprint>/US-<id>/TC-<id>/
+     zip evidencias-TC-<tc_id>.zip *.png
+     ```
+   - Actualizar `manifest.json`: `zip_file = "evidencias-TC-<tc_id>.zip"`.
+
+### FASE 2: Carga en ADO Test Runner (Playwright UI)
+5. Navegar al ADO Test Runner:
+   ```
+   browser_navigate → https://dev.azure.com/{org}/{project}/_testPlans/execute?planId={planId}&suiteId={suiteId}
+   browser_snapshot → verificar carga del runner
+   ```
+
+6. Seleccionar todos los TCs y ejecutarlos en el runner.
+
+7. Por cada TC, marcar outcome y subir zip:
+   - Seleccionar TC en el runner.
+   - Marcar outcome (Passed/Failed/Blocked).
+   - Click en "Add attachment".
+   - `browser_file_upload` → ruta absoluta del zip.
+   - Verificar adjunto visible (`browser_snapshot`).
+   - Marcar `upload_status = UPLOADED_VERIFIED` en `manifest.json`.
+
+8. Cerrar el runner con "Save and Close".
+
+### FASE 3: Validación y Trazabilidad
+9. Validar que todos los TCs tienen `upload_status = UPLOADED_VERIFIED`.
+10. Si algún TC no tiene evidencia verificada: registrar `BLOCKED_EVIDENCE` en `decisions_log`.
+11. Publicar comentario resumen en la US.
+12. Actualizar `stages.evidencias` en `pipeline-state`.
 
 ## Idempotencia de subida
 - Si el filename ya existe en el work item destino -> `SKIP`.

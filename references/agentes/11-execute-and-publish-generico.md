@@ -80,11 +80,19 @@ curl -s -X POST \
 Mecanismo (Prioridad 2 — Playwright UI visual):
 Ver sección **"Flujo Playwright para ADO test runner"** en `08-gestor-evidencias-compat.md`.
 
-### 4b) [NUEVO] Subir evidencias al run (gate obligatorio antes de cerrar)
-- Por cada TC, subir todos los archivos de `outputs/evidencias/<sprint>/US-<id>/TC-<id>/`.
-- Confirmar que cada adjunto queda visible en ADO.
-- Actualizar `manifest.json` con `upload_status = UPLOADED_VERIFIED` por archivo confirmado.
-- Si algún archivo no se confirma: NO cerrar run → `BLOCKED_EVIDENCE`.
+### 4b) [NUEVO] Comprimir y subir evidencias al run (gate obligatorio antes de cerrar)
+- **Paso previo obligatorio — compresión zip por TC (antes de cualquier subida):**
+  - Comprimir todos los PNGs de `outputs/evidencias/<sprint>/US-<id>/TC-<id>/` en un zip único:
+    ```bash
+    cd outputs/evidencias/<sprint>/US-<id>/TC-<id>/
+    zip evidencias-TC-{tc_id}.zip *.png
+    ```
+  - El zip resultante (`evidencias-TC-{tc_id}.zip`) es el **único archivo** a subir al runner.
+  - Actualizar `manifest.json` del TC: añadir `zip_file = "evidencias-TC-{tc_id}.zip"`.
+  - No subir PNGs individuales; siempre usar el zip como unidad de subida.
+- Subir `evidencias-TC-{tc_id}.zip` al run y confirmar que queda visible en ADO.
+- Actualizar `manifest.json` con `upload_status = UPLOADED_VERIFIED` al confirmar el zip.
+- Si el zip no se confirma: NO cerrar run → `BLOCKED_EVIDENCE`.
 
 Mecanismo (Prioridad 1 — curl REST, requiere `resultId`):
 ```bash
