@@ -208,7 +208,7 @@ New → Doing → Closed
 | QA Task | User Story | Parent-Child (hijo) |
 | Test Case | User Story | Tests / Tested By |
 | Test Case | QA Task Diseño | Related |
-| Bug | User Story | Related |
+| Bug | User Story | Child (Parent-Child como hijo) |
 | Bug | Test Case | Tested By |
 | Test Suite | Contiene TCs | Suite membership |
 

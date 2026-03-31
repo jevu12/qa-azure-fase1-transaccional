@@ -156,7 +156,7 @@ el Orquestador DEBE evaluar los resultados y aplicar estas reglas:
 Cuando los resultados de ejecución incluyen TCs con resultado `FAIL` y se crean bugs:
 
 1. ✅ Crear los bugs en Azure DevOps
-2. ✅ Asociar cada bug a la US (relación Related)
+2. ✅ Asociar cada bug a la US (relación Child - Parent-Child como hijo)
 3. ✅ Asociar cada bug al TC correspondiente (relación Tested By)
 4. ✅ Asociar cada bug a la ejecución (Test Run) si aplica
 5. ✅ **Cambiar el estado de la US a `On Hold`**

@@ -1,0 +1,72 @@
+{
+  "project": "MisResultados",
+  "sprint": "CORE-Sprint-14",
+  "iteration_path": "MisResultados\\CORE - Sprint 14",
+  "mode": "full-pipeline",
+  "last_updated": "2026-03-27T14:40:00.000Z",
+  "stages": {
+    "clasificacion": {
+      "status": "IN_PROGRESS",
+      "last_run": "2026-03-27T14:40:00.000Z",
+      "us_count": 5
+    },
+    "deteccion": {
+      "status": "IN_PROGRESS",
+      "last_run": "2026-03-27T14:40:15.000Z",
+      "artifacts_found": 12
+    },
+    "ingesta": {
+      "status": "IN_PROGRESS",
+      "last_run": "2026-03-27T14:40:30.000Z",
+      "tasks_created": 3
+    },
+    "analisis": {
+      "status": "IN_PROGRESS",
+      "last_run": "2026-03-27T14:40:45.000Z",
+      "us_analyzed": 2
+    },
+    "diseno": {
+      "status": "IN_PROGRESS",
+      "last_run": "2026-03-27T14:41:00.000Z",
+      "tcs_created": 8
+    },
+    "ejecucion": {
+      "status": "IN_PROGRESS",
+      "last_run": "2026-03-27T14:41:15.000Z",
+      "tcs_executed": 5
+    },
+    "evidencias": {
+      "status": "IN_PROGRESS",
+      "last_run": "2026-03-27T14:41:30.000Z",
+      "files_uploaded": 15
+    }
+  },
+  "us_procesadas": [
+    {
+      "us_id": 140601,
+      "status": "IN_PROGRESS",
+      "current_stage": "ejecucion"
+    },
+    {
+      "us_id": 140602,
+      "status": "PROCESSING",
+      "current_stage": "diseno"
+    }
+  ],
+  "bugs_created": [
+    {
+      "bug_id": 145154,
+      "us_id": 140606,
+      "created_at": "2026-03-27T14:41:20.000Z",
+      "severity": "High"
+    }
+  ],
+  "decisions_log": [
+    {
+      "timestamp": "2026-03-27T14:40:00.000Z",
+      "code": "PIPELINE_START",
+      "action": "Iniciando pipeline completo",
+      "detail": "5 User Stories detectadas en Sprint 14"
+    }
+  ]
+}

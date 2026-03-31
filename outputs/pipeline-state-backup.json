@@ -1,0 +1,192 @@
+{
+  "project": "MisResultados",
+  "sprint": "CORE-Sprint-14",
+  "iteration_path": "MisResultados\\CORE - Sprint 14",
+  "mode": "execution-only",
+  "last_updated": "2026-03-26T21:25:00.000Z",
+  "us_ejecutadas": [
+    {
+      "us_id": 141583,
+      "us_title": "Mis Resultados - Periodos Home - Mejoras en listado de periodos (CA06–CA08)",
+      "plan_id": 118760,
+      "suite_id": 143472,
+      "execution_date": "2026-03-26",
+      "tester": "jorge.vasquez@n5now.com",
+      "environment": "qa",
+      "total_tcs": 9,
+      "passed": 9,
+      "failed": 0,
+      "blocked": 0,
+      "bugs_created": 0,
+      "evidence_coverage": "9/9",
+      "upload_status": "UPLOADED_VERIFIED",
+      "test_points": [
+        { "tc_id": 143473, "result": "PASSED" },
+        { "tc_id": 143474, "result": "PASSED" },
+        { "tc_id": 143475, "result": "PASSED" },
+        { "tc_id": 143476, "result": "PASSED" },
+        { "tc_id": 143477, "result": "PASSED" },
+        { "tc_id": 143478, "result": "PASSED" },
+        { "tc_id": 143479, "result": "PASSED" },
+        { "tc_id": 143480, "result": "PASSED" },
+        { "tc_id": 143481, "result": "PASSED" }
+      ],
+      "evidence_path": "outputs/evidencias/CORE-Sprint-14/US-141583/"
+    },
+    {
+      "us_id": 139845,
+      "us_title": "Mis Resultados - Periodos Home - Mejoras en cards de periodos (CA01–CA04)",
+      "plan_id": 118760,
+      "suite_id": 143513,
+      "execution_date": "2026-03-26",
+      "tester": "jorge.vasquez@n5now.com",
+      "environment": "qa",
+      "total_tcs": 9,
+      "passed": 9,
+      "failed": 0,
+      "blocked": 0,
+      "bugs_created": 0,
+      "evidence_coverage": "9/9",
+      "upload_status": "UPLOADED_VERIFIED",
+      "test_points": [
+        { "tc_id": 143493, "result": "PASSED" },
+        { "tc_id": 143494, "result": "PASSED" },
+        { "tc_id": 143495, "result": "PASSED" },
+        { "tc_id": 143496, "result": "PASSED" },
+        { "tc_id": 143497, "result": "PASSED" },
+        { "tc_id": 143498, "result": "PASSED" },
+        { "tc_id": 143499, "result": "PASSED" },
+        { "tc_id": 143500, "result": "PASSED" },
+        { "tc_id": 143501, "result": "PASSED" }
+      ],
+      "evidence_path": "outputs/evidencias/CORE-Sprint-14/US-139845/"
+    },
+    {
+      "us_id": 140601,
+      "us_title": "Mis Resultados - Visualización objetivos - Filtrar cumplimiento de objetivos por periodo (ajustar tamaño del selector)",
+      "plan_id": 118760,
+      "suite_id": 143550,
+      "qa_task_ejecucion_id": 142012,
+      "qa_task_ejecucion_state": "Closed",
+      "execution_date": "2026-03-26",
+      "tester": "jorge.vasquez@n5now.com",
+      "environment": "qa",
+      "total_tcs": 6,
+      "passed": 6,
+      "failed": 0,
+      "blocked": 0,
+      "bugs_created": 0,
+      "evidence_coverage": "6/6",
+      "upload_status": "UPLOADED_VERIFIED",
+      "test_points": [
+        { "tc_id": 143551, "test_point_id": 100087, "revision": 3, "result": "PASSED" },
+        { "tc_id": 143552, "test_point_id": 100088, "revision": 3, "result": "PASSED" },
+        { "tc_id": 143553, "test_point_id": 100089, "revision": 3, "result": "PASSED" },
+        { "tc_id": 143554, "test_point_id": 100090, "revision": 3, "result": "PASSED" },
+        { "tc_id": 143555, "test_point_id": 100091, "revision": 3, "result": "PASSED" },
+        { "tc_id": 143556, "test_point_id": 100092, "revision": 3, "result": "PASSED" }
+      ],
+      "evidence_path": "outputs/evidencias/CORE-Sprint-14/US-140601/"
+    },
+    {
+      "us_id": 140606,
+      "us_title": "Mis Resultados - Visualización objetivos - Exportar cumplimiento de objetivos [nivel 1] - Cambio de nombre de columna Productividad a Avance",
+      "plan_id": 118760,
+      "suite_id": 143583,
+      "qa_task_ejecucion_id": 142032,
+      "execution_date": "2026-03-26",
+      "tester": "jhonatan.linares@n5now.com",
+      "environment": "qa",
+      "total_tcs": 1,
+      "passed": 0,
+      "failed": 1,
+      "blocked": 0,
+      "bugs_created": 1,
+      "bug_ids": [145154],
+      "evidence_coverage": "1/1",
+      "upload_status": "UPLOADED_VERIFIED",
+      "test_points": [
+        { "tc_id": 143558, "test_point_id": 100094, "revision": 3, "result": "FAILED", "bug_id": 145154 }
+      ],
+      "evidence_path": "outputs/evidencias/CORE-Sprint-14/US-140606/"
+    },
+    {
+      "us_id": 140602,
+      "us_title": "Mis Resultados - Visualización objetivos - Cumplimiento de vendedores en un objetivo (Jerárquico) - Grilla - Columna \"Rol comercial\"",
+      "plan_id": 118760,
+      "suite_id": 143515,
+      "qa_task_ejecucion_id": 142047,
+      "qa_task_ejecucion_state": "Closed",
+      "execution_date": "2026-03-26",
+      "tester": "jhonatan.linares@n5now.com",
+      "environment": "qa",
+      "total_tcs": 3,
+      "passed": 0,
+      "failed": 1,
+      "blocked": 2,
+      "bugs_created": 1,
+      "bug_ids": [145170],
+      "evidence_coverage": "3/3",
+      "upload_status": "PENDING",
+      "test_points": [
+        { "tc_id": 143506, "result": "FAILED", "bug_id": 145170, "failed_step": 7 },
+        { "tc_id": 143507, "result": "BLOCKED", "blocked_by_bug": 145170, "steps_executed": 2 },
+        { "tc_id": 143508, "result": "BLOCKED", "blocked_by_bug": 145170, "steps_executed": 2 }
+      ],
+      "evidence_path": "outputs/evidencias/CORE-Sprint-14/US-140602/",
+      "us_state": "On Hold",
+      "us_state_reason": "Bugs encontrados durante ejecución"
+    }
+  ],
+  "decisions_log": [
+    {
+      "timestamp": "2026-03-26T15:00:00.000Z",
+      "code": "EXEC_START",
+      "us_id": 140601,
+      "action": "Inicio ejecución Ejecutor",
+      "detail": "6 TCs en suiteId=143550, planId=118760. Test points 100087-100092 confirmados."
+    },
+    {
+      "timestamp": "2026-03-26T15:12:00.000Z",
+      "code": "EXEC_COMPLETE",
+      "us_id": 140601,
+      "action": "Ejecución completada",
+      "detail": "6/6 TCs PASSED. Evidencias capturadas y manifests escritos. Comentarios publicados en TCs y US. QA Task #142012 cerrada."
+    },
+    {
+      "timestamp": "2026-03-26T17:00:00.000Z",
+      "code": "EXEC_COMPLETE",
+      "us_id": 141583,
+      "action": "Ejecución completada",
+      "detail": "9/9 TCs PASSED. Evidencias comprimidas en zip por TC y subidas al runner ADO (suiteId=143472, planId=118760). Runner único con selección de todos los TCs."
+    },
+    {
+      "timestamp": "2026-03-26T17:45:00.000Z",
+      "code": "EXEC_COMPLETE",
+      "us_id": 139845,
+      "action": "Ejecución completada",
+      "detail": "9/9 TCs PASSED. Evidencias comprimidas en zip por TC y subidas al runner ADO (suiteId=143513, planId=118760). Runner único con selección de todos los TCs."
+    },
+    {
+      "timestamp": "2026-03-26T21:26:00.000Z",
+      "code": "EXEC_COMPLETE",
+      "us_id": 140606,
+      "action": "Ejecución completada con fallo",
+      "detail": "1/1 TC FAILED. TC #143558 falla en paso 3: EXCEL_EXPORT_ERROR (Athena query) en descarga de reporte Excel. Bug #145154 creado, asignado a Francois Lopez. Evidencia zip (319.6 KB) subida al runner ADO (suiteId=143583, planId=118760). Comentario publicado en QA Task #142032. Runner cerrado con Save and Close."
+    },
+    {
+      "timestamp": "2026-03-26T23:02:00.000Z",
+      "code": "EXEC_COMPLETE_WITH_BUGS",
+      "us_id": 140602,
+      "action": "Ejecución completada con bugs - US bloqueada",
+      "detail": "3 TCs ejecutados: 1 FAILED (TC #143506 paso 7), 2 BLOCKED (TC #143507, #143508). Bug #145170 creado y vinculado a los 3 TCs. Razón: Columna 'Rol comercial' muestra valores vacíos. QA Task #142047 cerrada. US #140602 movida a 'On Hold'. Comentarios agregados en TCs, QA Task y US. Manifests actualizados con estados correctos."
+    }
+  ],
+  "stages": {
+    "deteccion": "COMPLETE",
+    "ingesta": "COMPLETE",
+    "analisis": "COMPLETE",
+    "diseno": "COMPLETE",
+    "ejecucion": "COMPLETE"
+  }
+}
