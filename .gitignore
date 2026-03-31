@@ -106,3 +106,36 @@ agents/*
 !agents/*.md
 
 inputs/
+
+# ============================================
+# MINIVERSE - No incluir en repositorio
+# ============================================
+
+# Documentación y guías de Miniverse
+MINIVERSE-INTEGRATION-GUIDE.md
+MINIVERSE-SETUP.md
+MINIVERSE-CONDITIONS.md
+MINIVERSE-STATUS.md
+app-context-learning.md
+
+# Scripts de integración de Miniverse
+agents-server.js
+agents-server.cjs
+start-miniverse.sh
+miniverse-integration.js
+ejemplo-integracion-skill.js
+test-miniverse-live.js
+
+# Carpeta completa de Miniverse/NPC Office
+Mis Resultados/
+NPC Office/
+
+# Directorios de trabajo temporal
+Directorios creados/
+echo/
+output/
+
+# Dependencias de Miniverse en root
+node_modules/
+package.json
+package-lock.json

@@ -275,9 +275,26 @@ Capturar y persistir evidencia mínima:
   - `RESULT-<PASSED|FAILED|BLOCKED>-<timestamp>.png`
   - `manifest.json` (registro transaccional del TC)
 
+### ⚠️ Regla obligatoria de compresión de evidencias (ZIP por TC)
+Una vez capturadas todas las evidencias de un TC, **antes de adjuntarlas al runner**:
+
+1. Comprimir todos los archivos de la carpeta `TC-<tc_id>/` (excepto `manifest.json`) en un único ZIP:
+   ```bash
+   cd "outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>"
+   zip TC-<tc_id>-evidencias.zip STEP-*.png RESULT-*.png network-requests.json 2>/dev/null || true
+   ```
+2. El ZIP **debe quedar dentro de la misma carpeta del TC**:
+   - Ruta correcta: `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/TC-<tc_id>-evidencias.zip`
+   - ❌ Incorrecto: `outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>-evidencias.zip` (nivel US)
+
+3. Adjuntar **únicamente el ZIP** al runner (no los archivos individuales). Esto reduce el número de operaciones de upload de N a 1 por TC.
+
+4. Verificar que el contador de adjuntos del runner aumenta a "1" tras la subida.
+
 Reglas:
 - Siempre capturar evidencia antes/después de acciones relevantes.
 - Nunca guardar evidencia de paso fuera de la carpeta `TC-<tc_id>`.
+- El ZIP siempre dentro de la carpeta `TC-<tc_id>/`, nunca a nivel `US-<us_id>/`.
 - Nunca detener ejecución global por fallo de un TC; continuar y documentar.
 - Mantener naming estable para permitir inventario automático del Gestor de Evidencias.
 
@@ -322,8 +339,23 @@ El Ejecutor debe entregar estructura explícita para carga de evidencias:
 
 El agente debe resolver el mecanismo disponible al inicio de cada ejecución y registrar cuál usó en `decisions_log`.
 
+### ⚠️ Advertencia crítica sobre el PAT disponible
+El PAT en `AZURE_DEVOPS_EXT_PAT` de este proyecto tiene scope limitado: funciona para workitems (leer/editar/comentar) pero **NO tiene scope de test management**. Las llamadas REST a `/test/runs`, `/test/runs/{runId}/results` y `/test/runs/{runId}/results/{resultId}/attachments` retornan **HTTP 401**.
+
+**Regla obligatoria:** NO intentar REST para operaciones de test runs/results/attachments sin verificar el scope primero. Si la verificación falla, ir directamente a Playwright UI. No reintentar con REST si ya se recibió 401 en endpoint de test.
+
 ### Prioridad 1 — REST API via curl (Bash tool)
-Usar cuando `AZURE_DEVOPS_EXT_PAT` está disponible en el entorno.
+Solo aplicable si el PAT tiene scope de test management **verificado** con la llamada de prueba siguiente. Para el PAT actual de este proyecto, saltar directamente a Prioridad 2.
+
+**Verificación obligatoria antes de intentar cualquier operación de test por REST:**
+```bash
+PAT_B64=$(echo -n ":${AZURE_DEVOPS_EXT_PAT}" | base64)
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+  "https://dev.azure.com/{org}/{project}/_apis/test/plans?api-version=7.1" \
+  -H "Authorization: Basic ${PAT_B64}")
+echo $HTTP_CODE
+```
+→ Si `200`: continuar con REST. Si `401` o `403`: registrar `BLOCKED_REST_TEST_SCOPE` e ir a Prioridad 2 sin más intentos REST en esta sesión.
 
 **Crear run:**
 ```bash
@@ -360,16 +392,16 @@ curl -s -X PATCH \
   -d '{"state": "Completed"}'
 ```
 
-### Prioridad 2 — Playwright UI visual
-Usar cuando REST no está disponible, o cuando se requiere carga visual de evidencias en el runner.
-El flujo completo de navegación, marcado de outcome y subida de archivos está definido en:
+### Prioridad 2 — Playwright UI visual (mecanismo principal para este proyecto)
+Usar para todas las operaciones de test runs, marcado de resultados y subida de evidencias.
+El flujo completo está definido en:
 `references/agentes/08-gestor-evidencias-compat.md` → sección "Flujo Playwright para ADO test runner".
 
 ### Regla de selección de mecanismo
-1. Verificar disponibilidad de PAT: `echo $AZURE_DEVOPS_EXT_PAT` — si tiene valor, usar Prioridad 1.
-2. Si PAT no disponible o falla la llamada REST: activar Prioridad 2 (Playwright UI).
-3. Para subida de evidencias: siempre ejecutar Prioridad 2 (Playwright UI visual) salvo que el flujo REST haya generado `resultId` válidos para todos los TCs.
-4. Registrar en `decisions_log` qué mecanismo se usó y por qué.
+1. Ejecutar verificación de scope del PAT (llamada de prueba a endpoint de test).
+2. Si retorna 401/403 (como ocurre con el PAT actual): usar **exclusivamente Prioridad 2 (Playwright UI)** para toda la sesión. No reintentar REST.
+3. Registrar en `decisions_log` qué mecanismo se usó y por qué.
+4. Si se usa Prioridad 2: el runner crea y cierra el test run; no se necesita `runId` externo.
 
 ## Reglas estrictas
 - Requiere autorización previa del Orquestador para ejecutar pruebas o mutaciones en Azure DevOps.

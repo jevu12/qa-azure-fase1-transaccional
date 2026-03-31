@@ -137,3 +137,23 @@ evitar duplicados y adjuntar/comentar evidencias en US/TC/Bug.
 - Usa `analysis-only` o `design-only` para corridas acotadas.
 - Usa `execution-only` solo cuando el orquestador habilite extensión de ejecución/bugs/evidencias.
 - Si hay interrupciones, retoma desde `pipeline-state.json`.
+
+## 🌍 Visualización con Miniverse
+
+Miniverse te permite ver tus agentes QA trabajando en tiempo real en un mundo pixel art.
+
+### Inicio rápido
+```bash
+# Iniciar Miniverse + Servidor de Agentes
+./start-miniverse.sh
+```
+
+Luego abre http://localhost:5173 para ver el mundo.
+
+### Características
+- **8 agentes visualizados** en tiempo real
+- **Estados sincronizados** desde `pipeline-state.json`
+- **Editor visual** (presiona E) para personalizar el mundo
+- **WebSocket** para actualizaciones en vivo
+
+Ver `MINIVERSE-SETUP.md` para documentación completa.

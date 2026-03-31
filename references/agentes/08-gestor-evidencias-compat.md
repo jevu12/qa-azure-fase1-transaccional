@@ -33,89 +33,129 @@ Clasificar cada archivo por patrón:
 | `BUG-{id}-evidencia-{n}.png` | Evidencia específica de bug | Bug #{id} |
 | `US-{id}-resumen.png` | Resumen visual de US | User Story #{id} |
 
-## Estrategia de subida de evidencias (orden de prioridad)
+## ⚠️ Regla de compresión ZIP (obligatoria antes de subir)
 
-### Prioridad 1 — REST API via curl (requiere `runId` + `resultId`)
-Disponible cuando el flujo `execute_and_publish` completó los pasos 3 y 4 y guardó `resultId` por TC.
+Antes de subir cualquier evidencia al runner ADO, comprimir **todos** los archivos de evidencia del TC en un único ZIP:
 
 ```bash
+cd "outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>"
+zip TC-<tc_id>-evidencias.zip STEP-*.png RESULT-*.png network-requests.json 2>/dev/null || true
+```
+
+**Reglas críticas:**
+- El ZIP **debe quedar DENTRO de la carpeta del TC**: `TC-<tc_id>/TC-<tc_id>-evidencias.zip`
+- ❌ **Nunca** crear el ZIP a nivel de la carpeta US (`US-<us_id>/TC-<tc_id>-evidencias.zip`)
+- Subir **únicamente el ZIP** al runner (no archivos individuales). Esto reduce el número de uploads de N a 1 por TC.
+- Verificar que el contador de adjuntos del runner muestra "1" tras la subida.
+
+## Estrategia de subida de evidencias (orden de prioridad)
+
+### Prioridad 1 — REST API via curl (requiere `runId` + `resultId` con scope de test management)
+⚠️ El PAT actual (`AZURE_DEVOPS_EXT_PAT`) **no tiene scope de test management**. Las llamadas a endpoints `/test/runs/{runId}/results/{resultId}/attachments` retornan HTTP 401. Saltar directamente a Prioridad 2.
+
+Solo aplicar Prioridad 1 si el PAT tiene scope de test management verificado:
+```bash
 PAT_B64=$(echo -n ":${AZURE_DEVOPS_EXT_PAT}" | base64)
-FILE_B64=$(base64 -i "{ruta_absoluta_archivo}")
+# Subir el ZIP (no archivos individuales)
+FILE_B64=$(base64 -i "outputs/evidencias/<sprint>/US-<id>/TC-<id>/TC-<id>-evidencias.zip")
 curl -s -X POST \
   "https://dev.azure.com/{org}/{project}/_apis/test/runs/{runId}/results/{resultId}/attachments?api-version=7.1" \
   -H "Authorization: Basic ${PAT_B64}" \
   -H "Content-Type: application/json" \
   -d "{
     \"stream\": \"${FILE_B64}\",
-    \"fileName\": \"{nombre_archivo}.png\",
-    \"comment\": \"Evidencia {paso} — TC {tc_id}\",
+    \"fileName\": \"TC-{tc_id}-evidencias.zip\",
+    \"comment\": \"Evidencias TC {tc_id}\",
     \"attachmentType\": \"GeneralAttachment\"
   }"
 ```
 → Si respuesta HTTP 200/201: marcar `upload_status = UPLOADED_VERIFIED` en `manifest.json`.
-→ Si respuesta error: registrar en `decisions_log` y pasar a Prioridad 2.
+→ Si respuesta 401/403: registrar `BLOCKED_REST_TEST_SCOPE` en `decisions_log` y pasar a Prioridad 2.
 
-### Prioridad 2 — Playwright UI visual (obligatoria cuando se solicita carga visual o no hay `resultId`)
+### Prioridad 2 — Playwright UI visual (mecanismo principal para este proyecto)
 
-#### Flujo Playwright para ADO test runner
+#### Flujo Playwright para ADO test runner (validado en ejecución real)
 
-**Prerrequisito:** confirmar que el browser puede navegar ADO (sesión activa o login previo).
+**Prerrequisito:** el browser ya tiene sesión activa en ADO.
 
-**Paso 1 — Navegar al runner de la suite:**
+**Paso 1 — Navegar al plan de pruebas y abrir el runner:**
 ```
 browser_navigate → https://dev.azure.com/{org}/{project}/_testPlans/execute?planId={planId}&suiteId={suiteId}
-browser_snapshot → verificar carga del runner y listar TCs visibles
+browser_snapshot → verificar que se listan los test points de la suite
+# Seleccionar todos los TCs (checkbox encabezado) y hacer clic en "Run for web application"
+# → se abre una nueva pestaña (tab index 1) con el runner en: _testExecution/Index
+browser_tabs → confirmar que la nueva pestaña está activa (tab 1)
 ```
 
-**Paso 2 — Por cada TC (repetir en orden):**
+**Paso 2 — Por cada TC en el runner (en orden, de 1 a N):**
 
-2a. Seleccionar el TC:
+2a. Verificar que se está en el TC correcto:
 ```
-browser_snapshot → identificar fila del TC por título
-browser_click → fila del TC para abrir panel de ejecución lateral
-browser_snapshot → verificar que el panel de ejecución está abierto
+browser_snapshot (tab 1) → verificar título "Test X of N" y nombre del TC activo
 ```
 
-2b. Marcar outcome:
+2b. Marcar cada paso como PASSED/FAILED/BLOCKED:
 ```
-browser_snapshot → identificar controles de outcome (íconos Passed/Failed/Blocked)
-browser_click → ícono del outcome correspondiente (ej. "Passed")
-browser_snapshot → verificar que el outcome cambió visualmente en la fila
-browser_take_screenshot → OUTCOME-SET-TC-{id}-{timestamp}.png (evidencia del marcado)
-```
-
-2c. Subir cada archivo de evidencia del TC:
-```
-Por cada archivo en outputs/evidencias/<sprint>/US-<id>/TC-<id>/:
-  browser_snapshot → identificar botón "Add attachment" o ícono de clip en el panel del TC
-  browser_click → botón "Add attachment"
-  browser_snapshot → verificar que el diálogo/input de archivo se abrió
-  browser_file_upload → {ruta_absoluta_del_archivo}
-  browser_snapshot → verificar que el nombre del archivo aparece en el panel como adjunto cargado
-  browser_take_screenshot → UPLOAD-VERIFIED-TC-{id}-STEP-{n}-{timestamp}.png
-  → actualizar manifest.json: upload_status = UPLOADED_VERIFIED para ese archivo
+Por cada paso del TC:
+  browser_snapshot → identificar botón "Pass test step" o "Fail test step" del paso
+  browser_click → botón del resultado del paso
+  browser_snapshot → verificar que el paso cambió de estado (checked)
+# Para TCs BLOCKED: no marcar pasos individuales; ir directo al paso 2c
 ```
 
-2d. Verificación final del TC:
+2c. Adjuntar el ZIP de evidencias:
 ```
-browser_snapshot → confirmar outcome + adjuntos visibles en el runner
-browser_take_screenshot → TC-{id}-RUNNER-FINAL-{timestamp}.png
+browser_click → botón "Add information to test result" (toolbar superior)
+browser_snapshot → verificar que aparece menú con "Add attachment"
+browser_click → "Add attachment"
+browser_snapshot → verificar que se abre el diálogo "Add attachment" con botón "Browse..."
+browser_click → "Browse..."
+# Se activa el file chooser
+browser_file_upload → ["outputs/evidencias/<sprint>/US-<us_id>/TC-<tc_id>/TC-<tc_id>-evidencias.zip"]
+browser_snapshot → verificar que el nombre del ZIP aparece en el diálogo con su tamaño
+browser_click → "OK"
+browser_snapshot → verificar que el contador de adjuntos del runner muestra "1"
 ```
 
-**Paso 3 — Al finalizar todos los TCs:**
+2d. Marcar resultado global del TC:
 ```
-browser_snapshot → verificar vista general de la suite con todos los outcomes marcados
-browser_take_screenshot → SUITE-FINAL-{suiteId}-{timestamp}.png
+browser_click → botón "Mark test case result" (en toolbar del TC, no de la barra superior)
+browser_snapshot → verificar que se despliega menú: Pass/Fail/Block test
+browser_click → "Pass test" | "Fail test" | "Block test" según resultado
+browser_snapshot → verificar que el TC muestra el resultado final
 ```
+
+2e. Avanzar al siguiente TC:
+```
+browser_click → botón "next" (si no es el último TC)
+# Si es el último TC: "next" estará deshabilitado
+```
+
+**Paso 3 — Cerrar el runner al finalizar todos los TCs:**
+```
+# El runner tiene iconos en la barra superior sin texto visible.
+# El segundo ícono (ref variable) cierra el runner y guarda los resultados.
+browser_click → segundo ícono de la barra de herramientas (después de "Save")
+# Alternativamente: browser_click → botón "Save" primero, luego cerrar pestaña
+browser_snapshot (tab 0) → verificar que se volvió a la vista del test plan con outcomes actualizados
+browser_take_screenshot → confirmar tabla de TCs con resultados Passed/Blocked/Failed
+```
+
+**Notas de comportamiento conocidas del runner:**
+- Tooltips pueden interceptar clicks en los botones de paso → si ocurre, ejecutar `browser_evaluate` para dispatch `Escape` y reintentar.
+- El runner abre en tab 1; el test plan permanece en tab 0.
+- Al cerrar el runner vía el segundo ícono de toolbar, los resultados quedan guardados sin necesidad de "Save and Close" explícito.
 
 ## Flujo operativo
 1. Inventariar estructura por sprint/US/TC: `outputs/evidencias/<sprint>/US-<id>/TC-<id>/`.
 2. Validar que cada evidencia de paso pertenezca a una carpeta `TC-<tc_id>`.
 3. Leer `manifest.json` por TC y cruzar con `evidence_files[]`.
-4. Resolver destino por archivo (TC/BUG/US).
-5. Verificar adjuntos existentes por nombre y checksum (idempotencia robusta).
-6. Subir solo faltantes usando la estrategia de prioridad definida arriba.
-7. Marcar `upload_status = UPLOADED_VERIFIED` en manifest al confirmar adjunto con snapshot.
+4. **Comprimir evidencias en ZIP dentro de la carpeta del TC** (ver regla de compresión ZIP arriba).
+   - Verificar que el ZIP existe en `TC-<tc_id>/TC-<tc_id>-evidencias.zip` antes de proceder.
+   - Si el ZIP no existe, crearlo. Si ya existe, usar el existente (idempotencia).
+5. Verificar adjuntos existentes en el runner/work item por nombre (idempotencia).
+6. Subir el ZIP usando la estrategia de prioridad definida arriba (solo el ZIP, no archivos individuales).
+7. Marcar `upload_status = UPLOADED_VERIFIED` en manifest al confirmar el contador de adjuntos en "1".
 8. Si no se puede confirmar el adjunto visualmente o por API: dejar `BLOCKED_EVIDENCE` y registrar en `decisions_log`.
 9. Publicar comentario resumen en la US.
 10. Actualizar `stages.evidencias` en `pipeline-state`.

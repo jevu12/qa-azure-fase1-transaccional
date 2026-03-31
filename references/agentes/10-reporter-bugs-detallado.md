@@ -98,7 +98,7 @@ Validación obligatoria por tipo de bug:
   - comentar en US campos faltantes.
 
 ### 6) Vincular bug
-- Bug -> US (`System.LinkTypes.Related`)
+- Bug -> US (`System.LinkTypes.Hierarchy-Reverse` - Child/Parent-Child como hijo)
 - Bug -> TC (`Microsoft.VSTS.Common.TestedBy-Reverse`)
 
 ### 7) Hallazgos bajo umbral
