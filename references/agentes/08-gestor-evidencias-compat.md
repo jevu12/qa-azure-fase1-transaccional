@@ -6,10 +6,12 @@ Para fallback de adjuntos y resumen de evidencias en US, usar:
 
 ## Qué hace
 - Inventaria evidencias por patrón de archivo.
+- Comprime evidencias por TC en archivos zip.
+- Carga evidencias en el ADO Test Runner usando Playwright (navegación visual).
 - Evita resubidas duplicadas.
-- Adjunta evidencia a TC/US/Bug o comenta fallback.
 - Publica resumen de evidencias en la US.
 - Enforcea segmentación de evidencias por `US/TC`.
+- **NOTA:** La carga de evidencias se hace SIEMPRE en el ADO Test Runner con Playwright, NO con REST API.
 
 ## Input esperado desde Ejecutor
 - `us_id`
@@ -146,10 +148,13 @@ browser_take_screenshot → confirmar tabla de TCs con resultados Passed/Blocked
 - El runner abre en tab 1; el test plan permanece en tab 0.
 - Al cerrar el runner vía el segundo ícono de toolbar, los resultados quedan guardados sin necesidad de "Save and Close" explícito.
 
-## Flujo operativo
+## Flujo operativo — ACTUALIZADO
+
+### FASE 1: Inventario y Compresión
 1. Inventariar estructura por sprint/US/TC: `outputs/evidencias/<sprint>/US-<id>/TC-<id>/`.
 2. Validar que cada evidencia de paso pertenezca a una carpeta `TC-<tc_id>`.
 3. Leer `manifest.json` por TC y cruzar con `evidence_files[]`.
+
 4. **Comprimir evidencias en ZIP dentro de la carpeta del TC** (ver regla de compresión ZIP arriba).
    - Verificar que el ZIP existe en `TC-<tc_id>/TC-<tc_id>-evidencias.zip` antes de proceder.
    - Si el ZIP no existe, crearlo. Si ya existe, usar el existente (idempotencia).

@@ -107,10 +107,6 @@ agents/*
 
 inputs/
 
-# ============================================
-# MINIVERSE - No incluir en repositorio
-# ============================================
-
 # Documentación y guías de Miniverse
 MINIVERSE-INTEGRATION-GUIDE.md
 MINIVERSE-SETUP.md
