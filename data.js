@@ -15,7 +15,7 @@ window.METRICAS_FASE1 = {
   meta: {
     tituloInforme: "MIS RESULTADOS · QA IMPACT",
     subtituloCorto:
-      "Pipeline QA Fase 1 descompuesto por fase de tarea (Análisis · Diseño · Ejecución). Baseline CORE Sprints 12–13 (sin IA) frente a tratamiento Sprints 15–16 (con IA).",
+      "Análisis y Diseño se aceleran de horas a minutos por tarea. Ese tiempo liberado se reinvierte en Ejecución, fase que aún afinamos: los agentes están en entrenamiento y seguimos detectando criterios omitidos que producto rechaza.",
     periodo: "CORE · Sprints 12–13 (sin IA) vs 15–16 (con IA)",
     sprint: "CORE - Sprint 16",
     fecha: "2026-04-21",
@@ -73,25 +73,51 @@ window.METRICAS_FASE1 = {
   },
 
   /* =========================================================
-   * Hero — comparación global manual vs pipeline (meta 60′/5′)
+   * Hero — impacto real por fase (Análisis / Diseño / Ejecución)
+   * Reemplaza la comparación genérica 60′/5′: cifras por fase
+   * y card de estado honesto para Ejecución (WIP).
    * ======================================================= */
-  comparacion: {
-    antes: {
-      tiempoMin: 60,
-      titulo: "Sin IA · Sprints 12–13",
-      etiqueta: "95 QA Tasks · flujo 100% manual",
-      pct: 100,
-    },
-    ahora: {
-      tiempoMin: 5,
-      titulo: "Con IA · Sprints 15–16",
-      etiqueta: "195 QA Tasks · pipeline asistido (+105,3% volumen total)",
-      pct: 8.3,
-    },
-    ahorros: [
-      { label: "Reducción tiempo por QA Task (meta)", value: "−91,7%" },
-      { label: "Volumen total de QA Tasks manejadas", value: "+105,3%" },
-      { label: "Cobertura TCs por tarea de diseño", value: "+30,6%" },
+  impactoPorFase: {
+    eyebrow: "Impacto medido",
+    titulo: "Antes y ahora, fase por fase",
+    lede:
+      "El volumen de tareas de Análisis y Diseño por sprint se mantiene — seguimos cubriendo el mismo alcance de US. Lo que cambió es el tiempo por tarea: horas se volvieron minutos, y esas horas liberadas se reinvierten en Ejecución.",
+    fases: [
+      {
+        key: "analisis",
+        titulo: "Análisis de requerimientos",
+        icono: "01",
+        color: "#1E6BFF",
+        colorSoft: "rgba(30, 107, 255, 0.12)",
+        antesValor: "1–2 h",
+        antesUnidad: "por tarea",
+        ahoraValor: "~10 min",
+        ahoraUnidad: "por tarea",
+        nota: "Mismo volumen de análisis por sprint; el ahorro es puramente tiempo/tarea. La IA asiste con ingesta y borrador ISTQB.",
+      },
+      {
+        key: "diseno",
+        titulo: "Diseño de casos",
+        icono: "02",
+        color: "#F5A623",
+        colorSoft: "rgba(245, 166, 35, 0.14)",
+        antesValor: "2–3 h",
+        antesUnidad: "por tarea",
+        ahoraValor: "~20 min",
+        ahoraUnidad: "por tarea",
+        nota: "Mismo alcance de diseño por sprint. Las horas que antes se iban aquí ahora se invierten en ejecutar más TCs por US.",
+      },
+      {
+        key: "ejecucion",
+        titulo: "Ejecución de casos",
+        icono: "03",
+        color: "#00C48C",
+        colorSoft: "rgba(0, 196, 140, 0.12)",
+        estado: "wip",
+        estadoLabel: "En curso · Entrenando agentes",
+        nota:
+          "Ganamos horas aquí gracias al ahorro en Análisis y Diseño. Aún afinamos la asistencia: la IA omite criterios en algunas US y producto sigue rechazando trabajos por cobertura incompleta. Foco actual: subir la efectividad de prueba de criterios.",
+      },
     ],
   },
 
@@ -347,7 +373,7 @@ window.METRICAS_FASE1 = {
 
   footer: {
     nota:
-      "2026-04-21 · Datos reales cruzados desde Azure DevOps (WIQL) y análisis qa_ai_impact. Ventana comparativa: Sprints 12–13 (sin IA · 95 QA Tasks) vs 15–16 (con IA · 195 QA Tasks). Tiempos 60′/5′ = referencia operativa del pipeline. Sprint 16 en curso: cifras de ejecución pueden moverse al cerrar el sprint.",
+      "2026-04-21 · Datos reales cruzados desde Azure DevOps (WIQL) y análisis qa_ai_impact. Ventana comparativa: Sprints 12–13 (sin IA · 95 QA Tasks) vs 15–16 (con IA · 195 QA Tasks). Tiempos por fase (1–2 h→10 min, 2–3 h→20 min) = referencia operativa del equipo QA. Sprint 16 en curso: cifras de ejecución pueden moverse al cerrar el sprint.",
     fuente: "qa_ai_impact · ado-raw-data.json · pipeline-state.json · outputs/evidencias/",
   },
 };
