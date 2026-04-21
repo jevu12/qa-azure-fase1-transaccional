@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QA Azure Fase 1 Transaccional</title>
+  <title>Documentación — QA Azure Fase 1 Transaccional</title>
   <style>
     :root {
       --primary: #0078d4;
@@ -26,197 +26,212 @@
       background: var(--bg);
       color: var(--text);
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
+      line-height: 1.7;
+      display: flex;
+      min-height: 100vh;
     }
 
-    /* HEADER */
-    header {
-      background: linear-gradient(135deg, #0a1628 0%, #0e2244 50%, #0a1628 100%);
+    /* SIDEBAR */
+    nav {
+      width: 260px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 1.5rem 0;
+    }
+    .nav-logo {
+      padding: 0 1.25rem 1.25rem;
       border-bottom: 1px solid var(--border);
-      padding: 3rem 1rem 2.5rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(0,120,212,0.2) 0%, transparent 70%);
-    }
-    .badge {
-      display: inline-block;
-      background: rgba(0,120,212,0.2);
-      border: 1px solid var(--primary);
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
       margin-bottom: 1rem;
     }
-    header h1 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+    .nav-logo a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .nav-logo .back-link {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      text-decoration: none;
+    }
+    .nav-logo .back-link:hover { color: var(--accent); }
+    nav ul { list-style: none; }
+    nav ul li a {
+      display: block;
+      padding: 0.45rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    nav ul li a:hover {
+      color: var(--accent);
+      border-left-color: var(--primary);
+      background: rgba(0,120,212,0.05);
+    }
+    .nav-section {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      padding: 1rem 1.25rem 0.35rem;
+    }
+
+    /* MAIN CONTENT */
+    .content {
+      flex: 1;
+      min-width: 0;
+      max-width: 860px;
+      padding: 3rem 2.5rem;
+    }
+
+    /* DOC HEADER */
+    .doc-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .doc-badge {
+      display: inline-block;
+      background: rgba(0,120,212,0.15);
+      border: 1px solid rgba(0,120,212,0.3);
+      color: var(--accent);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+    .doc-header h1 {
+      font-size: 2rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       margin-bottom: 0.5rem;
-      position: relative;
     }
-    header h1 span { color: var(--accent); }
-    header p.subtitle {
+    .doc-header h1 span { color: var(--accent); }
+    .doc-header p {
       color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto 1.5rem;
-      position: relative;
+      font-size: 1rem;
+      max-width: 640px;
     }
-    .cta-row {
+
+    /* SECTIONS */
+    section {
+      margin-bottom: 3rem;
+      scroll-margin-top: 1.5rem;
+    }
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border);
       display: flex;
-      gap: 0.75rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
-    }
-    .btn {
-      display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0.6rem 1.25rem;
-      border-radius: 8px;
+      gap: 0.5rem;
+    }
+    p { color: var(--text-muted); margin-bottom: 0.75rem; font-size: 0.925rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* LISTS */
+    ul, ol {
+      padding-left: 1.25rem;
+      color: var(--text-muted);
       font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-    }
-    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-    .btn-outline:hover { border-color: var(--primary); color: var(--accent); transform: translateY(-1px); }
-
-    /* MAIN */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 3rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
     }
 
-    /* INSTALL BLOCK */
-    .install-block {
+    /* INLINE CODE */
+    code {
+      background: rgba(80,230,255,0.08);
+      border: 1px solid rgba(80,230,255,0.15);
+      color: var(--accent);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    }
+
+    /* PROCESS STEPS */
+    .steps { display: flex; flex-direction: column; gap: 1rem; }
+    .step {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem 2rem;
-      margin-bottom: 3rem;
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
     }
-    .install-block h2 {
-      font-size: 1rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.75rem;
-    }
-    .code-block {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.85rem 1.25rem;
-      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-      font-size: 0.9rem;
-      color: var(--accent);
+    .step-num {
+      background: rgba(0,120,212,0.15);
+      border: 1px solid rgba(0,120,212,0.3);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-family: monospace;
+      min-width: 2rem;
+      height: 2rem;
+      border-radius: 6px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .copy-btn {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 0.3rem 0.7rem;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.2s;
+      justify-content: center;
       flex-shrink: 0;
     }
-    .copy-btn:hover { color: var(--text); border-color: var(--primary); }
-
-    /* SECTION TITLE */
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .section-title span { color: var(--accent); }
-
-    /* FEATURE GRID */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 3rem;
-    }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: border-color 0.2s;
-    }
-    .card:hover { border-color: var(--primary); }
-    .card-icon {
-      font-size: 1.75rem;
-      margin-bottom: 0.75rem;
-    }
-    .card h3 {
-      font-size: 1rem;
+    .step-body h4 {
+      font-size: 0.9rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
     }
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.875rem;
+    .step-body ul {
+      padding-left: 1rem;
+      gap: 0.2rem;
+      font-size: 0.83rem;
     }
 
-    /* MODES TABLE */
-    .modes-section { margin-bottom: 3rem; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
+    /* TABLE */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
     }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
     thead th {
       background: var(--surface2);
-      padding: 0.75rem 1rem;
+      padding: 0.65rem 1rem;
       text-align: left;
       font-weight: 600;
       color: var(--text-muted);
       text-transform: uppercase;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       letter-spacing: 0.06em;
     }
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
-    }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: var(--surface2); }
-    td { padding: 0.75rem 1rem; }
+    td { padding: 0.65rem 1rem; color: var(--text-muted); font-size: 0.875rem; }
     .tag {
       display: inline-block;
       padding: 0.2rem 0.6rem;
       border-radius: 999px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
       font-family: monospace;
     }
@@ -224,276 +239,492 @@
     .tag-green { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
     .tag-yellow { background: rgba(234,179,8,0.1); color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
 
-    /* AGENTS GRID */
-    .agents-grid {
+    /* RULES GRID */
+    .rules-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-bottom: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.65rem;
     }
-    .agent-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.25rem;
-    }
-    .agent-card .num {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      font-family: monospace;
-      margin-bottom: 0.25rem;
-    }
-    .agent-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
-    .agent-card p { font-size: 0.8rem; color: var(--text-muted); }
-
-    /* RULES */
-    .rules-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 0.75rem;
-      margin-bottom: 3rem;
-    }
-    .rules-list li {
+    .rule-item {
       background: var(--surface);
       border: 1px solid var(--border);
       border-left: 3px solid var(--primary);
       border-radius: 0 8px 8px 0;
-      padding: 0.75rem 1rem;
-      font-size: 0.875rem;
+      padding: 0.65rem 0.9rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
     }
 
-    /* PROMPT BLOCK */
-    .prompt-section { margin-bottom: 3rem; }
-    .prompt-box {
+    /* REFERENCES LIST */
+    .ref-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding-left: 0;
+      list-style: none;
+    }
+    .ref-list li {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-top: 1rem;
+      border-radius: 8px;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.83rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    .prompt-box .label {
+    .ref-num {
+      color: var(--primary);
+      font-weight: 700;
+      font-family: monospace;
+      font-size: 0.75rem;
+      min-width: 1.5rem;
+    }
+
+    /* CODE BLOCK */
+    .code-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .code-box-header {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 0.5rem 1rem;
       font-size: 0.75rem;
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.5rem;
+      font-family: monospace;
     }
-    .prompt-box pre {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem;
+    .code-box pre {
+      padding: 1.25rem;
       font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: #a5f3fc;
       white-space: pre-wrap;
       word-break: break-word;
+      line-height: 1.6;
+    }
+
+    /* CALLOUT */
+    .callout-danger {
+      background: rgba(239,68,68,0.06);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-left: 3px solid var(--red);
+      border-radius: 0 8px 8px 0;
+      padding: 0.85rem 1rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    /* CHECKLIST */
+    .checklist { list-style: none; padding-left: 0; gap: 0.4rem; }
+    .checklist li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+    .checklist li::before {
+      content: '\2713';
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.85rem;
     }
 
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
-      text-align: center;
-      padding: 2rem 1rem;
+      padding: 1.5rem 2.5rem;
       color: var(--text-muted);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      max-width: 860px;
     }
     footer a { color: var(--primary); text-decoration: none; }
     footer a:hover { color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      nav { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); }
+      .content { padding: 1.5rem 1rem; }
+      footer { padding: 1.5rem 1rem; }
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="badge">⚡ Azure DevOps · QA Automation Skill</div>
-  <h1>QA Azure <span>Fase 1</span> Transaccional</h1>
-  <p class="subtitle">
-    Skill para ejecutar la Fase 1 del flujo QA en Azure DevOps: detección de artefactos,
-    creación idempotente de QA Tasks, Test Plan, Test Cases, vínculos y trazabilidad auditable.
-  </p>
-  <div class="cta-row">
-    <a href="https://github.com/jevu12/qa-azure-fase1-transaccional" class="btn btn-primary">
-      📦 Ver en GitHub
+<nav>
+  <div class="nav-logo">
+    <a href="https://jevu12.github.io/qa-azure-fase1-transaccional/">
+      &#9889; QA Azure Fase 1
     </a>
-    <a href="https://github.com/jevu12/qa-azure-fase1-transaccional/blob/main/SKILL.md" class="btn btn-outline">
-      📖 Documentación
-    </a>
+    <a href="https://jevu12.github.io/qa-azure-fase1-transaccional/" class="back-link">&#8592; Volver al inicio</a>
   </div>
-</header>
+  <div class="nav-section">Documentacion</div>
+  <ul>
+    <li><a href="#cuando-usar">Cuando usar?</a></li>
+    <li><a href="#entradas">Entradas esperadas</a></li>
+    <li><a href="#modos">Modos de ejecucion</a></li>
+    <li><a href="#proceso">Proceso obligatorio</a></li>
+    <li><a href="#reglas">Reglas obligatorias</a></li>
+    <li><a href="#referencias">Referencias normativas</a></li>
+    <li><a href="#fuera-alcance">Fuera de alcance</a></li>
+    <li><a href="#salida">Formato de salida</a></li>
+    <li><a href="#checklist">Checklist de calidad</a></li>
+  </ul>
+</nav>
 
-<main>
+<div style="flex:1; display:flex; flex-direction:column; min-width:0;">
+<div class="content">
 
-  <!-- INSTALL -->
-  <div class="install-block">
-    <h2>🚀 Instalación rápida</h2>
-    <div class="code-block">
-      <span>npx skills add https://github.com/jevu12/qa-azure-fase1-transaccional</span>
-      <button class="copy-btn" onclick="navigator.clipboard.writeText('npx skills add https://github.com/jevu12/qa-azure-fase1-transaccional')">Copiar</button>
-    </div>
-  </div>
-
-  <!-- FEATURES -->
-  <h2 class="section-title">✨ ¿Qué hace esta <span>skill</span>?</h2>
-  <div class="grid-3">
-    <div class="card">
-      <div class="card-icon">🔍</div>
-      <h3>Detección inteligente</h3>
-      <p>Lee artefactos existentes por User Story antes de crear, garantizando idempotencia y sin duplicados.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">⚙️</div>
-      <h3>Creación transaccional</h3>
-      <p>Crea QA Tasks, Test Plan, Test Suite y Test Cases solo cuando faltan. Nunca elimina ni recrea artefactos completos.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">🔗</div>
-      <h3>Vínculos y trazabilidad</h3>
-      <p>Vincula automáticamente US ↔ Task ↔ Test Case. Genera <code>decisions_log</code> auditable por cada acción.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">📋</div>
-      <h3>Pipeline State</h3>
-      <p>Actualiza <code>outputs/pipeline-state.json</code> en cada etapa. Permite retomar ejecuciones interrumpidas.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">🐛</div>
-      <h3>Gestión de bugs</h3>
-      <p>Asigna bugs al último responsable de la US distinto al QA autenticado. Deduplicación con umbral de confianza.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">📸</div>
-      <h3>Evidencias segmentadas</h3>
-      <p>Almacena capturas bajo <code>outputs/evidencias/&lt;sprint&gt;/US-X/TC-Y/</code> con manifest por caso de prueba.</p>
-    </div>
+  <div class="doc-header">
+    <div class="doc-badge">Documentacion tecnica</div>
+    <h1>Skill: QA Azure <span>Fase 1</span> Transaccional</h1>
+    <p>
+      Ejecuta la Fase 1 transaccional de QA en Azure DevOps: deteccion, creacion idempotente de
+      QA Tasks, Test Plan/Suite/Test Cases y vinculos, con trazabilidad en <code>decisions_log</code>
+      y respeto estricto de estados permitidos.
+    </p>
   </div>
 
-  <!-- MODES -->
-  <div class="modes-section">
-    <h2 class="section-title">🎛️ Modos de <span>ejecución</span></h2>
-    <div style="overflow-x:auto; border-radius:12px; border:1px solid var(--border);">
+  <section id="cuando-usar">
+    <h2>&#127919; Cuando usar esta skill?</h2>
+    <p>Usa esta skill cuando el usuario pida operar QA directamente en Azure DevOps para:</p>
+    <ul>
+      <li>Detectar artefactos existentes por User Story</li>
+      <li>Crear solo artefactos faltantes (QA Tasks, suite, casos)</li>
+      <li>Enlazar US &#8596; Task &#8596; Test Case</li>
+      <li>Dejar trazabilidad auditable de decisiones</li>
+    </ul>
+    <div class="callout-danger">
+      No uses esta skill para generacion de codigo, PR automation, Appium o clasificacion avanzada de fallos (Fases 2-4).
+    </div>
+  </section>
+
+  <section id="entradas">
+    <h2>&#128229; Entradas esperadas</h2>
+    <div class="table-wrap">
       <table>
         <thead>
+          <tr><th>Parametro</th><th>Descripcion</th><th>Requerido</th></tr>
+        </thead>
+        <tbody>
           <tr>
-            <th>Modo</th>
-            <th>Descripción</th>
-            <th>Estado</th>
+            <td><code>project</code></td>
+            <td>Nombre del proyecto Azure DevOps</td>
+            <td><span class="tag tag-green">Si</span></td>
           </tr>
+          <tr>
+            <td><code>iteration_path</code></td>
+            <td>Sprint completo (ruta de iteracion)</td>
+            <td><span class="tag tag-green">Si</span></td>
+          </tr>
+          <tr>
+            <td><code>mode</code></td>
+            <td><code>full-pipeline</code> &middot; <code>analysis-only</code> &middot; <code>design-only</code> &middot; <code>execution-only</code> &middot; <code>detection-only</code></td>
+            <td><span class="tag tag-green">Si</span></td>
+          </tr>
+          <tr>
+            <td><code>user_stories</code></td>
+            <td>Lista de IDs de US; vacio = todas del sprint</td>
+            <td><span class="tag tag-yellow">Opcional</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Fuente de configuracion obligatoria: <code>inputs/project-config.json</code>.</p>
+    <p>Guia general: <code>references/guia-configuracion-general.md</code>. Templates: <code>templates/project-config.template.json</code> y <code>templates/.env.template</code>.</p>
+  </section>
+
+  <section id="modos">
+    <h2>&#127923; Modos de ejecucion</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Modo</th><th>Descripcion</th><th>Estado</th></tr>
         </thead>
         <tbody>
           <tr>
             <td><span class="tag tag-blue">full-pipeline</span></td>
-            <td>Detección + ingesta + análisis + diseño completo</td>
+            <td>Deteccion + ingesta + analisis + diseno completo</td>
             <td><span class="tag tag-green">Disponible</span></td>
           </tr>
           <tr>
             <td><span class="tag tag-blue">analysis-only</span></td>
-            <td>Solo detección + ingesta + análisis QA</td>
+            <td>Solo deteccion + ingesta + analisis QA</td>
             <td><span class="tag tag-green">Disponible</span></td>
           </tr>
           <tr>
             <td><span class="tag tag-blue">design-only</span></td>
-            <td>Solo detección + ingesta + diseño de Test Cases</td>
+            <td>Solo deteccion + ingesta + diseno de Test Cases</td>
             <td><span class="tag tag-green">Disponible</span></td>
           </tr>
           <tr>
             <td><span class="tag tag-blue">execution-only</span></td>
-            <td>Ejecución/reporter/evidencias (requiere autorización del Orquestador)</td>
-            <td><span class="tag tag-yellow">Extensión compat</span></td>
+            <td>Ejecucion/reporter/evidencias &mdash; requiere autorizacion del Orquestador</td>
+            <td><span class="tag tag-yellow">Extension compat</span></td>
           </tr>
           <tr>
             <td><span class="tag tag-blue">detection-only</span></td>
-            <td>Solo detección y diagnóstico, sin mutaciones</td>
+            <td>Solo deteccion y diagnostico, sin mutaciones</td>
             <td><span class="tag tag-green">Disponible</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div>
+  </section>
 
-  <!-- AGENTS -->
-  <h2 class="section-title">🤖 Agentes <span>especializados</span></h2>
-  <div class="agents-grid">
-    <div class="agent-card">
-      <div class="num">01</div>
-      <h4>Orquestador</h4>
-      <p>Clasifica US, aplica reglas y delega a agentes.</p>
-    </div>
-    <div class="agent-card">
-      <div class="num">02</div>
-      <h4>Detector de Artefactos</h4>
-      <p>Lee estado actual en ADO antes de toda creación.</p>
-    </div>
-    <div class="agent-card">
-      <div class="num">03</div>
-      <h4>Ingestor</h4>
-      <p>Crea QA Tasks faltantes como hijas de cada US.</p>
-    </div>
-    <div class="agent-card">
-      <div class="num">04</div>
-      <h4>Análisis</h4>
-      <p>Completa QA Tasks de análisis con contenido ISTQB.</p>
-    </div>
-    <div class="agent-card">
-      <div class="num">05</div>
-      <h4>Diseño</h4>
-      <p>Crea/corrige Test Cases en Ready con Steps XML.</p>
-    </div>
-    <div class="agent-card">
-      <div class="num">06</div>
-      <h4>Ejecutor</h4>
-      <p>Ejecuta TCs con Playwright y captura evidencias.</p>
-    </div>
-    <div class="agent-card">
-      <div class="num">07</div>
-      <h4>Reporter de Bugs</h4>
-      <p>Crea bugs con ReproSteps HTML y asignación al dev.</p>
-    </div>
-    <div class="agent-card">
-      <div class="num">08</div>
-      <h4>Gestor de Evidencias</h4>
-      <p>Inventaria, adjunta y comenta evidencias en ADO.</p>
-    </div>
-  </div>
+  <section id="proceso">
+    <h2>&#9881;&#65039; Proceso obligatorio</h2>
+    <p style="margin-bottom:1rem;">El siguiente orden de pasos es estricto y no puede alterarse:</p>
+    <div class="steps">
 
-  <!-- RULES -->
-  <h2 class="section-title">📐 Reglas <span>obligatorias</span></h2>
-  <ul class="rules-list">
-    <li>✅ Idempotencia primero: nunca crear sin detectar antes</li>
-    <li>🚫 Anti-duplicado por título, patrón y relación de negocio</li>
-    <li>🔒 Sin operaciones destructivas ni eliminación de artefactos</li>
-    <li>🛑 Sin mutaciones si MCP no está validado</li>
-    <li>🔑 PAT solo desde variable de entorno <code>AZURE_DEVOPS_EXT_PAT</code></li>
-    <li>📁 Evidencias segmentadas por <code>US/TC</code>, nunca a nivel US</li>
-    <li>⛔ No cerrar run sin evidencia validada por paso (<code>BLOCKED_EVIDENCE</code>)</li>
-    <li>👤 Identidad resuelta desde usuario autenticado MCP, sin IDs hardcodeados</li>
-  </ul>
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h4>Cargar y validar configuracion</h4>
+          <ul>
+            <li>Leer <code>inputs/project-config.json</code></li>
+            <li>Validar: <code>organization.url</code>, <code>project.name</code>, <code>project.team</code>, <code>project.iteration_path</code>, <code>execution.mode</code></li>
+            <li>Resolver <code>sprint_full_path</code> desde <code>project.iteration_path</code></li>
+            <li>Si falta config: bloquear (<code>CONFIG_INVALID</code>), salvo <code>detection-only</code> con fallback a <code>inputs/us-list.md</code></li>
+          </ul>
+        </div>
+      </div>
 
-  <!-- PROMPT -->
-  <div class="prompt-section">
-    <h2 class="section-title">💬 Prompt <span>recomendado</span></h2>
-    <div class="prompt-box">
-      <div class="label">Inicio rápido</div>
-      <pre>Usa $qa-azure-fase1-transaccional para ejecutar Fase 1 en Azure DevOps.
-Toma la configuración desde inputs/project-config.json, procesa el sprint actual
-en modo full-pipeline, no dupliques artefactos y entrega un resumen auditable
-por US con acciones CREATE/UPDATE/SKIP/BLOCK/ERROR.</pre>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h4>Verificar MCP Azure DevOps (obligatorio)</h4>
+          <ul>
+            <li>Confirmar disponibilidad MCP con lectura simple de proyectos</li>
+            <li>Confirmar acceso a <code>project.name</code>, team e iteracion objetivo</li>
+            <li>Resolver usuario autenticado MCP para reglas de asignacion/ownership</li>
+            <li>Si falla validacion MCP: detener mutaciones y devolver <code>BLOCK</code> con diagnostico</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h4>QA Orchestrator Service (obligatorio)</h4>
+          <ul>
+            <li>Consultar estado actual de la User Story</li>
+            <li>Validar si la historia es procesable segun las reglas del flujo</li>
+            <li>Verificar tareas QA, casos de prueba, suites, ejecuciones, bugs, comentarios y evidencias existentes</li>
+            <li>Aplicar reglas de idempotencia, deduplicacion y gobernanza</li>
+            <li>Seleccionar el agente adecuado y el foco de ejecucion</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <h4>Cargar estado compartido</h4>
+          <ul>
+            <li>Activar lock de concurrencia para <code>outputs/pipeline-state.json</code></li>
+            <li>Si no existe, inicializar segun contrato de <code>references/contratos.md</code></li>
+            <li>Si existe pero es de otro proyecto/sprint, iniciar nueva ejecucion</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <h4>Obtener US objetivo</h4>
+          <ul>
+            <li>Si <code>execution.user_stories</code> trae IDs, usar esa lista</li>
+            <li>Si viene vacio, consultar US del sprint en Azure DevOps</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">06</div>
+        <div class="step-body">
+          <h4>Deteccion por US (siempre antes de crear)</h4>
+          <ul>
+            <li>Leer US completa con relaciones</li>
+            <li>Detectar: QA Tasks hijas, Test Cases vinculados, Suite/Plan relacionados, comentarios QA, evidencias</li>
+            <li>Registrar hallazgos en <code>stages.deteccion</code> y <code>decisions_log</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">07</div>
+        <div class="step-body">
+          <h4>Validaciones de elegibilidad</h4>
+          <ul>
+            <li>Estado permitido: aplicar reglas de <code>references/reglas-transiciones.md</code> y <code>references/reglas-decision.md</code></li>
+            <li>Contenido minimo: <code>description</code> y criterios de aceptacion</li>
+            <li>Filtro tecnico: <code>execution.exclude_technical_keywords</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">08</div>
+        <div class="step-body">
+          <h4>Acciones transaccionales de Fase 1</h4>
+          <ul>
+            <li>Crear QA Tasks faltantes (analisis, diseno, ejecucion) como hijas de la US</li>
+            <li>Crear/ubicar Test Plan y Test Suite del sprint</li>
+            <li>Crear Test Cases faltantes</li>
+            <li>Vincular Test Cases a US (Tests/Tested By) y a QA Task de diseno (Related)</li>
+            <li>Completar artefactos parciales; nunca recrear artefactos completos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">09</div>
+        <div class="step-body">
+          <h4>Flujo generico execute_and_publish (si aplica ejecucion)</h4>
+          <ul>
+            <li>Descubrir contexto por historia (<code>planId</code>, <code>suiteId</code>, <code>testCaseIds</code>)</li>
+            <li>Resolver Test Points y construir mapa <code>testCaseId &rarr; testPointId/revision/title</code></li>
+            <li>Validar cobertura; si falta test point: bloquear setup (<code>BLOCKED_SETUP</code>)</li>
+            <li>Crear run planificado; guardar <code>runId</code></li>
+            <li>Publicar resultados por lote con <code>outcome</code>, <code>state=Completed</code>, <code>comment</code></li>
+            <li>Gestionar evidencias bajo <code>outputs/evidencias/&lt;sprint&gt;/US-&lt;us_id&gt;/TC-&lt;tc_id&gt;/</code></li>
+            <li>Validar cobertura por paso; si falta evidencia: bloquear cierre (<code>BLOCKED_EVIDENCE</code>)</li>
+            <li>Cerrar run solo con evidencia validada y registrar trazabilidad en <code>pipeline-state</code></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">10</div>
+        <div class="step-body">
+          <h4>Persistencia y auditoria</h4>
+          <ul>
+            <li>Actualizar <code>outputs/pipeline-state.json</code> por etapa</li>
+            <li>Registrar toda decision en <code>decisions_log</code> con motivo, codigos y artefactos afectados</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
-  </div>
+  </section>
 
-</main>
+  <section id="reglas">
+    <h2>&#128208; Reglas obligatorias</h2>
+    <div class="rules-grid">
+      <div class="rule-item">Idempotencia primero: nunca crear sin detectar antes</div>
+      <div class="rule-item">Anti-duplicado por titulo, patron y relacion de negocio</div>
+      <div class="rule-item">Sin operaciones destructivas ni eliminacion de artefactos</div>
+      <div class="rule-item">Sin mutaciones si MCP no esta validado</div>
+      <div class="rule-item">PAT solo desde <code>AZURE_DEVOPS_EXT_PAT</code>; sin hardcodeo ni logging</div>
+      <div class="rule-item">Evidencias segmentadas por <code>US/TC</code>, nunca a nivel US</div>
+      <div class="rule-item">No cerrar run sin evidencia validada por paso (<code>BLOCKED_EVIDENCE</code>)</div>
+      <div class="rule-item">Identidad resuelta desde usuario autenticado MCP, sin IDs hardcodeados</div>
+      <div class="rule-item">Mantener <code>AreaPath</code> e <code>IterationPath</code> alineados con la US</div>
+      <div class="rule-item">Si falta info critica de testabilidad: <code>next_action = WAIT_USER_INPUT</code></div>
+      <div class="rule-item">Ningun agente ejecuta en ADO sin autorizacion previa del Orquestador</div>
+      <div class="rule-item">Bugs: asignar al ultimo asignado de la US distinto al QA autenticado MCP</div>
+    </div>
+  </section>
+
+  <section id="referencias">
+    <h2>&#128218; Referencias normativas</h2>
+    <p style="margin-bottom:1rem;">Leer en el siguiente orden obligatorio:</p>
+    <ol class="ref-list">
+      <li><span class="ref-num">01</span> <code>references/guia-configuracion-general.md</code></li>
+      <li><span class="ref-num">02</span> <code>references/configuracion-app.md</code> (opcional)</li>
+      <li><span class="ref-num">03</span> <code>references/fase1-arquitectura.md</code></li>
+      <li><span class="ref-num">04</span> <code>references/reglas-decision.md</code></li>
+      <li><span class="ref-num">05</span> <code>references/reglas-idempotencia.md</code></li>
+      <li><span class="ref-num">06</span> <code>references/reglas-transiciones.md</code></li>
+      <li><span class="ref-num">07</span> <code>references/codigos-decision.md</code></li>
+      <li><span class="ref-num">08</span> <code>references/contrato-io-agentes.md</code></li>
+      <li><span class="ref-num">09</span> <code>references/contratos.md</code></li>
+      <li><span class="ref-num">10</span> <code>references/agentes/00-matriz-acciones.md</code></li>
+      <li><span class="ref-num">11</span> <code>references/agentes/01-orquestador-fase1.md</code></li>
+      <li><span class="ref-num">12</span> <code>references/agentes/02-detector-artefactos-fase1.md</code></li>
+      <li><span class="ref-num">13</span> <code>references/agentes/03-ingestor-fase1.md</code></li>
+      <li><span class="ref-num">14</span> <code>references/agentes/04-analisis-fase1.md</code></li>
+      <li><span class="ref-num">15</span> <code>references/agentes/05-diseno-fase1.md</code></li>
+      <li><span class="ref-num">16</span> <code>references/agentes/06-ejecutor-compat.md</code></li>
+      <li><span class="ref-num">17</span> <code>references/agentes/07-reporter-bugs-compat.md</code></li>
+      <li><span class="ref-num">18</span> <code>references/agentes/08-gestor-evidencias-compat.md</code></li>
+      <li><span class="ref-num">19</span> <code>references/agentes/09-templates-comentarios.md</code></li>
+      <li><span class="ref-num">20</span> <code>references/agentes/10-reporter-bugs-detallado.md</code></li>
+      <li><span class="ref-num">21</span> <code>references/agentes/11-execute-and-publish-generico.md</code></li>
+    </ol>
+  </section>
+
+  <section id="fuera-alcance">
+    <h2>&#128683; Fuera de alcance explicito</h2>
+    <ul>
+      <li>Generacion de codigo de automatizacion</li>
+      <li>Creacion/revision automatica de Pull Requests</li>
+      <li>Navegacion movil con Appium</li>
+      <li>Clasificacion avanzada de fallos o creacion inteligente de bugs multi-causal (Fases 2-4)</li>
+    </ul>
+  </section>
+
+  <section id="salida">
+    <h2>&#128196; Formato de salida requerido</h2>
+    <p style="margin-bottom:1rem;">La skill devuelve un resumen auditable y compacto en Markdown:</p>
+    <div class="code-box">
+      <div class="code-box-header">markdown &middot; Resumen Fase 1</div>
+      <pre># Resumen Fase 1 - QA Azure
+
+## Contexto
+- Proyecto: &lt;project&gt;
+- Sprint: &lt;iteration_path&gt;
+- Modo: &lt;mode&gt;
+- US procesadas: &lt;n&gt;
+
+## Resultado por User Story
+- US #&lt;id&gt; (&lt;state&gt;): &lt;CREATE|UPDATE|SKIP|BLOCK|ERROR&gt;
+- Detectado: &lt;tasks/suite/tcs existentes&gt;
+- Accion: &lt;que se creo o completo&gt;
+- Razon: &lt;por que&gt;
+- Artefactos afectados: &lt;IDs&gt;
+
+## Trazabilidad global
+- QA Tasks creadas: &lt;n&gt;
+- Suites creadas: &lt;n&gt;
+- Test Cases creados: &lt;n&gt;
+- Vinculos creados: &lt;n&gt;
+- US omitidas/bloqueadas: &lt;n&gt;
+- Archivo actualizado: outputs/pipeline-state.json</pre>
+    </div>
+  </section>
+
+  <section id="checklist">
+    <h2>&#9989; Checklist rapido de calidad</h2>
+    <ul class="checklist">
+      <li>Se leyo <code>project-config.json</code> antes de decidir?</li>
+      <li>Se ejecuto deteccion previa a toda creacion?</li>
+      <li>Se evito duplicacion por estado y relaciones?</li>
+      <li>Se registraron decisiones en <code>decisions_log</code>?</li>
+      <li>La evidencia quedo segmentada por <code>US/TC</code> y validada por paso antes del cierre?</li>
+      <li>Se respeto el limite de alcance Fase 1?</li>
+    </ul>
+  </section>
+
+</div>
 
 <footer>
   <p>
-    Hecho con ❤️ por
+    Hecho con amor por
     <a href="https://github.com/jevu12" target="_blank">jevu12</a>
-    &nbsp;·&nbsp;
+    &nbsp;&middot;&nbsp;
     <a href="https://github.com/jevu12/qa-azure-fase1-transaccional" target="_blank">GitHub</a>
-    &nbsp;·&nbsp;
-    <a href="https://github.com/jevu12/qa-azure-fase1-transaccional/blob/main/SKILL.md" target="_blank">Documentación completa</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://jevu12.github.io/qa-azure-fase1-transaccional/">Inicio</a>
   </p>
 </footer>
+</div>
 
 </body>
 </html>
