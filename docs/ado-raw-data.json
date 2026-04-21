@@ -1,0 +1,2410 @@
+{
+  "extraidoEn": "2026-04-20T20:31:36Z",
+  "filtro": "WorkItemType = 'QA Task'",
+  "usuarios": [
+    "jorge.vasquez@n5now.com",
+    "jhonatan.linares@n5now.com"
+  ],
+  "sprints": {
+    "Sprint 11": {
+      "jorge.vasquez@n5now.com": {
+        "qaTasks": 17,
+        "otrasTasks": 0,
+        "total": 17,
+        "items": [
+          {
+            "id": 139754,
+            "title": "[QA] Ejecución Pruebas Mi evolución - Filtrar por categoría \"Cumplimiento Periodo\" - KPIs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-22T13:50:09.02Z",
+            "closedDate": "2026-02-12T20:04:50.273Z"
+          },
+          {
+            "id": 139757,
+            "title": "[QA] Ejecución Pruebas Mi evolución - Filtrar por categoría \"Cumplimiento Periodo\" - Gráfico",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-22T13:52:41.84Z",
+            "closedDate": "2026-02-12T20:05:53.96Z"
+          },
+          {
+            "id": 139758,
+            "title": "[QA] Análisis del requerimiento - Mi evolución - Filtrar por categoría \"Cumplimiento Objetivo\" - KPIs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-22T13:53:33.833Z",
+            "closedDate": "2026-02-04T14:03:02.52Z"
+          },
+          {
+            "id": 139759,
+            "title": "[QA] Diseño Test Cases  Mi evolución - Filtrar por categoría \"Cumplimiento Objetivo\" - KPIs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-22T13:53:55.687Z",
+            "closedDate": "2026-02-04T14:03:10.447Z"
+          },
+          {
+            "id": 140959,
+            "title": "[QA] Análisis del requerimiento Creación y configuración de permiso \"Mis Resultados Core - Comparar con en el ranking\" para MR Core",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:08:08.273Z",
+            "closedDate": "2026-02-04T23:06:55.347Z"
+          },
+          {
+            "id": 140960,
+            "title": "[QA] Diseño Test Cases Creación y configuración de permiso \"Mis Resultados Core - Comparar con en el ranking\" para MR Core",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:08:44.867Z",
+            "closedDate": "2026-02-04T23:06:59.63Z"
+          },
+          {
+            "id": 140961,
+            "title": "[QA] Ejecución Pruebas Creación y configuración de permiso \"Mis Resultados Core - Comparar con en el ranking\" para MR Core",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:09:09.473Z",
+            "closedDate": "2026-02-04T23:07:05.833Z"
+          },
+          {
+            "id": 140965,
+            "title": "[QA] Ejecución Pruebas Mi evolución - Filtrar por categoría \"Cumplimiento Objetivo\" - Gráfico",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:20:40.43Z",
+            "closedDate": "2026-02-12T20:07:30.503Z"
+          },
+          {
+            "id": 140966,
+            "title": "[QA] Análisis del requerimiento Mi Equipo - Navegación jerárquica - Nuevo diseño",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:26:34.327Z",
+            "closedDate": "2026-02-11T13:43:21.29Z"
+          },
+          {
+            "id": 140967,
+            "title": "[QA] Diseño Test Cases  Mi Equipo - Navegación jerárquica - Nuevo diseño",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:27:16.847Z",
+            "closedDate": "2026-02-11T13:43:13.023Z"
+          },
+          {
+            "id": 140968,
+            "title": "[QA] Ejecución Pruebas  Mi Equipo - Navegación jerárquica - Nuevo diseño",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:27:42.34Z",
+            "closedDate": "2026-02-11T19:54:41.33Z"
+          },
+          {
+            "id": 140969,
+            "title": "[QA] Análisis del requerimiento Mi evolución - Filtrar por categoría \"Puntaje Periodo\" - KPIs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:29:33.477Z",
+            "closedDate": "2026-02-11T13:43:32.097Z"
+          },
+          {
+            "id": 140970,
+            "title": "[QA] Diseño Test Cases Mi evolución - Filtrar por categoría \"Puntaje Periodo\" - KPIs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:30:10.697Z",
+            "closedDate": "2026-02-11T13:43:40.16Z"
+          },
+          {
+            "id": 140972,
+            "title": "[QA] Análisis del requerimiento Configuración y asignación de objetivos - Ingesta de resultados - Eventos - Validación datos en capas DL",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:33:38.363Z",
+            "closedDate": "2026-02-09T15:23:46.147Z"
+          },
+          {
+            "id": 140973,
+            "title": "[QA] Diseño Test Cases Configuración y asignación de objetivos - Ingesta de resultados - Eventos - Validación datos en capas DL",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:34:15.84Z",
+            "closedDate": "2026-02-09T15:23:51.447Z"
+          },
+          {
+            "id": 140974,
+            "title": "[QA] Ejecución Pruebas Configuración y asignación de objetivos - Ingesta de resultados - Eventos - Validación datos en capas DL",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:34:50.76Z",
+            "closedDate": "2026-02-09T16:35:48.137Z"
+          },
+          {
+            "id": 141146,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:10:47.397Z",
+            "closedDate": "2026-02-13T22:00:55.937Z"
+          }
+        ]
+      },
+      "jhonatan.linares@n5now.com": {
+        "qaTasks": 40,
+        "otrasTasks": 0,
+        "total": 40,
+        "items": [
+          {
+            "id": 140440,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T17:55:02.843Z",
+            "closedDate": "2026-02-03T17:02:55.537Z"
+          },
+          {
+            "id": 140441,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T17:55:19.92Z",
+            "closedDate": "2026-02-05T20:41:55.1Z"
+          },
+          {
+            "id": 140443,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T17:59:40.83Z",
+            "closedDate": "2026-02-03T17:00:39.607Z"
+          },
+          {
+            "id": 140444,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T17:59:55.16Z",
+            "closedDate": "2026-02-05T20:32:45.523Z"
+          },
+          {
+            "id": 140446,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T18:00:27.763Z",
+            "closedDate": "2026-02-03T17:07:32.243Z"
+          },
+          {
+            "id": 140447,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T18:00:44.97Z",
+            "closedDate": "2026-02-06T23:04:57.533Z"
+          },
+          {
+            "id": 140449,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T18:05:47.283Z",
+            "closedDate": "2026-02-03T16:55:28.857Z"
+          },
+          {
+            "id": 140450,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T18:06:03.127Z",
+            "closedDate": "2026-02-05T15:25:30.017Z"
+          },
+          {
+            "id": 140452,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T18:07:05.643Z",
+            "closedDate": "2026-02-03T18:23:11.1Z"
+          },
+          {
+            "id": 140453,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T18:07:38.983Z",
+            "closedDate": "2026-02-05T18:52:04.18Z"
+          },
+          {
+            "id": 140455,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T18:08:25.213Z",
+            "closedDate": "2026-02-03T18:37:45.017Z"
+          },
+          {
+            "id": 140456,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T18:08:42.45Z",
+            "closedDate": "2026-02-05T19:37:25.923Z"
+          },
+          {
+            "id": 140458,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T18:09:34.733Z",
+            "closedDate": "2026-02-03T18:44:00.037Z"
+          },
+          {
+            "id": 140459,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-30T18:09:52.22Z",
+            "closedDate": "2026-02-05T22:42:50.053Z"
+          },
+          {
+            "id": 141129,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T00:59:21.747Z",
+            "closedDate": "2026-02-06T15:15:23.51Z"
+          },
+          {
+            "id": 141130,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T00:59:59.073Z",
+            "closedDate": "2026-02-09T23:12:14.087Z"
+          },
+          {
+            "id": 141131,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:00:26.22Z",
+            "closedDate": "2026-02-13T18:34:34.93Z"
+          },
+          {
+            "id": 141132,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:03:37.28Z",
+            "closedDate": "2026-02-06T14:40:52.71Z"
+          },
+          {
+            "id": 141133,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:04:23.54Z",
+            "closedDate": "2026-02-06T16:56:22.66Z"
+          },
+          {
+            "id": 141134,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:04:46.27Z",
+            "closedDate": "2026-02-06T22:50:44.78Z"
+          },
+          {
+            "id": 141135,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:06:03.84Z",
+            "closedDate": "2026-02-06T15:25:06.483Z"
+          },
+          {
+            "id": 141136,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:06:28.2Z",
+            "closedDate": "2026-02-09T16:36:32.42Z"
+          },
+          {
+            "id": 141137,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:06:55.863Z",
+            "closedDate": "2026-02-09T22:13:14.59Z"
+          },
+          {
+            "id": 141138,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:07:42.063Z",
+            "closedDate": "2026-02-06T15:36:13.43Z"
+          },
+          {
+            "id": 141139,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:08:03.883Z",
+            "closedDate": "2026-02-09T17:09:02.21Z"
+          },
+          {
+            "id": 141140,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:08:21.43Z",
+            "closedDate": "2026-02-09T22:58:14.243Z"
+          },
+          {
+            "id": 141141,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:08:37.473Z",
+            "closedDate": "2026-02-06T15:39:39.923Z"
+          },
+          {
+            "id": 141142,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:09:00.533Z",
+            "closedDate": "2026-02-13T17:31:59.637Z"
+          },
+          {
+            "id": 141143,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:09:35.55Z",
+            "closedDate": "2026-02-09T17:13:02.127Z"
+          },
+          {
+            "id": 141144,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:10:08.063Z",
+            "closedDate": "2026-02-06T15:42:54.01Z"
+          },
+          {
+            "id": 141145,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:10:30.467Z",
+            "closedDate": "2026-02-09T16:53:15.66Z"
+          },
+          {
+            "id": 141147,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:13:20.58Z",
+            "closedDate": "2026-02-06T15:12:35.417Z"
+          },
+          {
+            "id": 141148,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:13:45.287Z",
+            "closedDate": "2026-02-06T16:08:11.837Z"
+          },
+          {
+            "id": 141149,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-06T01:14:06.907Z",
+            "closedDate": "2026-02-06T22:51:55.213Z"
+          },
+          {
+            "id": 141410,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-10T14:14:28.48Z",
+            "closedDate": "2026-02-10T15:24:10.333Z"
+          },
+          {
+            "id": 141411,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-10T14:14:54.697Z",
+            "closedDate": "2026-02-10T17:00:21.86Z"
+          },
+          {
+            "id": 141412,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-10T14:15:15.353Z",
+            "closedDate": "2026-02-10T20:57:58.127Z"
+          },
+          {
+            "id": 141816,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-13T19:01:30.07Z",
+            "closedDate": "2026-02-13T19:12:39.55Z"
+          },
+          {
+            "id": 141817,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-13T19:02:10.94Z",
+            "closedDate": "2026-02-13T19:12:44.957Z"
+          },
+          {
+            "id": 141818,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-13T19:02:49.18Z",
+            "closedDate": "2026-02-13T19:50:50.793Z"
+          }
+        ]
+      }
+    },
+    "Sprint 12": {
+      "jorge.vasquez@n5now.com": {
+        "qaTasks": 8,
+        "otrasTasks": 0,
+        "total": 8,
+        "items": [
+          {
+            "id": 139760,
+            "title": "[QA] Ejecución Pruebas  Mi evolución - Filtrar por categoría \"Cumplimiento Objetivo\" - KPIs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-01-22T13:54:30.153Z",
+            "closedDate": "2026-02-20T14:24:21.81Z"
+          },
+          {
+            "id": 142039,
+            "title": "[QA] Análisis del requerimiento  Configuración y asignación de Objetivos -  Asignación de objetivos en un periodo - Carga - Modificar validación",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T15:09:58.393Z",
+            "closedDate": "2026-02-23T13:59:33.17Z"
+          },
+          {
+            "id": 142040,
+            "title": "[QA] Diseño Test Cases  Configuración y asignación de Objetivos -  Asignación de objetivos en un periodo - Carga - Modificar validación",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T15:10:31.87Z",
+            "closedDate": "2026-02-24T13:55:37.67Z"
+          },
+          {
+            "id": 142042,
+            "title": "[QA] Análisis del requerimiento Configuración y asignación de objetivos - Asignación de objetivos en un periodo - Eliminar - Mejoras",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T15:12:16.767Z",
+            "closedDate": "2026-02-24T13:56:46.647Z"
+          },
+          {
+            "id": 142043,
+            "title": "[QA] Diseño Test Cases Configuración y asignación de objetivos - Asignación de objetivos en un periodo - Eliminar - Mejoras",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T15:12:54.333Z",
+            "closedDate": "2026-02-24T13:55:49.82Z"
+          },
+          {
+            "id": 142113,
+            "title": "[QA] Restesting",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:09:25.323Z",
+            "closedDate": "2026-02-20T13:35:08.44Z"
+          },
+          {
+            "id": 142137,
+            "title": "[QA] Restesting",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:41:22.14Z",
+            "closedDate": "2026-02-19T13:26:42.24Z"
+          },
+          {
+            "id": 142138,
+            "title": "Automatización de pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:49:12.583Z",
+            "closedDate": "2026-03-02T16:39:48.993Z"
+          }
+        ]
+      },
+      "jhonatan.linares@n5now.com": {
+        "qaTasks": 35,
+        "otrasTasks": 0,
+        "total": 35,
+        "items": [
+          {
+            "id": 142066,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:27:19.86Z",
+            "closedDate": "2026-02-26T01:57:47.76Z"
+          },
+          {
+            "id": 142067,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:27:46.503Z",
+            "closedDate": "2026-02-27T17:43:43.737Z"
+          },
+          {
+            "id": 142075,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:39:25.84Z",
+            "closedDate": "2026-02-27T17:04:06.613Z"
+          },
+          {
+            "id": 142076,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:41:19.85Z",
+            "closedDate": "2026-02-27T17:30:44.75Z"
+          },
+          {
+            "id": 142082,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:52:15.3Z",
+            "closedDate": "2026-02-27T16:54:31.83Z"
+          },
+          {
+            "id": 142085,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:53:16.757Z",
+            "closedDate": "2026-02-26T01:52:26.657Z"
+          },
+          {
+            "id": 142086,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:53:40.38Z",
+            "closedDate": "2026-02-27T16:41:13.937Z"
+          },
+          {
+            "id": 142088,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:54:56.353Z",
+            "closedDate": "2026-02-26T01:50:59.21Z"
+          },
+          {
+            "id": 142091,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:56:34.827Z",
+            "closedDate": "2026-02-26T01:46:38.783Z"
+          },
+          {
+            "id": 142094,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:58:18.567Z",
+            "closedDate": "2026-02-26T01:44:46.147Z"
+          },
+          {
+            "id": 142095,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:59:05.67Z",
+            "closedDate": "2026-02-27T02:52:28.72Z"
+          },
+          {
+            "id": 142099,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:00:29.653Z",
+            "closedDate": "2026-02-26T01:42:40.62Z"
+          },
+          {
+            "id": 142100,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:00:46.38Z",
+            "closedDate": "2026-02-27T02:40:18.83Z"
+          },
+          {
+            "id": 142106,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:02:12.247Z",
+            "closedDate": "2026-02-25T15:39:44.26Z"
+          },
+          {
+            "id": 142107,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:02:38.137Z",
+            "closedDate": "2026-02-26T02:52:58.2Z"
+          },
+          {
+            "id": 142110,
+            "title": "[QA] Restesting",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:06:22.583Z",
+            "closedDate": "2026-02-19T22:04:43.243Z"
+          },
+          {
+            "id": 142111,
+            "title": "[QA] Restesting",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:07:28.027Z",
+            "closedDate": "2026-02-18T21:19:42.127Z"
+          },
+          {
+            "id": 142112,
+            "title": "[QA] Restesting",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:07:58.513Z",
+            "closedDate": "2026-02-19T16:07:19.747Z"
+          },
+          {
+            "id": 142139,
+            "title": "[QA] Retesting",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:50:23.57Z",
+            "closedDate": "2026-02-18T20:10:09.707Z"
+          },
+          {
+            "id": 142140,
+            "title": "[QA] Restesting",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:52:24.463Z",
+            "closedDate": "2026-02-20T17:57:40.96Z"
+          },
+          {
+            "id": 142168,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:12:02.72Z",
+            "closedDate": "2026-02-20T18:07:41.303Z"
+          },
+          {
+            "id": 142169,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:14:26.18Z",
+            "closedDate": "2026-02-23T13:53:52.57Z"
+          },
+          {
+            "id": 142171,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:14:42Z",
+            "closedDate": "2026-02-24T20:02:20.4Z"
+          },
+          {
+            "id": 142172,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:15:08.757Z",
+            "closedDate": "2026-02-20T18:07:49.71Z"
+          },
+          {
+            "id": 142173,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:15:28.697Z",
+            "closedDate": "2026-02-23T13:59:03.21Z"
+          },
+          {
+            "id": 142174,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:15:43.077Z",
+            "closedDate": "2026-02-24T20:53:20.16Z"
+          },
+          {
+            "id": 142175,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:17:46.98Z",
+            "closedDate": "2026-02-20T18:07:55.513Z"
+          },
+          {
+            "id": 142176,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:19:44.987Z",
+            "closedDate": "2026-02-23T14:06:06.837Z"
+          },
+          {
+            "id": 142177,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:20:15.23Z",
+            "closedDate": "2026-02-24T19:48:19.007Z"
+          },
+          {
+            "id": 142178,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:20:38.42Z",
+            "closedDate": "2026-02-20T18:08:01.52Z"
+          },
+          {
+            "id": 142179,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:21:01.277Z",
+            "closedDate": "2026-02-23T17:03:07.587Z"
+          },
+          {
+            "id": 142180,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:21:18.547Z",
+            "closedDate": "2026-02-23T20:43:55.41Z"
+          },
+          {
+            "id": 142182,
+            "title": "[QA] Retesting",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:42:59.233Z",
+            "closedDate": "2026-02-20T17:50:49.377Z"
+          },
+          {
+            "id": 142186,
+            "title": "[QA] Retesting",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T19:48:41.36Z",
+            "closedDate": "2026-02-20T17:44:17.073Z"
+          },
+          {
+            "id": 142533,
+            "title": "[QA] Restesting",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-24T20:54:31.647Z",
+            "closedDate": "2026-02-27T19:14:07.63Z"
+          }
+        ]
+      }
+    },
+    "Sprint 15": {
+      "jorge.vasquez@n5now.com": {
+        "qaTasks": 27,
+        "otrasTasks": 0,
+        "total": 27,
+        "items": [
+          {
+            "id": 141987,
+            "title": "[QA] Ejecución Pruebas Mi evolución - Filtrar por categoría \"Puntaje Periodo\" - Gráfico",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T13:39:44.53Z",
+            "closedDate": "2026-04-08T13:16:46.577Z"
+          },
+          {
+            "id": 141999,
+            "title": "[QA] Ejecución Pruebas Mi evolución - Filtrar por categoría \"Puntaje Periodo\" - Gráfico",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T14:09:53.73Z",
+            "closedDate": "2026-04-10T19:17:10.96Z"
+          },
+          {
+            "id": 142027,
+            "title": "[QA] Ejecución Pruebas Mi evolución - Filtrar por categoría \"Cumplimiento Objetivo\" - Gráfico",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T14:41:26.007Z",
+            "closedDate": "2026-04-10T19:19:21.697Z"
+          },
+          {
+            "id": 142041,
+            "title": "[QA] Ejecución Pruebas Configuración y asignación de Objetivos -  Asignación de objetivos en un periodo - Carga - Modificar validación",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T15:11:08.543Z",
+            "closedDate": "2026-04-07T13:53:45.457Z"
+          },
+          {
+            "id": 142044,
+            "title": "[QA] Ejecución Pruebas  Configuración y asignación de objetivos - Asignación de objetivos en un periodo - Eliminar - Mejoras",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T15:13:24.937Z",
+            "closedDate": "2026-04-09T20:12:37.203Z"
+          },
+          {
+            "id": 144165,
+            "title": "[Automatizacion de pruebas ] - Configuración y asignación de objetivos - Objetivos - Ver más detalles",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-14T19:35:28.057Z",
+            "closedDate": "2026-04-01T13:50:44.24Z"
+          },
+          {
+            "id": 144166,
+            "title": "[Automatizacion de pruebas ]- Objetivos - Activar/Desactivar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-14T19:36:03.527Z",
+            "closedDate": "2026-04-01T13:51:26.04Z"
+          },
+          {
+            "id": 144167,
+            "title": "[Automatizacion] - Visualizar datos del participante - Perfil - Contraer",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-14T19:36:59.87Z",
+            "closedDate": "2026-04-01T13:50:56.003Z"
+          },
+          {
+            "id": 144168,
+            "title": "[Automatizacion] - Visualizar datos del participante - Perfil - Expandir",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-14T19:37:27.867Z",
+            "closedDate": "2026-04-07T14:15:59.427Z"
+          },
+          {
+            "id": 144169,
+            "title": "[Automatizacion] - Visualizar datos del participante - Premio acumulado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-14T19:38:22.21Z",
+            "closedDate": "2026-04-07T14:15:49.587Z"
+          },
+          {
+            "id": 144170,
+            "title": "[Automatizacion] - Visualizar datos del participante - Puntaje del periodo",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-14T19:38:48.52Z",
+            "closedDate": "2026-04-01T13:51:11.16Z"
+          },
+          {
+            "id": 144229,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:31:38.443Z",
+            "closedDate": "2026-03-30T17:12:31.233Z"
+          },
+          {
+            "id": 144239,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:44:35.57Z",
+            "closedDate": "2026-03-30T17:19:19.833Z"
+          },
+          {
+            "id": 144244,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento periodo",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:51:13.207Z",
+            "closedDate": "2026-03-30T17:19:35.337Z"
+          },
+          {
+            "id": 144249,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:54:15.28Z",
+            "closedDate": "2026-03-30T18:51:02.843Z"
+          },
+          {
+            "id": 144252,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:55:02.273Z",
+            "closedDate": "2026-03-30T18:51:22.313Z"
+          },
+          {
+            "id": 144255,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:55:33.097Z",
+            "closedDate": "2026-03-30T18:58:01.04Z"
+          },
+          {
+            "id": 144257,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:56:11.457Z",
+            "closedDate": "2026-03-30T18:58:13.877Z"
+          },
+          {
+            "id": 144259,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:56:55.103Z",
+            "closedDate": "2026-03-30T18:42:12.573Z"
+          },
+          {
+            "id": 144266,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:02:31.87Z",
+            "closedDate": "2026-03-30T18:30:51.333Z"
+          },
+          {
+            "id": 144271,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:04:25.01Z",
+            "closedDate": "2026-03-30T17:36:29.07Z"
+          },
+          {
+            "id": 144277,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:08:15.007Z",
+            "closedDate": "2026-03-30T17:36:48.133Z"
+          },
+          {
+            "id": 144280,
+            "title": "[QA] Análisis del requerimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:09:11.52Z",
+            "closedDate": "2026-03-30T17:29:16.65Z"
+          },
+          {
+            "id": 144282,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:09:39.13Z",
+            "closedDate": "2026-03-30T17:29:07.64Z"
+          },
+          {
+            "id": 145540,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T17:38:15.983Z",
+            "closedDate": "2026-03-30T18:31:12.823Z"
+          },
+          {
+            "id": 145590,
+            "title": "[QA] Diseño Test Cases",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T18:38:34.167Z",
+            "closedDate": "2026-03-30T18:42:38.12Z"
+          },
+          {
+            "id": 145591,
+            "title": "[QA] Ejecución Pruebas",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T18:38:36Z",
+            "closedDate": "2026-04-10T19:21:28.553Z"
+          }
+        ]
+      },
+      "jhonatan.linares@n5now.com": {
+        "qaTasks": 32,
+        "otrasTasks": 0,
+        "total": 32,
+        "items": [
+          {
+            "id": 142019,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Visualización objetivos - Exportar cumplimiento de objetivos [nivel 1] - Cambio de nombre de columna “Productividad” a “Avance”",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T14:39:09.603Z",
+            "closedDate": "2026-04-06T22:43:59.71Z"
+          },
+          {
+            "id": 142065,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Visualización objetivos - Cumplimiento negativo y sobrecumplimiento",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:26:35.963Z",
+            "closedDate": "2026-04-08T17:18:28.24Z"
+          },
+          {
+            "id": 142068,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Visualización objetivos - Visualización de avance y cumplimiento según datos ingestados",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:28:18.86Z",
+            "closedDate": "2026-04-01T20:54:36.897Z"
+          },
+          {
+            "id": 142077,
+            "title": "[QA] Ejecución Pruebas Mis Resultados - Configuración y asignación de objetivos - Asignación de objetivos en un periodo - Validación de existencia de modelo de incentivo por rol comercial",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:41:47.24Z",
+            "closedDate": "2026-04-09T14:22:35.283Z"
+          },
+          {
+            "id": 142080,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Configuración y asignación de objetivos - Asignación de modelos de incentivo en un periodo - Ver modelos disponibles",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:42:57.987Z",
+            "closedDate": "2026-04-07T17:34:09.633Z"
+          },
+          {
+            "id": 142084,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Configuración y asignación de objetivos - Asignación de modelos de incentivo en un periodo - Descargar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:52:53.607Z",
+            "closedDate": "2026-04-07T18:13:13.05Z"
+          },
+          {
+            "id": 142087,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Configuración y asignación de objetivos - Asignación de modelos de incentivo en un periodo - Eliminar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:54:03.373Z",
+            "closedDate": "2026-03-30T17:14:06.29Z"
+          },
+          {
+            "id": 142090,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Configuración y asignación de Objetivos - Asignación de modelos de incentivo en un periodo - Endpoint descarga",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:56:04.343Z",
+            "closedDate": "2026-03-31T16:09:17.91Z"
+          },
+          {
+            "id": 142093,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Configuración y asignación de Objetivos - Asignación de modelos de incentivo en un periodo - Endpoint carga",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:57:26.263Z",
+            "closedDate": "2026-03-31T16:05:25.353Z"
+          },
+          {
+            "id": 142096,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Configuración y asignación de objetivos - Asignación de modelos de incentivo en un periodo - Carga",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T16:59:21.76Z",
+            "closedDate": "2026-04-08T22:11:54.363Z"
+          },
+          {
+            "id": 142101,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Configuración y asignación de objetivos - Asignación de modelos de incentivo en un periodo - Descarga",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T17:01:01.75Z",
+            "closedDate": "2026-04-01T22:36:37.783Z"
+          },
+          {
+            "id": 142156,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Mi ranking - Compararme - Ajuste de breadcrumb",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:02:53.683Z",
+            "closedDate": "2026-04-06T15:45:32.807Z"
+          },
+          {
+            "id": 142159,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Ranking de mi equipo - Comparar con - Ajuste de breadcrumb",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:06:08.737Z",
+            "closedDate": "2026-04-06T15:40:28.537Z"
+          },
+          {
+            "id": 142165,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Visualización objetivos - Cumplimiento de vendedores en un objetivo (Jerárquico) - Grilla - Columna \"Rol comercial\"",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T18:09:12.01Z",
+            "closedDate": "2026-04-06T22:38:51.613Z"
+          },
+          {
+            "id": 144196,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento real objetivo individual",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T14:58:07.52Z",
+            "closedDate": "2026-03-30T18:04:30.23Z"
+          },
+          {
+            "id": 144197,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento real objetivo individual",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T14:59:38.51Z",
+            "closedDate": "2026-03-30T18:30:22.957Z"
+          },
+          {
+            "id": 144199,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Vendedor - Avance objetivo individual",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T15:01:57.38Z",
+            "closedDate": "2026-03-30T18:05:27.96Z"
+          },
+          {
+            "id": 144200,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Vendedor - Avance objetivo individual",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T15:03:12.137Z",
+            "closedDate": "2026-03-30T18:34:24.04Z"
+          },
+          {
+            "id": 144231,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento ajustado objetivo individual",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:35:36.24Z",
+            "closedDate": "2026-03-30T18:12:57.547Z"
+          },
+          {
+            "id": 144232,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento ajustado objetivo individual",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:36:06.71Z",
+            "closedDate": "2026-03-30T18:37:46.003Z"
+          },
+          {
+            "id": 144234,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Vendedor - Avance objetivo compuesto",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:37:05.763Z",
+            "closedDate": "2026-03-30T18:12:56.53Z"
+          },
+          {
+            "id": 144235,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Vendedor - Avance objetivo compuesto",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:40:10.61Z",
+            "closedDate": "2026-03-30T18:41:24.653Z"
+          },
+          {
+            "id": 144237,
+            "title": "[QA] Diseño de Test cases - Mis Resultados - Cálculos modelo ponderado - Vendedor - Avance objetivo compuesto",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:41:14.06Z",
+            "closedDate": "2026-03-30T17:13:13.083Z"
+          },
+          {
+            "id": 144240,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento ajustado objetivo compuesto",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:47:38.2Z",
+            "closedDate": "2026-03-30T18:06:27.743Z"
+          },
+          {
+            "id": 144241,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento ajustado objetivo compuesto",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:48:06.907Z",
+            "closedDate": "2026-03-30T18:46:54.63Z"
+          },
+          {
+            "id": 144325,
+            "title": "[QA Retesting] Mis Resultados - Ranking de mi equipo - Filtro ranking extendido",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:50:16.54Z",
+            "closedDate": "2026-04-09T14:27:09.903Z"
+          },
+          {
+            "id": 144340,
+            "title": "[QA] Retesting - Mis Resultados - Ranking de mi equipo - Filtro ranking extendido.",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T18:42:10.11Z",
+            "closedDate": "2026-04-09T14:27:23.51Z"
+          },
+          {
+            "id": 144514,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Mi ranking - Adecuación del mouse over por categoría",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-17T15:23:00.643Z",
+            "closedDate": "2026-04-09T21:06:49.817Z"
+          },
+          {
+            "id": 144515,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Mi ranking - Adecuación del mouse over por categoría",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-17T15:26:08.39Z",
+            "closedDate": "2026-04-09T16:24:54.607Z"
+          },
+          {
+            "id": 144517,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Ranking de mi equipo - Adecuación del mouse over por categoría",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-17T15:27:33.003Z",
+            "closedDate": "2026-04-09T21:06:51.097Z"
+          },
+          {
+            "id": 144518,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Ranking de mi equipo - Adecuación del mouse over por categoría",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-17T15:33:44.29Z",
+            "closedDate": "2026-04-09T16:24:56.537Z"
+          },
+          {
+            "id": 146724,
+            "title": "[QA] Retesting - Mis Resultados - Visualización objetivos - Cumplimiento de vendedores en un objetivo (Jerárquico) - Grilla - Columna \"Rol comercial\"",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-10T19:32:32.727Z",
+            "closedDate": "2026-04-10T19:39:13.383Z"
+          }
+        ]
+      }
+    },
+    "Sprint 16": {
+      "jorge.vasquez@n5now.com": {
+        "qaTasks": 74,
+        "otrasTasks": 0,
+        "total": 74,
+        "items": [
+          {
+            "id": 140971,
+            "title": "[QA] Ejecución Pruebas  Mi evolución - Filtrar por categoría \"Puntaje Periodo\" - KPIs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-04T14:31:25.92Z",
+            "closedDate": "2026-04-14T14:35:04.827Z"
+          },
+          {
+            "id": 141984,
+            "title": "[QA] Ejecución Pruebas  - Simulador de resultados - Cumplimiento negativo y sobrecumplimiento",
+            "type": "QA Task",
+            "state": "Testing in progress",
+            "createdDate": "2026-02-18T13:36:13.823Z",
+            "closedDate": null
+          },
+          {
+            "id": 141991,
+            "title": "[QA] Ejecución Pruebas Mi evolución - Filtrar por categoría \"Puntaje Objetivo\" - KPIs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T13:46:43.13Z",
+            "closedDate": "2026-04-14T14:40:06.087Z"
+          },
+          {
+            "id": 141994,
+            "title": "[QA] Ejecución Pruebas Mi evolución - Filtrar por categoría \"Puntaje Objetivo\" - KPIs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T13:48:55.46Z",
+            "closedDate": "2026-04-14T14:42:32.98Z"
+          },
+          {
+            "id": 142037,
+            "title": "[QA] Ejecución Pruebas Mi equipo - Visualizar cards de participantes - Ver como",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-02-18T15:07:54.143Z",
+            "closedDate": "2026-04-14T18:28:43.42Z"
+          },
+          {
+            "id": 144243,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento periodo",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T16:50:45.94Z",
+            "closedDate": null
+          },
+          {
+            "id": 144258,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual propio",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T16:56:20.093Z",
+            "closedDate": null
+          },
+          {
+            "id": 144264,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual heredado",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T16:59:55.653Z",
+            "closedDate": null
+          },
+          {
+            "id": 144270,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo individual heredado",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T17:03:56.13Z",
+            "closedDate": null
+          },
+          {
+            "id": 144274,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo individual heredado con eventos propios",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T17:07:12.46Z",
+            "closedDate": null
+          },
+          {
+            "id": 144278,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual heredado con eventos propios",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T17:08:32.547Z",
+            "closedDate": null
+          },
+          {
+            "id": 144522,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Mi equipo - Ajuste visual del contador de participantes por decil",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-17T15:40:17.057Z",
+            "closedDate": null
+          },
+          {
+            "id": 145339,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Configuración y asignación de objetivos - Visualización grilla de tablas de tramos de incentivo",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-30T15:35:59.35Z",
+            "closedDate": null
+          },
+          {
+            "id": 145340,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Visualización grilla de tablas de tramos de incentivo",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-30T15:36:01.07Z",
+            "closedDate": null
+          },
+          {
+            "id": 145341,
+            "title": "[QA] Ejecución de pruebas - Mis Resultados - Configuración y asignación de objetivos - Visualización grilla de tablas de tramos de incentivo",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-30T15:36:02.647Z",
+            "closedDate": null
+          },
+          {
+            "id": 145342,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Configuración y asignación de objetivos - Filtrar grilla de tablas de tramos de incentivo",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-30T15:36:04.657Z",
+            "closedDate": null
+          },
+          {
+            "id": 145343,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Filtrar grilla de tablas de tramos de incentivo",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-30T15:36:06.163Z",
+            "closedDate": null
+          },
+          {
+            "id": 145344,
+            "title": "[QA] Ejecución de pruebas - Mis Resultados - Configuración y asignación de objetivos - Filtrar grilla de tablas de tramos de incentivo",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-30T15:36:07.767Z",
+            "closedDate": null
+          },
+          {
+            "id": 145345,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Duplicar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:36:09.73Z",
+            "closedDate": "2026-04-14T14:45:23.323Z"
+          },
+          {
+            "id": 145346,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Duplicar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:36:11.24Z",
+            "closedDate": "2026-04-14T14:45:13.167Z"
+          },
+          {
+            "id": 145347,
+            "title": "[QA] Ejecución de pruebas - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Duplicar",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-30T15:36:12.797Z",
+            "closedDate": null
+          },
+          {
+            "id": 145348,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Activar/Desactivar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:36:14.667Z",
+            "closedDate": "2026-04-14T14:44:39.41Z"
+          },
+          {
+            "id": 145349,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Activar/Desactivar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:36:16.11Z",
+            "closedDate": "2026-04-14T14:44:52.48Z"
+          },
+          {
+            "id": 145350,
+            "title": "[QA] Ejecución de pruebas - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Activar/Desactivar",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-30T15:36:17.603Z",
+            "closedDate": null
+          },
+          {
+            "id": 145351,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Ver mas detalles",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:36:19.57Z",
+            "closedDate": "2026-04-14T14:45:46.527Z"
+          },
+          {
+            "id": 145352,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Ver mas detalles",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:36:21.027Z",
+            "closedDate": "2026-04-14T14:45:32.56Z"
+          },
+          {
+            "id": 145353,
+            "title": "[QA] Ejecución de pruebas - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Ver mas detalles",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-30T15:36:22.487Z",
+            "closedDate": null
+          },
+          {
+            "id": 145354,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Cargar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:36:24.343Z",
+            "closedDate": "2026-04-14T14:47:27Z"
+          },
+          {
+            "id": 145355,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Cargar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:36:25.84Z",
+            "closedDate": "2026-04-14T14:47:20.907Z"
+          },
+          {
+            "id": 145356,
+            "title": "[QA] Ejecución de pruebas - Mis Resultados - Configuración y asignación de objetivos - Tabla de tramos de incentivo - Cargar",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-30T15:36:27.313Z",
+            "closedDate": null
+          },
+          {
+            "id": 146844,
+            "title": "QA - Analysis - US 140162 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo compuesto heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:22.537Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146845,
+            "title": "QA - Design - US 140162 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo compuesto heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:24.597Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146846,
+            "title": "QA - Execution - US 140162 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo compuesto heredado",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-13T16:30:26.69Z",
+            "closedDate": null
+          },
+          {
+            "id": 146847,
+            "title": "QA - Analysis - US 140157 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo compuesto propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:31.62Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146848,
+            "title": "QA - Analysis - US 140160 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo compuesto heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:32.953Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146849,
+            "title": "QA - Analysis - US 140159 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo compuesto propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:33.59Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146850,
+            "title": "QA - Design - US 140157 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo compuesto propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:33.65Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146851,
+            "title": "QA - Analysis - US 140158 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo compuesto propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:34.757Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146852,
+            "title": "QA - Design - US 140160 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo compuesto heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:34.973Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146853,
+            "title": "QA - Execution - US 140157 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo compuesto propio",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-13T16:30:35.637Z",
+            "closedDate": null
+          },
+          {
+            "id": 146854,
+            "title": "QA - Design - US 140159 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo compuesto propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:35.683Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146855,
+            "title": "QA - Analysis - US 140150 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo individual heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:36.29Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146856,
+            "title": "QA - Design - US 140158 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo compuesto propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:36.74Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146857,
+            "title": "QA - Execution - US 140160 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo compuesto heredado",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-13T16:30:36.92Z",
+            "closedDate": null
+          },
+          {
+            "id": 146858,
+            "title": "QA - Execution - US 140159 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo compuesto propio",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-13T16:30:37.767Z",
+            "closedDate": null
+          },
+          {
+            "id": 146859,
+            "title": "QA - Design - US 140150 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo individual heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:30:38.31Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146860,
+            "title": "QA - Execution - US 140158 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo compuesto propio",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-13T16:30:38.82Z",
+            "closedDate": null
+          },
+          {
+            "id": 146861,
+            "title": "QA - Execution - US 140150 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo individual heredado",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-13T16:30:40.333Z",
+            "closedDate": null
+          },
+          {
+            "id": 146862,
+            "title": "QA - Analysis - US 140164 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo compuesto heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:32:45.737Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146863,
+            "title": "QA - Design - US 140164 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo compuesto heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:32:47.787Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146864,
+            "title": "QA - Execution - US 140164 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo compuesto heredado con eventos propios",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-13T16:32:49.733Z",
+            "closedDate": null
+          },
+          {
+            "id": 146865,
+            "title": "QA - Analysis - US 140163 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo compuesto heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:32:52.217Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146866,
+            "title": "QA - Analysis - US 140165 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo compuesto heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:32:54.07Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146867,
+            "title": "QA - Design - US 140163 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo compuesto heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:32:54.127Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146868,
+            "title": "QA - Analysis - US 140161 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo compuesto heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:32:54.417Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146869,
+            "title": "QA - Execution - US 140163 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo compuesto heredado con eventos propios",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-13T16:32:55.98Z",
+            "closedDate": null
+          },
+          {
+            "id": 146870,
+            "title": "QA - Design - US 140165 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo compuesto heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:32:56.263Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146871,
+            "title": "QA - Design - US 140161 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo compuesto heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:32:56.423Z",
+            "closedDate": "2026-04-13T17:07:38.023Z"
+          },
+          {
+            "id": 146872,
+            "title": "QA - Execution - US 140165 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo compuesto heredado con eventos propios",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-13T16:32:58.407Z",
+            "closedDate": null
+          },
+          {
+            "id": 146873,
+            "title": "QA - Execution - US 140161 - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo compuesto heredado",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-13T16:32:58.553Z",
+            "closedDate": null
+          },
+          {
+            "id": 147576,
+            "title": "QA - Analysis - US 146496 - Mis Resultados - Configuración y asignación de objetivos - Configuración de objetivos, componentes y eventos - Rediseño de pantalla",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T16:26:31.373Z",
+            "closedDate": "2026-04-15T16:29:35.74Z"
+          },
+          {
+            "id": 147577,
+            "title": "QA - Design - US 146496 - Mis Resultados - Configuración y asignación de objetivos - Configuración de objetivos, componentes y eventos - Rediseño de pantalla",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T16:26:31.373Z",
+            "closedDate": "2026-04-15T16:29:35.74Z"
+          },
+          {
+            "id": 147578,
+            "title": "QA - Execution - US 146496 - Mis Resultados - Configuración y asignación de objetivos - Configuración de objetivos, componentes y eventos - Rediseño de pantalla",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T16:26:31.373Z",
+            "closedDate": "2026-04-15T17:24:37.363Z"
+          },
+          {
+            "id": 147602,
+            "title": "QA - Analysis - US 146487 - Mis Resultados - Visualización objetivos - Cumplimiento de vendedores en un objetivo (Jerárquico) - Grilla - Tabs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T19:58:58.347Z",
+            "closedDate": "2026-04-15T20:00:18.57Z"
+          },
+          {
+            "id": 147603,
+            "title": "QA - Design - US 146487 - Mis Resultados - Visualización objetivos - Cumplimiento de vendedores en un objetivo (Jerárquico) - Grilla - Tabs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T19:59:00.387Z",
+            "closedDate": "2026-04-15T20:00:18.57Z"
+          },
+          {
+            "id": 147604,
+            "title": "QA - Execution - US 146487 - Mis Resultados - Visualización objetivos - Cumplimiento de vendedores en un objetivo (Jerárquico) - Grilla - Tabs",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-04-15T19:59:02.483Z",
+            "closedDate": null
+          },
+          {
+            "id": 147626,
+            "title": "QA - Analysis - US 146489 - Mis Resultados - Visualización objetivos - Cumplimiento de vendedores en un objetivo (Jerárquico) - Grilla - Tabs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T20:45:49.993Z",
+            "closedDate": "2026-04-15T20:46:33.313Z"
+          },
+          {
+            "id": 147627,
+            "title": "QA - Design - US 146489 - Mis Resultados - Visualización objetivos - Cumplimiento de vendedores en un objetivo (Jerárquico) - Grilla - Tabs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T20:45:49.993Z",
+            "closedDate": "2026-04-15T20:46:33.313Z"
+          },
+          {
+            "id": 147628,
+            "title": "QA - Execution - US 146489 - Mis Resultados - Visualización objetivos - Cumplimiento de vendedores en un objetivo (Jerárquico) - Grilla - Tabs",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T20:45:49.993Z",
+            "closedDate": "2026-04-15T21:15:28.88Z"
+          },
+          {
+            "id": 147634,
+            "title": "QA - Analysis - US 146334 - Mis Resultados - Migración a línea base (Now) - Frontend - Mejoras",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T21:25:29.56Z",
+            "closedDate": "2026-04-15T21:25:40.807Z"
+          },
+          {
+            "id": 147635,
+            "title": "QA - Design - US 146334 - Mis Resultados - Migración a línea base (Now) - Frontend - Mejoras",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T21:25:31.7Z",
+            "closedDate": "2026-04-15T21:25:40.807Z"
+          },
+          {
+            "id": 147636,
+            "title": "QA - Execution - US 146334 - Mis Resultados - Migración a línea base (Now) - Frontend - Mejoras",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T21:25:33.773Z",
+            "closedDate": "2026-04-20T17:42:55.93Z"
+          },
+          {
+            "id": 148343,
+            "title": "[QA] Análisis del requerimiento - Home - Filtrar grilla de objetivos desde modal",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-20T18:00:32.177Z",
+            "closedDate": "2026-04-20T18:08:09.64Z"
+          },
+          {
+            "id": 148344,
+            "title": "[QA] Diseño Test Cases - Home - Filtrar grilla de objetivos desde modal",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-20T18:00:32.177Z",
+            "closedDate": "2026-04-20T18:08:33.193Z"
+          }
+        ]
+      },
+      "jhonatan.linares@n5now.com": {
+        "qaTasks": 59,
+        "otrasTasks": 0,
+        "total": 59,
+        "items": [
+          {
+            "id": 142050,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Visualización objetivos - Filtrar cumplimiento de objetivos por periodo - Ajuste dinámico según modelo de incentivo vigente",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-02-18T15:50:22.157Z",
+            "closedDate": null
+          },
+          {
+            "id": 144198,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento real objetivo individual",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T15:00:13.47Z",
+            "closedDate": null
+          },
+          {
+            "id": 144201,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Vendedor - Avance objetivo individual",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T15:03:43.383Z",
+            "closedDate": null
+          },
+          {
+            "id": 144233,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento ajustado objetivo individual",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T16:36:31.913Z",
+            "closedDate": null
+          },
+          {
+            "id": 144236,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Vendedor - Avance objetivo compuesto",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T16:40:41.94Z",
+            "closedDate": null
+          },
+          {
+            "id": 144238,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento real objetivo compuesto",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T16:44:26.377Z",
+            "closedDate": null
+          },
+          {
+            "id": 144242,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Vendedor - Cumplimiento ajustado objetivo compuesto",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T16:50:01.003Z",
+            "closedDate": null
+          },
+          {
+            "id": 144245,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo individual propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:52:51.53Z",
+            "closedDate": "2026-04-13T20:17:34.2Z"
+          },
+          {
+            "id": 144246,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo individual propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:53:16.87Z",
+            "closedDate": "2026-04-14T17:03:45.613Z"
+          },
+          {
+            "id": 144248,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo individual propio",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T16:53:39.883Z",
+            "closedDate": null
+          },
+          {
+            "id": 144250,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:54:17.46Z",
+            "closedDate": "2026-04-13T20:17:35.6Z"
+          },
+          {
+            "id": 144251,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:54:40.613Z",
+            "closedDate": "2026-04-14T17:03:45.613Z"
+          },
+          {
+            "id": 144253,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual propio",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T16:55:03.33Z",
+            "closedDate": null
+          },
+          {
+            "id": 144254,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:55:27.51Z",
+            "closedDate": "2026-04-13T20:17:36.973Z"
+          },
+          {
+            "id": 144256,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual propio",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:55:48.263Z",
+            "closedDate": "2026-04-14T17:03:45.613Z"
+          },
+          {
+            "id": 144261,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:58:58.373Z",
+            "closedDate": "2026-04-13T20:17:38.76Z"
+          },
+          {
+            "id": 144262,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T16:59:23.363Z",
+            "closedDate": "2026-04-14T17:03:45.613Z"
+          },
+          {
+            "id": 144267,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo individual heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:03:05.633Z",
+            "closedDate": "2026-04-13T20:17:40.127Z"
+          },
+          {
+            "id": 144268,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Ranking de mi equipo - Adecuación del mouse over por categoría",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T17:03:06.113Z",
+            "closedDate": null
+          },
+          {
+            "id": 144269,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo individual heredado",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:03:27.757Z",
+            "closedDate": "2026-04-14T17:03:45.613Z"
+          },
+          {
+            "id": 144272,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo individual heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:06:17.607Z",
+            "closedDate": "2026-04-13T20:17:41.463Z"
+          },
+          {
+            "id": 144273,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Avance objetivo individual heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:06:47.813Z",
+            "closedDate": "2026-04-14T17:03:45.613Z"
+          },
+          {
+            "id": 144275,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:07:48.587Z",
+            "closedDate": "2026-04-13T20:17:42.867Z"
+          },
+          {
+            "id": 144276,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento real objetivo individual heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:08:12.997Z",
+            "closedDate": "2026-04-14T17:03:45.613Z"
+          },
+          {
+            "id": 144279,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo individual heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:09:04.4Z",
+            "closedDate": "2026-04-13T20:21:35.957Z"
+          },
+          {
+            "id": 144281,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo individual heredado con eventos propios",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:09:20.307Z",
+            "closedDate": "2026-04-14T17:03:45.613Z"
+          },
+          {
+            "id": 144283,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Cálculos modelo ponderado - Jerárquico - Cumplimiento ajustado objetivo individual heredado con eventos propios",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-16T17:09:46.763Z",
+            "closedDate": null
+          },
+          {
+            "id": 144285,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Ranking de mi equipo - Comparar - Filtrar categorias",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:12:55.78Z",
+            "closedDate": "2026-04-13T20:18:27.36Z"
+          },
+          {
+            "id": 144286,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Ranking de mi equipo - Comparar - Filtrar categorias",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:13:15.763Z",
+            "closedDate": "2026-04-14T20:22:33.493Z"
+          },
+          {
+            "id": 144287,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Ranking de mi equipo - Comparar - Filtrar categorias",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-16T17:13:41.003Z",
+            "closedDate": "2026-04-15T21:06:00.227Z"
+          },
+          {
+            "id": 144499,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Visualización objetivos - Visualizar gráfico de composición del objetivo [nivel 2] (Jerárquico)",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-17T15:08:18.583Z",
+            "closedDate": "2026-04-13T20:18:25.087Z"
+          },
+          {
+            "id": 144500,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Visualización objetivos - Visualizar gráfico de composición del objetivo [nivel 2] (Jerárquico)",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-17T15:08:46.267Z",
+            "closedDate": "2026-04-14T20:22:33.493Z"
+          },
+          {
+            "id": 144501,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Visualización objetivos - Visualizar gráfico de composición del objetivo [nivel 2] (Jerárquico)",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-17T15:09:48.12Z",
+            "closedDate": null
+          },
+          {
+            "id": 144516,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Mi ranking - Adecuación del mouse over por categoría",
+            "type": "QA Task",
+            "state": "New",
+            "createdDate": "2026-03-17T15:26:49.52Z",
+            "closedDate": null
+          },
+          {
+            "id": 144519,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Ranking de mi equipo - Adecuación del mouse over por categoría",
+            "type": "QA Task",
+            "state": "On Hold",
+            "createdDate": "2026-03-17T15:34:25.38Z",
+            "closedDate": null
+          },
+          {
+            "id": 144520,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Mi equipo - Ajuste visual del contador de participantes por decil",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-17T15:37:52.12Z",
+            "closedDate": "2026-04-13T20:18:26.27Z"
+          },
+          {
+            "id": 144521,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Mi equipo - Ajuste visual del contador de participantes por decil",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-17T15:38:15.133Z",
+            "closedDate": "2026-04-14T20:22:33.493Z"
+          },
+          {
+            "id": 145383,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Configuración y asignación de objetivos - Asignación de tablas de tramos de incentivo en un periodo - Descarga",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:52:37.94Z",
+            "closedDate": "2026-04-13T20:21:42.5Z"
+          },
+          {
+            "id": 145384,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Asignación de tablas de tramos de incentivo en un periodo - Descarga",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:52:37.94Z",
+            "closedDate": "2026-04-14T20:22:33.493Z"
+          },
+          {
+            "id": 145386,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Configuración y asignación de objetivos - Asignación de tablas de tramos de incentivo en un periodo - Carga",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:52:45.68Z",
+            "closedDate": "2026-04-13T20:21:43.67Z"
+          },
+          {
+            "id": 145387,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Asignación de tablas de tramos de incentivo en un periodo - Carga",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:52:45.68Z",
+            "closedDate": "2026-04-14T20:22:33.493Z"
+          },
+          {
+            "id": 145389,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Configuración y asignación de objetivos - Asignación de tablas de tramos de incentivo en un periodo - Eliminar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:52:51.12Z",
+            "closedDate": "2026-04-13T20:18:28.667Z"
+          },
+          {
+            "id": 145390,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Asignación de tablas de tramos de incentivo en un periodo - Eliminar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:52:51.12Z",
+            "closedDate": "2026-04-14T20:22:33.493Z"
+          },
+          {
+            "id": 145395,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Configuración y asignación de objetivos - Ajustes",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:53:06.227Z",
+            "closedDate": "2026-04-13T20:18:31.19Z"
+          },
+          {
+            "id": 145396,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Ajustes",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:53:06.227Z",
+            "closedDate": "2026-04-14T20:22:33.493Z"
+          },
+          {
+            "id": 145397,
+            "title": "[QA] Ejecución de pruebas - Mis Resultados - Configuración y asignación de objetivos - Ajustes",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:53:06.227Z",
+            "closedDate": "2026-04-18T10:21:18.637Z"
+          },
+          {
+            "id": 145398,
+            "title": "[QA] Análisis del requerimiento - Mis Resultados - Visualización objetivos - Aplicación de configuración visual de ajustes en gráficos de objetivos (Nivel 1 y Nivel 1.5)",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:53:15.01Z",
+            "closedDate": "2026-04-13T20:18:32.55Z"
+          },
+          {
+            "id": 145399,
+            "title": "[QA] Diseño de casos de prueba - Mis Resultados - Visualización objetivos - Aplicación de configuración visual de ajustes en gráficos de objetivos (Nivel 1 y Nivel 1.5)",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:53:15.01Z",
+            "closedDate": "2026-04-14T20:22:33.493Z"
+          },
+          {
+            "id": 145400,
+            "title": "[QA] Ejecución de pruebas - Mis Resultados - Visualización objetivos - Aplicación de configuración visual de ajustes en gráficos de objetivos (Nivel 1 y Nivel 1.5)",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-03-30T15:53:15.01Z",
+            "closedDate": "2026-04-20T16:35:42.047Z"
+          },
+          {
+            "id": 145607,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Ranking de mi equipo - Comparar - Ajustes de visualización",
+            "type": "QA Task",
+            "state": "On Hold",
+            "createdDate": "2026-03-30T18:44:54.18Z",
+            "closedDate": null
+          },
+          {
+            "id": 145623,
+            "title": "[QA] Ejecución Pruebas - Mis Resultados - Mi ranking - Compararme - Ajustes de visualización.",
+            "type": "QA Task",
+            "state": "On Hold",
+            "createdDate": "2026-03-30T18:53:48.85Z",
+            "closedDate": null
+          },
+          {
+            "id": 146843,
+            "title": "[QA] Retesting - Mis Resultados - Configuración y asignación de objetivos - Detalle de asignación - Descargar",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-13T16:23:10.057Z",
+            "closedDate": "2026-04-15T16:02:21.85Z"
+          },
+          {
+            "id": 147593,
+            "title": "[QA] Análisis de requerimientos - Mis Resultados - Mi ranking - Compararme - Filtrar categorias",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T19:52:04.8Z",
+            "closedDate": "2026-04-15T20:13:08.18Z"
+          },
+          {
+            "id": 147594,
+            "title": "[QA] Diseño Test Cases - Mis Resultados - Mi ranking - Compararme - Filtrar categorias",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T19:52:04.8Z",
+            "closedDate": "2026-04-15T20:27:05.45Z"
+          },
+          {
+            "id": 147595,
+            "title": "[QA] Ejecución de casos - Mis Resultados - Mi ranking - Compararme - Filtrar categorias",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T19:52:04.8Z",
+            "closedDate": "2026-04-15T21:23:36.793Z"
+          },
+          {
+            "id": 147652,
+            "title": "[QA] Análisis - Mis Resultados - Configuración y asignación de objetivos - Detalle de asignación - KPIs - Mejora cantidad de participantes",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T21:39:47.59Z",
+            "closedDate": "2026-04-15T21:40:43.49Z"
+          },
+          {
+            "id": 147653,
+            "title": "[QA] Diseño - Mis Resultados - Configuración y asignación de objetivos - Detalle de asignación - KPIs - Mejora cantidad de participantes",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T21:39:49.97Z",
+            "closedDate": "2026-04-15T21:42:14.58Z"
+          },
+          {
+            "id": 147654,
+            "title": "[QA] Ejecución de casos - Mis Resultados - Configuración y asignación de objetivos - Detalle de asignación - KPIs - Mejora cantidad de participantes",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-15T21:39:51.957Z",
+            "closedDate": "2026-04-16T02:16:15.303Z"
+          },
+          {
+            "id": 148183,
+            "title": "[QA] Ejecución de casos de prueba - Mis Resultados - Configuración y asignación de objetivos - Detalle de asignación - Filtros desde modal",
+            "type": "QA Task",
+            "state": "Closed",
+            "createdDate": "2026-04-17T15:34:37.55Z",
+            "closedDate": "2026-04-17T16:56:57.52Z"
+          }
+        ]
+      }
+    }
+  }
+}
